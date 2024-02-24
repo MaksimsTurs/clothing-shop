@@ -1,0 +1,66 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@import './media-query/formWrapper.media-query.scss';
+
+.form_container {
+	@include flex-column-alignitems-justifycontent(center, center);
+	flex-grow: 1;
+	padding: 1rem;
+	background-color: white;
+
+	.form_header {
+		@include flex-alignitems-justifycontent(normal, center);
+			font-size: $font-xx-large;
+			margin-bottom: 1rem;
+			font-weight: bolder;
+			color: black;
+	}
+
+	.form_inputs {
+		@include flex-column-alignitems-justifycontent(center);
+		gap: 1rem;
+
+		div {
+			width: 100%;
+		}
+	}
+
+	.form_server_error {
+		border-radius: $border-radius-dropdown;
+		font-size: $font-medium;
+		color: $font-color-error;
+		background-color: $background-color-error;
+		width: 100%;
+		padding: 0.4rem;
+		font-weight: bolder;
+		text-align: center;
+		display: block;
+	}
+
+	.form_submit_container {
+		@include flex-alignitems-justifycontent(center);
+		gap: 1rem;
+
+		button {
+			border-radius: $border-radius-img;
+			font-size: $font-medium;
+			padding: 0.7rem;
+			flex-grow: 1;
+			border: 1px solid white;
+			color: white;
+			background-color: black;
+
+			&:hover {
+				background-color: white;
+				border: 1px solid black;
+				box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+				color: black;
+			}
+		}
+	}
+	.form_account_link {
+		text-align: center;
+		color: rgb(89, 89, 255);
+	}
+}

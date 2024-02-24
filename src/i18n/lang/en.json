@@ -1,0 +1,94 @@
+{
+	"Head": {
+		"home.title": "Home Page",
+		"home.description": "Home Page"
+	},
+	"Website-Statistic": {
+		"statistic.title": "FIND CLOTHES THAT MATCHES YOUR STYLE!",
+		"statistic.description": "Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.",
+		"account.count": "Accounts",
+		"product.count": "Products",
+		"brand.count": "Brands"
+	},
+	"Products-Container": {
+		"view-all.link": "VIEW ALL"
+	},
+	"Header": {
+		"language.button": "Language",
+		"home.link": "Home",
+		"cart.link": "Cart",
+		"search.link": "Search",
+		"pages.dropdown.title": "Pages",
+		"search.product.placeholder": "Search for products...",
+		"search.product.loading": "Loading...",
+		"search.product.empty": "Write to search!"
+	},
+	"Footer": {
+		"pages.title": "Pages",
+		"home.link": "Home",
+		"cart.link": "Cart",
+		"search.link": "Search",
+		"help.title": "Help",
+		"website.link": "Website",
+		"translate.link": "Translate",
+		"other.title": "Other",
+		"about.link": "About us",
+		"privacy.policy": "Private Policy"
+	},
+	"Product-Page": {
+		"in-stock": "In stock"
+	},
+	"Product-Count": {
+		"add-to-cart": "Add to Cart",
+		"remove-from-cart": "Remove from cart"
+	},
+	"Cart": {
+		"cart.head.title": "Cart",
+		"cart.title": "YOUR CART",
+		"product.rating": "Rating",
+		"product.in-stock": "In stock",
+		"product.in-cart": "In cart",
+		"cart.empty": "NO PRODUCTS",
+		"product.sum": "ORDER SUMMARY",
+		"products.cost": "Products cost",
+		"product.discount": "Discount",
+		"product.delivery-fee": "Delivery Fee",
+		"product.total-sum": "Total"
+	},
+	"Search": {
+		"category": "Categories",
+		"price": "Price",
+		"rating": "Rating",
+		"filter": "Filter",
+		"reset": "Rest",
+		"preview": "Preview", 
+		"next": "Next",
+		"filters": "Filters",
+		"showing": "Showing",
+		"of": "of",
+		"products": "products"
+	},
+	"User-Log": {
+		"form.title.reg": "Registration",
+		"have-no-account": "Have no account?",
+		"submit-button": "Submit",
+		"form.title.log": "Log in",
+		"add-avatar": "Add Avatar",
+		"have-account": "Have account?",
+		"firstname-valid": "Name is to long!",
+		"firstname-place": "Name max:",
+		"firstname-require": "Name is required!",
+		"secondname-valid": "Second name is to long!",
+		"secondname-place": "Second name max:",
+		"secondname-require": "Second name is required!",
+		"password-valid": "Password is to short!",
+		"password-place": "Password min:",
+		"password-require": "Password is required!",
+		"confirm-password-valid": "Confirm password is to short!",
+		"confirm-password-place": "Confirm password min:",
+		"confirm-password-require": "Confirm password is required!",
+		"email": "E-Mail",
+		"email-require": "E-Mail is required!",
+		"passwords-not-match": "Passwords does match!"
+	}
+}

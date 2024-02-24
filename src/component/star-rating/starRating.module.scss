@@ -1,0 +1,13 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+.star_rating_container {
+  display: flex;
+  margin-bottom: 0.5rem;
+
+  svg {
+    width: $icon-large;
+    height: $icon-large;
+    fill: $icon-star-orange-color;
+  }
+}

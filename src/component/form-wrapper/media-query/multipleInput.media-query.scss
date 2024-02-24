@@ -1,0 +1,9 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@media (width <= 430px) {
+	.multiple_input_container {
+		display: flex !important;
+		flex-direction: column;
+	}
+}

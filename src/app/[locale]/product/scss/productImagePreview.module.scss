@@ -1,0 +1,31 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@import '../media-query/productImagePreview.media-query.scss';
+
+.image_preview_container {
+  display: flex;
+  gap: 1rem;
+  width: fit-content;
+  height: fit-content;
+
+  .image_preview_images {
+    @include flex-column-alignitems-justifycontent();
+    gap: 1.2rem;
+    border: 2px solid white;
+
+    > img {
+      border-radius: $border-radius-img;
+      cursor: pointer;
+    }
+  }
+
+  .image_preview_current_img {
+    border-radius: $border-radius-img;
+    margin-left: 1rem;
+  }
+
+  .image_active {
+    border: 2px solid #9A9A9A;
+  }
+}

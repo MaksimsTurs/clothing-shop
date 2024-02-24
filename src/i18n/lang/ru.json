@@ -1,0 +1,94 @@
+{
+  "Head": {
+		"home.title": "Домашная Страница",
+    "home.description": "Домашная Страница"
+	},
+	"Website-Statistic": {
+		"statistic.title": "НАЙДИ ОДЕЖДУ ПОДХОДЯЩЮЮ ТВОЕМУ СТИЛЮ",
+		"statistic.description": "Просмотрите наш разнообразный ассортимент тщательно отобранной одежды, призванной подчеркнуть вашу индивидуальность и удовлетворить ваше чувство стиля.",
+		"account.count": "Пользователей",
+		"product.count": "Продуктов",
+		"brand.count": "Брендов"
+	},
+  "Products-Container": {
+		"view-all.link": "ПРОСМОТРЕТЬ ВСЕ"
+	},
+	"Header": {
+		"language.button": "Язык",
+		"home.link": "Домой",
+		"cart.link": "Карзина",
+		"search.link": "Поиск",
+		"pages.dropdown.title": "Страницы",
+		"search.product.placeholder": "Поиск продукта...",
+		"search.product.loading": "Загрузка...",
+		"search.product.empty": "Пиши для поиска!"
+	},
+	"Footer": {
+		"pages.title": "Страницы",
+		"home.link": "Домой",
+		"cart.link": "Карзина",
+		"search.link": "Поиск",
+		"help.title": "Помощь",
+		"website.link": "Веб сайт",
+		"translate.link": "Перевод",
+		"other.title": "Другое",
+		"about.link": "Про нас",
+		"privacy.policy": "Политика конфиденциальности"
+	},
+	"Product-Page": {
+		"in-stock": "В наличии"
+	},
+	"Product-Count": {
+		"add-to-cart": "Добавить в корзину",
+		"remove-from-cart": "Удалить с корзины"
+	},
+	"Cart": {
+		"cart.head.title": "Kорзинa",
+		"cart.title": "ВАША КОРЗИНА",
+		"product.rating": "Рейтинг",
+		"product.in-stock": "В наличии",
+		"product.in-cart": "В корзине",
+		"cart.empty": "НЕТ ПРОДУКТОВ",
+		"product.sum": "СУММА ЗАКАЗА",
+		"products.cost": "Стоимость продуктов",
+		"product.discount": "Скидка",
+		"product.delivery-fee": "Плата за доставку",
+		"product.total-sum": "Итого"
+	},
+	"Search": {
+		"category": "Категории",
+		"price": "Цена",
+		"rating": "Рейтинг",
+		"filter": "Фильтровать",
+		"reset": "Сбросить",
+		"preview": "Предыдущая", 
+		"next": "Следущая",
+		"filters": "Фильтры",
+		"showing": "Показано",
+		"of": "из",
+		"products": "продуктов"
+	},
+	"User-Log": {
+		"form.title.reg": "Регистрация",
+		"form.title.log": "Войти",
+		"submit-button": "Отправить",
+		"add-avatar": "Добавить Аватар",
+		"have-account": "Есть аккаунт?",
+		"have-no-account": "Нет аккаунта? Зарегестрируйся!",
+		"firstname-valid": "Имя слишком длинное!",
+		"firstname-place": "Имя макс:",
+		"firstname-require": "Имя не может быть пустым!",
+		"secondname-valid": "Фамилия слишком длинное!",
+		"secondname-place": "Фамилия макс:",
+		"secondname-require": "Фамилия не может быть пустым!",
+		"password-valid": "Пароль слишком короткий!",
+		"password-place": "Пароль мин:",
+		"password-require": "Пароль не может быть пустым!",
+		"confirm-password-valid": "Подтверждение пароля слишком короткий!",
+		"confirm-password-place": "Подтверждение пароля мин: ",
+		"confirm-password-require": "Подтверждение пароля не может быть пустым!",
+		"email": "Е-Маил",
+		"email-require": "Е-Маил не может быть пустым!",
+		"passwords-not-match": "Пароли не совпадают!"
+	}
+}

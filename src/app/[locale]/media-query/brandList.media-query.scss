@@ -1,0 +1,8 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@media(width <= 580px) {
+  .brand_list_container {
+    font-size: $font-medium !important;
+  }
+}

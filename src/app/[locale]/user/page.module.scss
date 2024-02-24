@@ -1,0 +1,37 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.user_data_container {
+  align-items: center;
+  margin: 2rem 0rem;
+  
+  .user_data_body {
+    @include flex-column-alignitems-justifycontent();
+    width: 31.5rem;
+    gap: 1rem;
+
+    .user_data_actions_container {
+      @include flex-alignitems-justifycontent(normal, space-between);
+      gap: 0.25rem;
+      width: 100%;
+
+      .user_action_button {
+        border-radius: $border-radius-img;
+        transition: all $transition-time-very-fast;
+        padding: 0.65rem 2rem;
+        flex-grow: 1;
+
+        &:first-child, &:last-child {
+          border: 1px solid rgb(152, 0, 0);
+          color: rgb(152, 0, 0);
+
+          &:hover {
+            transition: all $transition-time-very-fast;
+            background-color: rgb(152, 0, 0);
+            color: white; 
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+@import '../media-query/brandList.media-query.scss';
+
+.brand_list_container {
+  @include flex-alignitems-justifycontent(center, space-between);
+  font-size: $font-x-large;
+  background-color: black;
+  color: white;
+  width: 100%;
+
+  p {
+    padding: 1.25rem 0.5rem;
+    text-align: center;
+    text-transform: uppercase;
+
+    &:last-child {
+      border: none;
+    }
+  }
+}

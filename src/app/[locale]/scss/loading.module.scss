@@ -1,0 +1,29 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+.img_default_style {
+  background-color: $background-color-hover-list-item;
+  border-radius: $border-radius-img;
+  box-shadow: $box-shadow-dropdown;
+}
+
+.img_loading_container {
+  @include flex-alignitems-justifycontent(normal, center);
+  background-color: $background-color-hover-list-item;
+  gap: 1rem;
+  width: 100%;
+  padding: 2rem 1rem;
+  margin-bottom: 1rem;
+
+  .img_loading {
+    width: 15rem;
+    height: 15rem;
+  }
+
+  .img_text_container {
+    @include flex-column-alignitems-justifycontent();
+    gap: 1rem;
+  }
+
+  .img_text { height: 1.7rem; }
+}

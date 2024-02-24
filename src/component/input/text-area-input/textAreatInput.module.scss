@@ -1,0 +1,22 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+.text_area_container {
+  width: 100%;
+
+  .text_area {
+    border-radius: $border-radius-link;
+    transition: all $transition-time-fast ease;
+    box-shadow: $box-shadow-input;
+    border: 1px solid black;
+    padding: 1rem;
+    width: 100%;
+    resize: none;
+
+    &:hover, &:focus {
+      transition: all $transition-time-fast ease;
+      box-shadow: $box-shadow-input-focus-hover;
+      outline: none;
+    }
+  }
+}

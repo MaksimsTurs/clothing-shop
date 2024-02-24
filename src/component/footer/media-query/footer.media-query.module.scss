@@ -1,0 +1,17 @@
+@media(width <= 710px) {
+  .footer_container {
+    padding: 2rem 1rem !important;
+  }
+}
+
+@media(width <= 680px) {
+  .footer_website_name {
+    display: none;
+  }
+}
+
+@media(width <= 540px) {
+  .footer_bottom_section {
+    text-align: center;
+  }
+} 

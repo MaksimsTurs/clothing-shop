@@ -1,0 +1,8 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+@media (width <= 830px) {
+  .side_menu_button {
+    display: block !important;
+  }
+}

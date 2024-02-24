@@ -1,0 +1,71 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+.product_container {
+	border-bottom: 1px solid $background-color-hover-list-item;
+	padding: 1rem 0rem;
+
+	&:last-child { 
+		border: none; 
+	}
+
+	.product_title_container {
+		@include flex-alignitems-justifycontent(center, center);
+		font-size: $font-xx-large;
+		margin-bottom: 1rem;
+
+		h3 {
+			width: fit-content;
+			margin-bottom: 0rem;
+			margin-right: 1rem;
+		}
+	}
+
+	.product_title {
+		font-size: $font-xx-large;
+		margin-bottom: 1rem;
+		font-weight: bolder;
+		width: 100%;
+		text-align: center;
+	}
+
+	.product_content {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+		grid-column-gap: 2rem;
+		grid-row-gap: 2rem;
+		width: 100%;
+
+		.product_img { 
+			border-radius: $border-radius-img;
+			width: 100%;
+			object-fit: cover;
+		}
+
+		.product_name {
+			@include text-overflow-ellipsis();
+			font-weight: bolder;
+			padding: 1rem 0rem 0.5rem 0rem;
+		}
+	}
+
+	.product_view_all_link_container {
+		@include flex-alignitems-justifycontent(center, center);
+		width: 100%;
+		margin-top: 1rem;
+
+		.product_view_all_link {
+			font-size: $font-small;
+			border-radius: $border-radius-input-form;
+			border: 1px solid $background-color-input-form;
+			transition: all $transition-time-very-fast ease;
+			padding: 0.75rem 2.25rem;
+			
+
+			&:hover {
+				transition: all $transition-time-very-fast ease;
+				background-color: $background-color-hover-list-item;
+			}
+		}
+	}
+}

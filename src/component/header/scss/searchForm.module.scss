@@ -1,0 +1,58 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+.search_form_container {
+	background-color: white;
+	border-radius: $border-radius-input-form;
+	width: 25rem;
+	position: relative;
+	
+	svg {
+		@include absolute-left-top(6%, 50%);
+		transform: $translate-horizontal-vertical-midlle;
+		width: $icon-large;
+		height: $icon-large;
+		fill: rgba(0, 0, 0, 0.5);
+	}
+	
+	input {
+		padding: 0.6rem 0rem 0.6rem 2.5rem;
+		width: 100%;
+		height: 100%;
+
+		&:focus + .search_form_list {
+			display: block;
+		}
+	}
+
+	.search_form_list {
+		@include absolute-left-top(0%, 115%);
+		z-index: 2;
+		border-radius: $border-radius-dropdown;
+		box-shadow: $box-shadow-dropdown;
+		display: none;
+		background-color: white;
+		width: 100%;
+		max-height: 10rem;
+		overflow-y: auto;
+
+		.search_form_list_empty {
+			color: silver;
+			padding: 1rem;
+			text-align: center;
+		}
+
+		> li > a {
+			@include text-overflow-ellipsis();
+			transition: all $transition-time-fast;
+			padding: 0.7rem 0.75rem;
+
+			&:hover {
+				transition: all $transition-time-fast;
+				background-color: $background-color-hover-list-item;
+			}
+		}
+	}
+}
+
+@import '../media-query/searchForm.media-query.scss'

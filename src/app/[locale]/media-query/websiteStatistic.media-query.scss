@@ -1,0 +1,20 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@media (width <= 590px) {
+	.website_statistic_container { padding: 0 !important; }
+}
+
+@media (width <= 480px) {
+	.website_statistic_body { border-radius: 0px !important; }
+
+	.website_statistic_greeting_container {
+		h2{ font-size: $font-xx-large !important; } 
+
+		p { font-size: $font-small !important; }
+	}
+
+	.website_data_count {	font-size: $font-medium !important; }
+
+	.website_data_name { font-size: $font-small !important; }
+}

@@ -1,0 +1,46 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.user_data_info_container {
+	@include flex-column-alignitems-justifycontent(center);
+	border-radius: $border-radius-img;
+	border: 1px solid $background-color-hover-list-item;
+	width: 100%;
+	padding: 1rem 3rem;
+	position: relative;
+	@include flex-alignitems-justifycontent(center);
+
+	img {
+		margin-right: 1rem;
+		border-radius: 50%;
+	}
+
+	.user_data_info_body {
+		h4 {
+			font-size: $font-xx-large;
+			font-weight: bolder;
+			margin-top: 0.5rem;
+		}
+
+		h5 {
+			font-size: $font-small;
+			color: $font-color-half-black;
+		}
+	}
+}
+
+.user_set_edit_mode {
+	border-radius: $border-radius-img;
+	transition: all $transition-time-very-fast;
+	padding: 0.65rem 2rem;
+	width: 100%;
+
+	border: 1px solid rgb(0, 13, 152);
+	color: rgb(0, 13, 152);
+
+	&:hover {
+		transition: all $transition-time-very-fast;
+		background-color: rgb(0, 13, 152);
+		color: white;
+	}
+}

@@ -1,0 +1,8 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+.timer_end_date {
+  font-weight: bold;
+  width: 11.5rem;
+  color: $font-color-error;
+}

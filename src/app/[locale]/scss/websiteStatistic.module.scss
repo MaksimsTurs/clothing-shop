@@ -1,0 +1,66 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+@import '../media-query/websiteStatistic.media-query.scss';
+
+.website_statistic_container {
+  @include flex-alignitems-justifycontent(center, center);
+  position: relative;
+  padding: 4rem;
+  width: 100%;
+
+  &::after {
+    @include absolute-left-top(0%, 0%);
+    content: '';
+    z-index: -1;
+    background-image: url('../img/bg.png');
+    background-position: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .website_statistic_body {
+    border-radius: $border-radius-img;
+    max-width: 30rem;
+    background-color: rgba(192, 192, 192, 0.3);
+    padding: 1rem;
+    
+    .website_statistic_greeting_container {
+      
+      h2 {
+        font-size: $font-xxx-large;
+        font-weight: bolder;
+      }
+      
+      p {
+        font-size: $font-small;
+        color: black;
+        margin: 0.75rem 0rem;
+      }
+    }
+    
+    .website_data_container {
+      @include flex-alignitems-justifycontent(baseline, space-between);
+      
+      .website_data_body {
+        border-right: 1px solid $background-color-input-form;
+        padding-right: 1rem;
+        
+        &:last-child {
+          border: none;
+          padding: none;
+        }
+        
+        .website_data_count {
+          font-size: $font-x-large;
+          font-weight: bolder;
+        }
+        
+        .website_data_name {
+          font-size: $font-small;
+          color: black;
+        }
+      }
+    }
+  }
+}

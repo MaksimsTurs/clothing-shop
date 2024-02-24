@@ -1,0 +1,24 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.product_cost_container {
+  @include flex-alignitems-justifycontent(center);
+  font-size: $font-large;
+  gap: 0.5rem;
+
+  .product_cost {
+    font-weight: bolder;
+  }
+
+  .product_old_cost {
+    color: silver;
+  }
+
+  .product_action_percentage {
+    font-size: $font-small;
+    border-radius: $border-radius-input-form;
+    padding: 0.15rem 0.5rem;
+    color: #ff3333;
+    background-color: #ff333336;
+  }
+}

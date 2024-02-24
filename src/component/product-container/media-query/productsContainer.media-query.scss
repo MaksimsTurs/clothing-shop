@@ -1,0 +1,8 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+@media(width <= 510px) {
+  .product_content {
+    @include flex-column-alignitems-justifycontent(center);
+  }
+}

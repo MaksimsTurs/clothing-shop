@@ -1,0 +1,44 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@import './pagePagination.media-query.scss';
+
+.pagination_container {
+	@include flex-alignitems-justifycontent(center, space-between);
+	gap: 0.3rem;
+
+	.pagination_link_container {
+		@include flex-alignitems-justifycontent();
+
+		.pagination_link {
+			border-radius: $border-radius-img;
+      color: rgba(0, 0, 0, 0.6);
+			padding: 0.5rem 0.75rem;
+		}
+
+		.pagination_link_active {
+      color: black;
+			background-color: rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	.pagination_button {
+		@include flex-alignitems-justifycontent(center);
+		border-radius: $border-radius-dropdown;
+		padding: 0.5rem 0.75rem;
+		gap: 0.75rem;
+		border: 1px solid rgba(0, 0, 0, 0.2);
+
+		svg {
+			width: $icon-small;
+			height: $icon-small;
+		}
+
+		&:last-child {
+			svg {
+				transition: all $transition-time-fast ease;
+				transform: rotate(-180deg);
+			}
+		}
+	}
+}

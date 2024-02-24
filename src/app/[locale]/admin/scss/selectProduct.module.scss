@@ -1,0 +1,60 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.product_list_container {
+  @include flex-column-alignitems-justifycontent();
+  border-radius: $border-radius-link;
+  transition: all $transition-time-fast ease;
+  box-shadow: $box-shadow-input;
+  max-height: 15.25rem;
+  overflow-y: auto;
+  flex-grow: 1;
+  width: 30rem;
+  border: 1px solid black;
+  
+  .product_list_item {
+    @include flex-alignitems-justifycontent(flex-start);
+    padding: 0.25rem 0.5rem;
+    width: 100%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(192, 192, 192, 0.25);
+    }
+
+    img {
+      border-radius: $border-radius-img;
+      margin-right: 1rem;
+      width: 4rem;
+      height: 4rem;
+    }
+
+    .product_item_name {
+      font-weight: bolder;
+    }
+
+    .product_item_cost_data {
+      display: flex;
+      gap: 0.2rem;
+    }
+
+    p {
+      font-size: $font-small;
+    }
+  }
+
+  .product_list_item_active {
+    background-color: rgba(192, 192, 192, 0.4);
+
+    &:hover {
+      background-color: rgba(192, 192, 192, 0.4);
+    }
+  }
+
+  .product_list_emtpy {
+    color: $font-color-half-black;
+    text-align: center;
+    width: 100%;
+    padding: 1rem;
+  }
+}

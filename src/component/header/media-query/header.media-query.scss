@@ -1,0 +1,29 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@media (width <= 830px) {
+	//Center Website name and show menu button.
+	.header_website_label {
+		width: 100%;
+
+		.header_website_name {
+			width: 100%;
+			text-align: center;
+		}
+	}
+
+	//Hidde pages link, search form and user links.
+	.header_nav_menu_container {
+		display: none !important;
+	}
+
+	.header_user_action_container {
+		display: none !important;
+	}
+}
+
+@media (width <= 380px) {
+	.header_container {
+		padding: 1rem !important;
+	}
+}

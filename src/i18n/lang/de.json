@@ -1,0 +1,95 @@
+{
+	"Head": {
+		"home.title": "Startseite",
+		"home.description": "Startseite"
+	},
+	"Website-Statistic": {
+		"statistic.title": "FINDE KLEIDUNG DIE ZU DEINE STIL PASSEN!",
+		"statistic.description": "Kuken Sie unsere umfangreiche sortiment genau ausgewälte kleidungen, die Ihre Individualität unterstreicht und befridigt Ihre stil gefühle",
+		"account.count": "Profile",
+		"product.count": "Produkten",
+		"brand.count": "Bränds"
+	},
+	"Products-Container": {
+		"view-all.link": "ALLE ANSEHEN"
+	},
+	"Header": {
+		"language.button": "Sprache",
+		"home.link": "Startseite",
+		"cart.link": "Product Corb",
+		"search.link": "Suchen",
+		"pages.dropdown.title": "Seiten",
+		"search.product.placeholder": "Product finden...",
+		"search.product.loading": "Wird geladen...",
+		"search.product.empty": "Fäng an zu schreiben!"
+	},
+	"Footer": {
+		"pages.title": "Seiten",
+		"home.link": "Startseite",
+		"cart.link": "Product Corb",
+		"search.link": "Suchen",
+		"help.title": "Hilfe",
+		"website.link": "Website",
+		"translate.link": "Übersetzung",
+		"other.title": "Anderes",
+		"about.link": "Über uns",
+		"privacy.policy": "Datenschutz"
+	},
+	"Product-Page": {
+		"in-stock": "In lager"
+	},
+	"Product-Count": {
+		"add-to-cart": "In corb hinzufügen",
+		"remove-from-cart": "Von corb entfernen"
+	},
+	"Cart": {
+		"cart.head.title": "Product corb",
+		"cart.title": "DEINE PRODUCT CORB",
+		"product.rating": "Rating",
+		"product.in-stock": "In lager",
+		"product.in-cart": "In corb",
+		"cart.empty": "LEERERE CORB",
+		"product.sum": "BESTELLUNG KOSTEN",
+		"products.cost": "Producten kosten",
+		"product.discount": "Rabatt",
+		"product.delivery-fee": "Lifgebühr",
+		"product.total-sum": "Insgesamt"
+	},
+	"Search": {
+		"category": "Categories",
+		"price": "Preis",
+		"rating": "Rating",
+		"filter": "Filtern",
+		"reset": "Wiederherstellen",
+		"preview": "Vorherige", 
+		"next": "Nächste",
+		"filters": "Filter",
+		"showing": "Gezeigt",
+		"of": "von",
+		"products": "produkten"
+	},
+	"User-Log": {
+		"form.title.reg": "Anmeldung",
+		"have-no-account": "Hast du kein Profil?",
+		"submit-button": "Senden",
+		"form.title.log": "Eintreten in",
+		"add-avatar": "Avatar laden",
+		"have-account": "Hast du ein Profil?",
+		"firstname-valid": "Name ist zu groß!",
+		"firstname-place": "Name max:",
+		"firstname-require": "Name kann nicht leer sein!",
+		"secondname-valid": "Nachname ist zu groß!",
+		"secondname-place": "Nachname max:",
+		"secondname-require": "Nachname kann nicht leer sein!",
+		"password-valid": "Kennwort ist zu kurz!",
+		"password-place": "Kennwort min:",
+		"password-require": "Kennwort kann nicht leer sein!",
+		"confrim-password": "Kennwort bestätigung",
+		"confirm-password-valid": "Kennwort bestätigung ist zu kurz!",
+		"confirm-password-place": "Kennwort bestätigung min: 8",
+		"confirm-password-require": "Kennwort bestätigung kann nicht leer sein!",
+		"email": "Е-Мail",
+		"email-require": "Е-Мail kann nicht leer sein!",
+		"passwords-not-match": "Die Passwörter stimmen nicht überein"
+	}
+}

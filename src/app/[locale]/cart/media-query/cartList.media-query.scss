@@ -1,0 +1,9 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+@media(width <= 760px) {
+  .cart_delete_product { 
+    top: 70% !important;
+    left: 0 !important;
+  }
+}

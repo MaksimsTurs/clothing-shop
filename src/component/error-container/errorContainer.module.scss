@@ -1,0 +1,10 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+.error_container {
+  @include flex-alignitems-justifycontent(center, center);
+  color: $font-color-error;
+  font-size: $font-xx-large;
+  font-weight: bolder;
+  flex-grow: 1;
+}

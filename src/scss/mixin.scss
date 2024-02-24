@@ -1,0 +1,27 @@
+@import './variabel';
+
+@mixin flex-alignitems-justifycontent($align-items: normal, $justify-content: normal) {
+  display: flex;
+  align-items: $align-items;
+  justify-content: $justify-content;
+}
+
+@mixin flex-column-alignitems-justifycontent($align-items: normal, $justify-content: normal) {
+  display: flex;
+  flex-direction: column;
+  align-items: $align-items;
+  justify-content: $justify-content;
+}
+
+@mixin absolute-left-top($left: 0%, $top: 0%) {
+  position: absolute;
+  left: $left;
+  top: $top;
+}
+
+@mixin text-overflow-ellipsis($width: 100%) {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: $width;
+}

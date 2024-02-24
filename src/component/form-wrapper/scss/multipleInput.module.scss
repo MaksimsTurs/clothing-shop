@@ -1,0 +1,13 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@import '../media-query/multipleInput.media-query.scss';
+
+.multiple_input_container {
+  display: flex;
+  gap: 0.5rem;
+
+  input {
+    flex-basis: 0;
+  }
+}

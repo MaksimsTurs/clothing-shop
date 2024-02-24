@@ -1,0 +1,14 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@media(width <= 1250px) {
+  .search_form_container {
+    width: 15rem;
+  }
+}
+
+@media(width <= 1110px) {
+  .search_form_container {
+    display: none;
+  }
+}

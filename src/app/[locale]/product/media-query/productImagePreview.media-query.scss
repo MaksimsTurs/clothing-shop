@@ -1,0 +1,16 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@media (width <= 590px) {
+  .image_preview_container {
+    flex-direction: column;
+
+    .image_preview_images {
+      flex-direction: row !important;
+    }
+  }
+
+  .image_preview_current_img {
+    margin-left: 0 !important;
+  }
+}

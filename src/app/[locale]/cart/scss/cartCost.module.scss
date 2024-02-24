@@ -1,0 +1,36 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+.cart_title {
+	font-size: $font-xx-large;
+	font-weight: bolder;
+	margin-bottom: 0.5rem;
+}
+
+.cart_container {
+  @include flex-column-alignitems-justifycontent();
+  gap: 1.25rem;
+  border-radius: $border-radius-input-form;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 1rem;
+
+  .cart_cost_container {
+    @include flex-alignitems-justifycontent(center, space-between);
+    width: 100%;
+    gap: 0.5rem;
+
+    .cart_cost_num {
+      font-size: 0.9rem;
+      color: #00000076;
+    }
+
+    .cart_sub_total_cost {
+      font-weight: bolder;
+    }
+  }
+
+  .cart_total_cost_container {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 1rem;
+  }
+}

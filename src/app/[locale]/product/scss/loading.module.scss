@@ -1,0 +1,29 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+@import '../media-query/loading.media-query.scss';
+
+.loading_def_style {
+  background-color: $background-color-hover-list-item;
+  border-radius: $border-radius-img;
+  box-shadow: $box-shadow-dropdown;
+}
+
+.loading_container {
+  @include flex-alignitems-justifycontent(center, center);
+  padding: 2rem;
+  height: 100%;
+  gap: 1rem;
+
+  .loading_big_img {
+    width: 17rem;
+    height: 17.2rem;
+  }
+
+  .loading_text_container {
+    @include flex-column-alignitems-justifycontent();
+    gap: 1rem;
+
+    .loading_text { height: 1.5rem; }
+  }
+}

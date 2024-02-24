@@ -1,0 +1,9 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@media(width <= 760px) {
+  .product_count_container {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+}

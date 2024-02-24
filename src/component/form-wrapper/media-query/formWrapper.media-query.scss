@@ -1,0 +1,8 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@media(width <= 430px) {
+  .form_inputs {
+    gap: 0.5rem !important;
+  }
+}
