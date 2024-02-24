@@ -1,4 +1,4 @@
-import type { RevalidateConf } from "./lib/fetcher/fetcher.type";
+import type { RevalidateConf } from "./lib/fetcher/fetcher.type"
 
 export const REVALIDATE_CONF: RevalidateConf = { cache: 'no-cache' }
 

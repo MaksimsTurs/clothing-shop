@@ -76,7 +76,7 @@ const cartSlice = createSlice({
     logOut: (state) => {
       state.userLocal = undefined
       state.cart = []
-      window.open(`/${cookies.getCookies('locale')}`, '_self')
+      window.open(`/${cookies.getCookies('locale') || 'en'}`, '_self')
     },
     resetState: (state) => {
       state.userErrorMessage = ''
@@ -98,6 +98,7 @@ const cartSlice = createSlice({
 
       state.userErrorMessage = ''
       state.isUserActionLoading = false
+      window.open(`/${cookies.getCookies('locale') || 'en'}`, '_self')
     })
     builder.addCase(userLogin.pending, (state) => {
       state.isUserActionLoading = true
@@ -113,6 +114,7 @@ const cartSlice = createSlice({
 
       state.userErrorMessage = ''
       state.isUserActionLoading = false
+      window.open(`/${cookies.getCookies('locale') || 'en'}`, '_self')
     })
     builder.addCase(removeMe.pending, (state) => {
       state.isUserActionLoading = true
@@ -129,7 +131,7 @@ const cartSlice = createSlice({
       if(isRemoved) {
         state.cart = []
         state.userLocal = undefined
-        window.open(`/${cookies.getCookies('locale')}`, '_self')
+        window.open(`/${cookies.getCookies('locale') || 'en'}`, '_self')
       }
 
       state.isUserActionLoading = false

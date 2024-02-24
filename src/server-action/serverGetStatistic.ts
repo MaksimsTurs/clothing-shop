@@ -1,3 +1,4 @@
+import { REVALIDATE_CONF } from '@/const'
 import fetcher from '@/lib/fetcher/fetcher'
 
 type ReturnType = {
@@ -7,6 +8,10 @@ type ReturnType = {
 }
 
 export default async function serverGetStatistic(): Promise<ReturnType> {
-  const response = await fetcher.get<ReturnType>('/common/get/statistic', { time: 60 })
-  return response
+  try {
+    const response = await fetcher.get<ReturnType>('/common/get/statistic', REVALIDATE_CONF)
+    return response
+  } catch(error) {
+    throw new Error(error as string)
+  }
 }

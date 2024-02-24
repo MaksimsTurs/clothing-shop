@@ -19,7 +19,7 @@ import FetchLoader from '@/component/loader/fetch-loader/fetchLoader'
 import TextInput from '@/component/input/text-input/textInput'
 import editUser from '@/store/user/action/editUser'
 
-import userDefIcon from '../img/def-user-icon.png'
+import userDefIcon from '../img/def-user-icon.webp'
 
 export default function UserDataHeader({ userData }: UserDataHeaderProps) {
 	const router = useRouter()

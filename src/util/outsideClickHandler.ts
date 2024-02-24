@@ -11,5 +11,6 @@ export default function outsideClickHandler(target: any, currState: boolean, ref
   if(continerRef.current?.contains(target)) return true
   if(!continerRef.current?.contains(target)) return false
   if(target === closeButtRef.current) return true
+  
   return false
 }

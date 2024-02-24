@@ -11,7 +11,7 @@ export default function Loading() {
         </div>
         <div style={{ width: '100%', height: '1.5rem' }} className={scss.loading_def_style}></div>
       </div>
-      <div style={{ width: '21rem', height: '10rem', marginTop: '1rem' }} className={scss.loading_def_style}></div>
+      <div style={{ width: '21rem', height: '10rem', margin: '1rem 0rem' }} className={scss.loading_def_style}></div>
     </div>
   )
 }
