@@ -5,7 +5,7 @@ import { DEV_API_URL, PROD_API_URL } from '@/const'
 const URL: string = process.env.NODE_ENV === 'development' ? DEV_API_URL : PROD_API_URL
 
 const fetcher = {
-	baseURL: DEV_API_URL,
+	baseURL: PROD_API_URL,
 	createURL: function (URL: string) {
 		if (this.baseURL) return `${this.baseURL}${URL}`
 		return URL
