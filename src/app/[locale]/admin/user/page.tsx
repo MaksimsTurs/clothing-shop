@@ -22,7 +22,7 @@ export default function Page({ searchParams }: PageProps) {
       <DataPage 
         children={<UserForm userID={findedUser?._id!}/>}
         id={searchParams.id} 
-        data={findedUser} ignore={{ forData: ['avatar'] }} 
+        data={findedUser} ignore={{ forData: ['avatar', '__v', 'token', 'password'] }} 
         title="User Information"/>
     </Fragment>
   )
