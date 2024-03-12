@@ -1,3 +1,5 @@
+'use server'
+
 import fetcher from '@/lib/fetcher/fetcher'
 
 import { REVALIDATE_CONF } from '@/const'
