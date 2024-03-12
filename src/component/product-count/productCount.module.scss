@@ -1,7 +1,7 @@
 @import '@/scss/mixin';
 @import '@/scss/variabel';
 
-@import './productCount.media-query.scss';
+@import './media-query/productCount.media-query.scss';
 
 .product_count_container {
 	display: flex;

@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import fetcher from '@/lib/fetcher/fetcher'
 
-import type { ServerResError } from '@/lib/fetcher/fetcher.type'
 import type { EditProduct } from '../admin.type'
 
 const editProduct = createAsyncThunk<EditProduct, FormData>(
@@ -12,7 +11,7 @@ const editProduct = createAsyncThunk<EditProduct, FormData>(
 			const response = await fetcher.post<EditProduct>(`/admin/product/edit`, productData)
 			return response
 		} catch (error) {
-			return thunkApi.rejectWithValue((error as ServerResError).message)
+			return thunkApi.rejectWithValue(error)
 		}
 	}
 )

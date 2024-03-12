@@ -12,11 +12,7 @@ export default function NavLinks() {
 	const currLanguage = useCurrentLocale()
 	const tr = useScopedI18n('Header')
 
-	const URLs: { URL: string, name: string }[] = [
-		{ URL: `/${currLanguage}`, name: tr('home.link') }, 
-		{ URL: `/${currLanguage}/search`, name: tr('search.link') }, 
-		{ URL: `/${currLanguage}/cart`, name: tr('cart.link') }
-	]
+	const URLs: { URL: string, name: string }[] = [{ URL: `/${currLanguage}`, name: tr('home.link') }, { URL: `/${currLanguage}/search`, name: tr('search.link') }, { URL: `/${currLanguage}/cart`, name: tr('cart.link') }]
 	
 	return (
 		<Fragment>

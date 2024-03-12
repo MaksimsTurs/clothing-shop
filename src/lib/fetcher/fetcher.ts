@@ -1,70 +1,54 @@
-import type { Fetcher, RevalidateConf, ServerResError } from './fetcher.type'
+import type { RevalidateConf, ServerResError } from './fetcher.type'
 
 import { DEV_API_URL, PROD_API_URL } from '@/const'
 
 const URL: string = process.env.NODE_ENV === 'development' ? DEV_API_URL : PROD_API_URL
 
-const fetcher: Fetcher = {
+const fetcher = {
 	baseURL: URL,
 	createURL: function (URL: string) {
 		if (this.baseURL) return `${this.baseURL}${URL}`
-
 		return URL
 	},
-	validateFetchData: function (headers?: any, body?: any) {
-		let fetchBody = body
-		let fetchHeaders = headers
+	getInit: function (headers?: any, body?: any) {
+		let init = { headers: headers || {}, body: body || {} }
 
-		if (body) {
-			if (body instanceof FormData) {
-				fetchBody = body
-			} else if (typeof body === 'object' && !Array.isArray(body)) {
-				fetchBody = JSON.stringify(body)
-				if (!fetchHeaders) {
-					fetchHeaders = { 'Content-Type': 'application/json' }
-				} else if (!Object.hasOwn(fetchHeaders, 'Content-Type')) {
-					fetchHeaders = { ...fetchHeaders, 'Content-Type': 'application/json' }
-				}
-			} else {
-				fetchBody = body
-			}
+		if(body && !(body instanceof FormData)) {
+			if(!headers) init.headers = { 'Content-Type': 'application/json' }
+			if(!Object.hasOwn(headers, 'Content-Type')) init.headers = {...init.headers, 'Content-Type': 'application/json'}
+			
+			init.body = JSON.stringify(body)
+		} else {
+			init.body = body
 		}
-
-		return { body: fetchBody, header: fetchHeaders }
+		
+		return init
 	},
 	get: async function <T>(URL: string, revalidate?: RevalidateConf) {
-		const response: Response = await fetch(this.createURL(URL), {
-			cache: revalidate?.cache,
-			next: { revalidate: revalidate?.time, tags: revalidate?.tags }
-		})
+		const response: Response = await fetch(this.createURL(URL), { cache: revalidate?.cache, next: { revalidate: revalidate?.time, tags: revalidate?.tags } })
 		
 		if (!response.ok) {
 			const responseJSON: ServerResError = await response.json()
-			throw new Error(JSON.stringify(responseJSON))
+			throw JSON.stringify(responseJSON)
 		}
 		
 		const responseJSON: T = await response.json()
 		return responseJSON
 	},
-	post: async function <T>(
-		URL: string,
-		body?: any,
-		headers?: Headers,
-		revalidate?: RevalidateConf
-	) {
-		const validatedData = this.validateFetchData(headers, body)
+	post: async function <T>(URL: string, body?: any, headers?: Headers, revalidate?: RevalidateConf) {
+		const init = this.getInit(headers, body)
 
-		const response: Response = await fetch(this.createURL(URL), {
+		const response: Response = await fetch(this.createURL(URL), { 
 			method: 'POST',
-			body: validatedData.body as BodyInit,
-			headers: validatedData.header,
+			body: init.body as BodyInit,
+			headers: init.headers,
 			cache: revalidate?.cache,
 			next: { revalidate: revalidate?.time, tags: revalidate?.tags },
 		})
 
 		if (!response.ok) {
 			const responseJSON = await response.json()
-			throw new Error(JSON.stringify(responseJSON))
+			throw JSON.stringify(responseJSON)
 		}
 
 		const responseJSON: T = await response.json()

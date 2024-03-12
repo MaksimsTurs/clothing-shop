@@ -1,0 +1,11 @@
+import type { ProductDataWithCount } from "@/store/user/user.type"
+
+export type CheckoutResult = {
+  products: ProductDataWithCount[]
+  error: { code: number, message: string } | undefined
+  isLoading: boolean
+  totalCost: string
+  totalProductsCost: string
+  deliveryCost: string
+  discount: string
+}

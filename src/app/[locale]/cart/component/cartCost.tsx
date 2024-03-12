@@ -1,22 +1,28 @@
 import scss from '../scss/cartCost.module.scss'
 
-import type { CartTotalCostProps } from '../cart.type'
 import { useScopedI18n } from '@/i18n/client'
+import { useCurrentLocale } from '@/i18n/client'
 
-export default function CartCost({ products, deliveryFee, discount }: CartTotalCostProps) {
+import Link from 'next/link'
+
+import type { CartTotalCostProps } from '../cart.type'
+
+import { CURR_CURRENCY } from '@/const'
+
+export default function CartCost({ products, deliveryFee }: CartTotalCostProps) {
   const tr = useScopedI18n('Cart')
+  const currLanguage = useCurrentLocale()
 
-  const productsCostWithPercent = products?.map(product => product.count * (product.price - Number((product.price * (product.precent || 0)).toFixed(2))))
-  const totalProductsCost = productsCostWithPercent?.reduce((prev, curr) => prev + curr, 0) || 0
+  const productsCostPercentCount: number[] = products?.map(product => parseFloat((product.count * (product.price - (product.price * (product.precent || 0)))).toFixed(2))) || [0]
+  const totalProductsCost: number = productsCostPercentCount?.reduce((prev, curr) => prev + curr, 0) || 0
+  const productsOnlyPrice: number = products?.reduce((prev, curr) => prev + (curr.price * curr.count), 0) || 0
 
-  let discountCost = 0
-  let deliveryFeeCost = 0
-  let totalCost = 0
+  let discountCost: number = 0, deliveryFeeCost: number = 15, totalCost: number = 0
 
-  if(discount) discountCost = totalProductsCost - (totalProductsCost * discount)
   if(deliveryFee) deliveryFeeCost = deliveryFee
 
-  totalCost = totalProductsCost + deliveryFeeCost - discountCost
+  discountCost = productsOnlyPrice - totalProductsCost
+  totalCost = totalProductsCost + deliveryFeeCost
 
   return(
     <aside>
@@ -24,23 +30,24 @@ export default function CartCost({ products, deliveryFee, discount }: CartTotalC
       <div className={scss.cart_container}>
         <section className={scss.cart_cost_container}>
           <p className={scss.cart_cost_num}>{tr('products.cost')}:</p>
-          <p className={scss.cart_sub_total_cost}>{totalProductsCost.toFixed(2)}$</p>
+          <p className={scss.cart_sub_total_cost}>{productsOnlyPrice.toFixed(2)}{CURR_CURRENCY}</p>
         </section>
-        {discount && 
+        {discountCost ?
           <section className={scss.cart_cost_container}>
-            <p className={scss.cart_cost_num}>{tr('product.discount')} (-${(discount * 100).toFixed(0)}):</p>
-            <p style={{ color: 'red' }} className={scss.cart_sub_total_cost}>{discountCost.toFixed(2)}$</p>
-          </section>}
-        {deliveryFee &&
+            <p className={scss.cart_cost_num}>{tr('product.discount')}:</p>
+            <p style={{ color: '#700' }} className={scss.cart_sub_total_cost}>-{discountCost.toFixed(2)}{CURR_CURRENCY}</p>
+          </section> : null}
+        {deliveryFeeCost ?
           <section className={scss.cart_cost_container}>
             <p className={scss.cart_cost_num}>{tr('product.delivery-fee')}:</p>
-            <p className={scss.cart_sub_total_cost}>{deliveryFee.toFixed(2)}$</p>
-          </section>}
+            <p className={scss.cart_sub_total_cost}>{deliveryFeeCost.toFixed(2)}{CURR_CURRENCY}</p>
+          </section> : null}
         <div className={`${scss.cart_cost_container} ${scss.cart_total_cost_container}`}>
           <p className={scss.cart_cost_num}>{tr('product.total-sum')}:</p>
-          <p className={scss.cart_total_cost}>{totalCost.toFixed(2)}$</p>
+          <p className={scss.cart_total_cost}>{totalCost.toFixed(2)}{CURR_CURRENCY}</p>
         </div>
       </div>
+      <Link className={scss.check_out_link} href={`/${currLanguage}/checkout`}>CHECKOUT</Link>
     </aside>
   )
 }

@@ -1,0 +1,33 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.wrapper_container {
+  @include flex-column-alignitems-justifycontent(center);
+  padding: 1rem 0rem;
+  flex-grow: 1;
+
+  .wrapper_title {
+    font-size: $font-xx-large;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .wrapper_body {
+    width: 23rem;
+  }
+  
+  a {
+    width: 100%;
+    text-align: center;
+    border-radius: $border-radius-dropdown;
+    border: 1px solid black;
+    padding: 0.5rem 2rem;
+    margin-top: 0.85rem;
+     
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+}

@@ -1,7 +1,6 @@
 import type { CSSProperties, FormEventHandler } from "react"
-import type { FieldValues } from "react-hook-form"
 
-export type FormWrapperProps<T extends FieldValues> = {
+export type FormWrapperProps = {
   title?: string
   onSubmit: FormEventHandler
   isLoading?: boolean

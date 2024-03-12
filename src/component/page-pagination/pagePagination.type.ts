@@ -1,4 +1,1 @@
-export type PaginationProps = {
-  currentPage: number
-  pagesCount: number
-}
+export type PaginationProps = { currentPage: number, pagesCount: number }

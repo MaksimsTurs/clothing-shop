@@ -1,11 +1,12 @@
 'use server'
 
 import isNullOrUndefined from "@/util/isNullOrUndefined"
+
 import { cookies } from "next/headers"
 
 type Translation = { [key: string]: string }
 
-export default async function getTranslation(scope?: string) {
+export default async function getTranslation(scope?: string): Promise<(key: string) => string> {
   const cookie = cookies()
   let locale: string | undefined = cookie.get('locale')?.value
   let translation: Translation = {}, module = undefined

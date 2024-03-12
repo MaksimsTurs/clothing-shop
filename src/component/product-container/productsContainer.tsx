@@ -10,33 +10,30 @@ import Image from 'next/image'
 import StarRating from '../star-rating/starRating'
 import ProductCost from '../product-cost/productCost'
 import Timer from '../timer/timer'
+
+import serverRemoveSection from '@/server-action/serverRemoveSection'
+
 import { useCurrentLocale, useScopedI18n } from '@/i18n/client'
 
-export default function ProductsContainer({
-	data,
-	title,
-	viewAllLink,
-	expiredDate,
-}: ProductsContainerProps) {
+export default function ProductsContainer({ data, title, viewAllLink, expiredDate }: ProductsContainerProps) {
 	const currLanguage = useCurrentLocale()
 	const tr = useScopedI18n('Products-Container')
 
+	const time: number | boolean = expiredDate ? Date.parse(expiredDate) - Date.now() : 0
+
+	if(time < 0 && title) async (): Promise<void> => await serverRemoveSection(title)
+
 	return (
 		<section className={scss.product_container}>
-			{title && expiredDate ? (
+			{title ? (
 				<div className={scss.product_title_container}>
 					<h3 className={scss.product_title}>{title.toUpperCase()}</h3>
-					<Timer expiredDate={expiredDate} />
+					{time > 0 && <Timer expiredDate={expiredDate!} />}
 				</div>
-			) : (
-				title && <h3 className={scss.product_title}>{title.toUpperCase()}</h3>
-			)}
+			) : (title && <h3 className={scss.product_title}>{title.toUpperCase()}</h3>)}
 			<div className={scss.product_content}>
 				{data.map(product => (
-					<Link
-						key={product._id}
-						href={`/${currLanguage}/product/${product._id}`}
-						className={scss.product_article_container}>
+					<Link key={product._id} href={`/${currLanguage}/product/${product._id}`} className={scss.product_article_container}>
 						<Image
 							width={1440}
 							height={200}
@@ -51,7 +48,7 @@ export default function ProductsContainer({
 					</Link>
 				))}
 			</div>
-			{viewAllLink && (
+			{viewAllLink ? (
 				<div className={scss.product_view_all_link_container}>
 					<Link
 						className={scss.product_view_all_link}
@@ -59,7 +56,7 @@ export default function ProductsContainer({
 						{tr('view-all.link')}
 					</Link>
 				</div>
-			)}
+			) : null}
 		</section>
 	)
 }

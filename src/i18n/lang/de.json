@@ -1,7 +1,24 @@
 {
 	"Head": {
 		"home.title": "Startseite",
-		"home.description": "Startseite"
+		"home.description": "Startseite",
+
+		"search.title": "Filter",
+		"search.description": "Hier kannst finden was du brauchst.",
+		
+		"user.description": "Profile von",
+		
+		"registration.title": "Regestrierung", 
+		"registration.description": "Hier kannst du eine neue Profile regestrieren.",
+		
+		"log.title": "Anmeldung",
+		"log.description": "Hier kannst du eine neue profil anmelden.",
+		
+		"help.title": "Hilfe",
+		"help.description": "Hier erfahren Sie, wie Sie eine gute e-mail schreiben wenn Sie hilfe benötigen oder wenn Sie uns mit übersetztung helfen wollen.",
+		
+		"cart.title": "Produkt korb",
+		"cart.description": "Hier kannst du deine Product korb verändern und die Producten bestellen."
 	},
 	"Website-Statistic": {
 		"statistic.title": "FINDE KLEIDUNG DIE ZU DEINE STIL PASSEN!",
@@ -16,7 +33,7 @@
 	"Header": {
 		"language.button": "Sprache",
 		"home.link": "Startseite",
-		"cart.link": "Product Corb",
+		"cart.link": "Produkt Korb",
 		"search.link": "Suchen",
 		"pages.dropdown.title": "Seiten",
 		"search.product.placeholder": "Product finden...",
@@ -26,7 +43,7 @@
 	"Footer": {
 		"pages.title": "Seiten",
 		"home.link": "Startseite",
-		"cart.link": "Product Corb",
+		"cart.link": "Produkt Korb",
 		"search.link": "Suchen",
 		"help.title": "Hilfe",
 		"website.link": "Website",
@@ -43,12 +60,11 @@
 		"remove-from-cart": "Von corb entfernen"
 	},
 	"Cart": {
-		"cart.head.title": "Product corb",
-		"cart.title": "DEINE PRODUCT CORB",
+		"cart.title": "DEINE PRODUCT KORB",
 		"product.rating": "Rating",
 		"product.in-stock": "In lager",
-		"product.in-cart": "In corb",
-		"cart.empty": "LEERERE CORB",
+		"product.in-cart": "In korb",
+		"cart.empty": "LEERERE KORB",
 		"product.sum": "BESTELLUNG KOSTEN",
 		"products.cost": "Producten kosten",
 		"product.discount": "Rabatt",
@@ -91,5 +107,21 @@
 		"email": "Е-Мail",
 		"email-require": "Е-Мail kann nicht leer sein!",
 		"passwords-not-match": "Die Passwörter stimmen nicht überein"
+	},
+	"Help": {
+		"website-help": "Website Hilfe",
+		"useful-data": "Nützliche daten:",
+		"1w": "Screenshot mit fehler.",
+		"2w": "Console logs nach dem fehler aufgetretten hat.",
+		"3w": "Browser name und seiner version.",
+		"5w": "Handlung die dieses fehler verusacht.",
+		"translation-help": "Übersetzung Hilfe",
+		"example-title": "Beispiel wie ihre e-mail ausehen muss:",
+		"1t": "Von Russisch zu Deutsch",
+		"2t": "Язык - Sprache",
+		"3t": "Домой - Startseite",
+		"4t": "Цена - Preis",
+		"5t": "Сбросить - Widerherstellen",
+		"send-email": "E-Mail Senden"
 	}
 }

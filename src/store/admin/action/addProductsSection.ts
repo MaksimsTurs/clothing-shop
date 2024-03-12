@@ -2,9 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import fetcher from '@/lib/fetcher/fetcher'
 
-import type { ServerResError } from '@/lib/fetcher/fetcher.type'
-
-import { AddProductsSectionData, AddProductsSectionDataReturn } from '@/app/[locale]/admin/admin.type'
+import type { AddProductsSectionData, AddProductsSectionDataReturn } from '@/app/[locale]/admin/admin.type'
 
 const addProductsSection = createAsyncThunk<AddProductsSectionDataReturn, AddProductsSectionData>(
 	'admin/product-section/add',
@@ -13,7 +11,7 @@ const addProductsSection = createAsyncThunk<AddProductsSectionDataReturn, AddPro
 			const response = await fetcher.post<AddProductsSectionDataReturn>(`/admin/product-section/add`, sectionData)
 			return response
 		} catch (error) {
-			return thunkApi.rejectWithValue((error as ServerResError).message)
+			return thunkApi.rejectWithValue(error)
 		}
 	}
 )

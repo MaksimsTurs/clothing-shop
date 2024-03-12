@@ -1,24 +1,17 @@
-import { ProductData } from "../product/product.type"
-
-export type UserInitState = {
-  cart: ProductDataWithCount[]
-  userLocal?: UserLocalData
-  isUserActionLoading: boolean
-  userErrorMessage: string
-}
-
-export type UserLocalData = Pick<UserData, 'avatar' | 'firstName' | 'secondName' | 'token'>
+import type { Roles } from "@/global.type"
+import type { ProductData } from "../product/product.type"
 
 export type UserData = {
   _id: string
-  role: string
   firstName: string
   secondName: string
-  email: string
   avatar?: string
+  email: string
   token: string
+  role: Roles
 }
 
-export interface ProductDataWithCount extends ProductData {
-  count: number
-}
+export type UserInitState = { cart: ProductDataWithCount[], userLocal?: UserLocalData, isUserActionLoading: boolean, userErrorMessage: string }
+export type UserLocalData = Pick<UserData, 'avatar' | 'firstName' | 'secondName' | 'token'>
+
+export interface ProductDataWithCount extends ProductData { count: number }

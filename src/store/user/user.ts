@@ -1,12 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { UserInitState } from "./user.type";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
+import type { ProductDataWithCount, UserInitState } from "./user.type";
+import type { ProductData } from "../product/product.type";
 
 import userLogin from "./action/userLogIn";
 import userRegistration from "./action/userRegistration";
 import removeMe from "./action/removeMe";
-import parseJSONError from "@/lib/parseJSONError/parseJSONError";
 import editUser from "./action/editUser";
+
 import cookies from "@/util/coockies";
+import parseJSONError from "@/lib/parseJSONError/parseJSONError";
 
 const initialState: UserInitState  = {
   cart: [],
@@ -19,18 +22,17 @@ const cartSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    removeFullProduct: (state, { payload }) => {
-      state.cart = state.cart!.filter(product => product._id !== payload._id)
+    removeFullProduct: (state, { payload }: PayloadAction<string>) => {
+      state.cart = state.cart!.filter(product => product._id !== payload)
     },
-    addCartProductCount: (state, { payload }) => {
+    addCartProductCount: (state, { payload }: PayloadAction<{ product: ProductData | ProductDataWithCount, count: number }>) => {
       if(payload.count === 0) return
  
-      const existedProduct = state.cart.find(cartProduct => cartProduct._id === payload.product._id)
+      const existedProduct: ProductDataWithCount | undefined = state.cart.find(cartProduct => cartProduct._id === payload.product._id)
     
       if(!existedProduct) {
         const newStock: number = payload.product.stock - payload.count
-          
-        if(newStock > 0) {
+        if(newStock >= 0) {
           state.cart = [
             ...state.cart, 
             {
@@ -41,8 +43,7 @@ const cartSlice = createSlice({
           ]
         } 
       } else {
-        const newStock = existedProduct.stock - payload.count
-
+        const newStock: number = existedProduct.stock - payload.count
         state.cart = state.cart.map(cartProduct => {
           if(cartProduct._id === payload.product._id) {
             return {
@@ -56,7 +57,7 @@ const cartSlice = createSlice({
         })
       }
     },
-    removeCartProductCount: (state, { payload }) => {
+    removeCartProductCount: (state, { payload }: PayloadAction<{ product: ProductData | ProductDataWithCount, count: number }>) => {
       if(!state.cart || payload.count === 0) return
 
       state.cart = state.cart.map(product => {
@@ -76,14 +77,12 @@ const cartSlice = createSlice({
     logOut: (state) => {
       state.userLocal = undefined
       state.cart = []
-      window.open(`/${cookies.getCookies('locale') || 'en'}`, '_self')
-    },
-    resetState: (state) => {
-      state.userErrorMessage = ''
-      state.isUserActionLoading = false
+
+      window.open(`/${cookies.getCookie('locale') || 'en'}`, '_self')
     },
   },
   extraReducers(builder) {
+/*----------------------------------------User Registration-------------------------------------------------------------*/
     builder.addCase(userRegistration.pending, (state) => {
       state.isUserActionLoading = true
     })
@@ -96,10 +95,13 @@ const cartSlice = createSlice({
     builder.addCase(userRegistration.fulfilled, (state, { payload }) => {
       state.userLocal = payload
 
-      state.userErrorMessage = ''
       state.isUserActionLoading = false
-      window.open(`/${cookies.getCookies('locale') || 'en'}`, '_self')
+      state.userErrorMessage = ''
+
+      window.open(`/${cookies.getCookie('locale') || 'en'}`, '_self')
     })
+/*----------------------------------------User Registration-------------------------------------------------------------*/
+/*----------------------------------------User Log in-------------------------------------------------------------------*/
     builder.addCase(userLogin.pending, (state) => {
       state.isUserActionLoading = true
     })
@@ -112,10 +114,13 @@ const cartSlice = createSlice({
     builder.addCase(userLogin.fulfilled, (state, { payload }) => {
       state.userLocal = payload
 
-      state.userErrorMessage = ''
       state.isUserActionLoading = false
-      window.open(`/${cookies.getCookies('locale') || 'en'}`, '_self')
+      state.userErrorMessage = ''
+
+      window.open(`/${cookies.getCookie('locale') || 'en'}`, '_self')
     })
+/*----------------------------------------User Log in-------------------------------------------------------------------*/
+/*----------------------------------------Remove user-------------------------------------------------------------------*/
     builder.addCase(removeMe.pending, (state) => {
       state.isUserActionLoading = true
     })
@@ -131,12 +136,15 @@ const cartSlice = createSlice({
       if(isRemoved) {
         state.cart = []
         state.userLocal = undefined
-        window.open(`/${cookies.getCookies('locale') || 'en'}`, '_self')
+
+        window.open(`/${cookies.getCookie('locale') || 'en'}`, '_self')
       }
 
       state.isUserActionLoading = false
       state.userErrorMessage = ''
     })
+/*----------------------------------------Remove user-------------------------------------------------------------------*/
+/*----------------------------------------Edit user---------------------------------------------------------------------*/
     builder.addCase(editUser.pending, (state, { payload }) => {
       state.isUserActionLoading = true
     })
@@ -150,18 +158,14 @@ const cartSlice = createSlice({
       const { firstName, secondName, avatar, token  } = payload
       
       state.userLocal = { firstName, secondName, avatar, token }
-      state.userErrorMessage = ''
+
       state.isUserActionLoading = false
+      state.userErrorMessage = ''
     })
+/*----------------------------------------Edit user---------------------------------------------------------------------*/
   },
 })
 
-export const { 
-  addCartProductCount, 
-  removeCartProductCount, 
-  removeFullProduct, 
-  logOut,
-  resetState,
-} = cartSlice.actions
+export const { addCartProductCount, removeCartProductCount, removeFullProduct, logOut } = cartSlice.actions
 
 export default cartSlice.reducer

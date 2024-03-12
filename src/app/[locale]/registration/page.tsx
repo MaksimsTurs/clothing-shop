@@ -15,7 +15,6 @@ import TextInput from '@/component/input/text-input/textInput'
 import FetchLoader from '@/component/loader/fetch-loader/fetchLoader'
 
 import userRegistration from '@/store/user/action/userRegistration'
-import { resetState } from '@/store/user/user'
 import { useCurrentLocale, useScopedI18n } from '@/i18n/client'
 
 export default function Page() {
@@ -35,17 +34,13 @@ export default function Page() {
 			} else {
 				userFormData.append(key, value)
 			}
+
+			console.log(key, value)
 		}
 		
 		dispatch(userRegistration(userFormData))
 		reset()
 	}
-
-	console.log(errors)
-
-	useEffect(() => {
-		dispatch(resetState())
-	}, [])
 
 	return (
 		<Fragment>

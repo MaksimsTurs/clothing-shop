@@ -1,6 +1,8 @@
 @import '@/scss/variabel';
 @import '@/scss/mixin';
 
+@import './media-query/productsContainer.media-query.scss';
+
 .product_container {
 	border-bottom: 1px solid $background-color-hover-list-item;
 	padding: 1rem 0rem;

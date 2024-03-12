@@ -1,4 +1,6 @@
-export default function parseJSONError(error: string): { code: number, message: string } {
-  const parsedError = (JSON.parse(error) as { code: number, message: string })
+import type { ServerResError } from "../fetcher/fetcher.type"
+
+export default function parseJSONError(error: string): ServerResError {
+  const parsedError = (JSON.parse(error) as ServerResError)
   return parsedError
 }

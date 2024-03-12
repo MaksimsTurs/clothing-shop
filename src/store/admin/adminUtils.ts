@@ -1,28 +1,12 @@
-type IsIncludeInsertProps = {
-  includeOption: IncludeOption
-  newPropOption: NewPropOption
-}
-
-type IncludeOption = {
-  inclArray: string[]
-  inclKey: string
-}
-
-type NewPropOption = {
-  newPropKey: string
-  newPropName: string
-}
-
-type InsertProp = {
-  newPropKeys: string[]
-  newPropValue: any[]
-}
+type IsIncludeInsertProps = { includeOption: IncludeOption, newPropOption: NewPropOption }
+type IncludeOption = { inclArray: string[], inclKey: string }
+type NewPropOption = { newPropKey: string, newPropName: string }
 
 export function isInclude(inclArray: string[], inclKey: string): boolean {
   return inclArray.includes(inclKey)
 }
 
-export function isIncludeInsertProp(option: IsIncludeInsertProps, copyFrom: any[]) {
+export function isIncludeInsertProp(option: IsIncludeInsertProps, copyFrom: any[]): any[] {
   let newArray: any[] = []
   const { includeOption: { inclArray, inclKey }, newPropOption: { newPropKey, newPropName } } = option
 
@@ -33,7 +17,7 @@ export function isIncludeInsertProp(option: IsIncludeInsertProps, copyFrom: any[
   return newArray
 }
 
-export function replaceWhenInclude(includeProp: IncludeOption, replaceFrom: any[], newElem: any) {
+export function replaceWhenInclude(includeProp: IncludeOption, replaceFrom: any[], newElem: any): any[] {
   let newArray: any[] = []
   const { inclArray, inclKey } = includeProp
 
@@ -48,7 +32,7 @@ export function replaceWhenInclude(includeProp: IncludeOption, replaceFrom: any[
   return newArray
 }
 
-export function replaceByCondition(condKey: string, replaceFrom: any[], newElem: any) {
+export function replaceByCondition(condKey: string, replaceFrom: any[], newElem: any): any[] {
   let newArray: any[] = []
 
   for(let index: number = 0; index < replaceFrom.length; index++) {

@@ -10,6 +10,22 @@
     width: 31.5rem;
     gap: 1rem;
 
+    .user_admin_link {
+      border-radius: $border-radius-img;
+      transition: all $transition-time-very-fast;
+      font-size: $font-medium;
+      padding: 0.65rem 2rem;
+      text-align: center;
+      flex-grow: 1;
+      border: 1px solid black;
+
+      &:hover {
+        transition: all $transition-time-very-fast;
+        background-color: black;
+        color: white;
+      }
+    }
+
     .user_data_actions_container {
       @include flex-alignitems-justifycontent(normal, space-between);
       gap: 0.25rem;
@@ -18,6 +34,7 @@
       .user_action_button {
         border-radius: $border-radius-img;
         transition: all $transition-time-very-fast;
+        font-size: $font-medium;
         padding: 0.65rem 2rem;
         flex-grow: 1;
 

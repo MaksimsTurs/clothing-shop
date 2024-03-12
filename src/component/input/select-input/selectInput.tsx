@@ -14,13 +14,9 @@ export default function SelectInput<T extends Record<any, any>>({
 					options.map(item => (
 						<option
 							key={item._id}
-							style={{
-								background: item._id === selectedOption?._id ? 'rgba(0, 0, 0, 0.1)' : undefined
-							}}
+							style={{background: item._id === selectedOption?._id ? 'rgba(0, 0, 0, 0.1)' : undefined}}
 							className={scss.select_option}
-							onClick={() =>
-								setSelectOption(item)
-							}>
+							onClick={() => setSelectOption(item)}>
 							{item.title}
 						</option>
 					))

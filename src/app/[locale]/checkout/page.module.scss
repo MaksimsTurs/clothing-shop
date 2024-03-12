@@ -1,0 +1,79 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+.checkout_container {
+  @include flex-alignitems-justifycontent(normal, space-between);
+  gap: 1rem;
+  flex-direction: row;
+  padding: 1rem 3rem;
+
+  .checkout_border {
+    border-radius: $border-radius-input-form;
+    border: 1px solid $background-color-input-form;
+    height: fit-content;
+  }
+  
+  .checkout_data {
+    @include flex-column-alignitems-justifycontent();
+    width: 100%;
+
+    section {
+      border-bottom: 1px solid $background-color-input-form;
+      padding: 0.5rem 0rem;
+
+      &:first-child {
+        padding-top: 0rem;
+      }
+
+      &:last-child {
+        border-bottom: none
+      }
+    }
+    
+    .checkout_product_container {
+      @include flex-alignitems-justifycontent();
+      border-bottom: 1px solid $background-color-input-form;
+      padding: 1rem;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      img {
+        border-radius: $border-radius-input-form;
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  .checkout_data_cost {
+    @include flex-column-alignitems-justifycontent();
+    flex-shrink: 0;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .checkout_data_container {
+    @include flex-alignitems-justifycontent(normal, space-between);
+
+    p {
+      &:first-child {
+        font-weight: bold;
+        margin-right: 2rem;
+      }
+    }
+  }
+
+  button {
+    border-radius: $border-radius-img;
+    padding: 0.5rem;
+    border: 1px solid black;
+    color: white;
+    background-color: black;
+
+    &:hover {
+      color: black;
+      background-color: white;
+    }
+  }
+}

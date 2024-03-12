@@ -4,10 +4,12 @@ import type { Metadata } from 'next'
 import Footer from '@/component/footer/footer'
 import Header from '@/component/header/header'
 
-export const metadata: Metadata = {
-	title: 'Registration',
-	description: 'Here you can registrate new account or go to log in page, when you should have one account!',
-	keywords: ['registration', 'log in']
+import getTranslation from '@/i18n/server'
+import getDefaultMeta from '@/util/getDefaultMeta'
+
+export async function generateMetadata(): Promise<Metadata> {
+	const tr = await getTranslation('Head')
+	return {...getDefaultMeta(), title: tr('registration.title'), description: tr('registration.description') }
 }
 
 export default function RootLayout({ children }: PropsWithChildren) {

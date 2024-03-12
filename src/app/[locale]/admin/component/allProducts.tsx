@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux'
 import type { AdminInitState } from '@/store/admin/admin.type'
 import type { RootState } from '@/store/store'
 
+import { CURR_CURRENCY } from '@/const'
+
 export default function AllProducts() {
   const router = useRouter()
 
@@ -28,7 +30,7 @@ export default function AllProducts() {
             <tr key={product._id} onClick={() => router.push(`/ru/admin/product?id=${product._id}`)}>
               <td style={{ textAlign: 'center' }}>{index + 1}</td>
               <td>{product.title}</td>
-              <td style={{ textAlign: 'center' }}>{product.price || 0} $</td>
+              <td style={{ textAlign: 'center' }}>{product.price || 0}{CURR_CURRENCY}</td>
               <td style={{ textAlign: 'center' }}>{product.stock || 0}</td>
               <td style={{ textAlign: 'center' }}>{product.rating || 0}</td>
             </tr>

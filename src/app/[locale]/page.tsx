@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+
 import { Fragment } from 'react'
 
 import Header from '@/component/header/header'
@@ -11,14 +12,11 @@ import getTranslation from '@/i18n/server'
 
 import serverGetAllProducts from '@/server-action/serverGetAllProducts'
 
+import getDefaultMeta from '@/util/getDefaultMeta'
+
 export async function generateMetadata(): Promise<Metadata> {
 	const tr = await getTranslation('Head')
-
-	return {
-		title: tr('home.title'),
-		description: tr('home.description'),
-		authors: [{ name: 'Maksims Turs' }],
-	}
+	return {...getDefaultMeta(), title: tr('home.title'), description: tr('home.description') }
 }
 
 export default async function Page() {
@@ -29,17 +27,7 @@ export default async function Page() {
 			<Header />
 			<WebsiteStatistic />
 			<BrandList />
-			<main>
-				{productsSections.map(list => (
-					<ProductsContainer
-						key={list._id}
-						data={list.products.slice(0, 6)}
-						title={list.title}
-						expiredDate={list.expiredDate}
-						viewAllLink={list.products.length > 6}
-					/>
-				))}
-			</main>
+			<main>{productsSections.map(list => <ProductsContainer key={list._id} data={list.products.slice(0, 6)} title={list.title} expiredDate={list.expiredDate} viewAllLink={list.products.length > 6}/>)}</main>
 			<Footer />
 		</Fragment>
 	)

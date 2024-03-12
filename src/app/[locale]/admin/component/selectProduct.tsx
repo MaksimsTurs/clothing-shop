@@ -6,6 +6,7 @@ import Image from 'next/image'
 
 export default function SelectProduct({ products, precent, productsID, setProductsID }: SelectProductProps) {
   const filteredArray = products.filter(product => !product.sectionID)
+  
   return(
     <ul className={scss.product_list_container}>
       {

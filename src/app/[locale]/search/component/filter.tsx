@@ -16,13 +16,13 @@ export default function Filer({ filterState, isChild, setFilterState, setFilterA
   const currLanguage = useCurrentLocale()
   const tr = useScopedI18n('Search')
 
-  const filterProducts = () => {
+  const filterProducts = (): void => {
     router.push(`/${currLanguage}/search?page=0`)
     setFilterActive(prev => !prev)
     if(setFilterVisible) setFilterVisible(false)
   }
 
-  const resetFilter = () => {
+  const resetFilter = (): void => {
     setFilterState(() => ({ category: [], price: 0, rating: 0 }))
   }
 

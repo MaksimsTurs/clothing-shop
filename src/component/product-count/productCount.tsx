@@ -18,19 +18,19 @@ export default function ProductCount({ product }: ProductCountProps) {
 
 	const dispatch = useDispatch<AppDispatch>()
 
-	const incrimentCount = () => setProductCount(prev => prev + 1)
+	const incrimentCount = (): void => setProductCount(prev => prev + 1)
 
-	const decrementCount = () => {
+	const decrementCount = (): void => {
 		if (productCount === 0) return
 		setProductCount(prev => prev - 1)
 	}
 
-	const addProduct = () => {
+	const addProduct = (): void => {
 		dispatch(addCartProductCount({ count: productCount, product: product! }))
 		setProductCount(0)
 	}
 
-	const removeProduct = () => {
+	const removeProduct = (): void => {
 		dispatch(removeCartProductCount({ count: productCount, product: product! }))
 		setProductCount(0)
 	}
@@ -50,11 +50,11 @@ export default function ProductCount({ product }: ProductCountProps) {
 					</svg>
 				</button>
 			</section>
-			{product && 
+			{product ? 
 				<Fragment>
 					<button onClick={addProduct} className={scss.product_dispatch_button}>{tr('add-to-cart')}</button>
 					<button onClick={removeProduct} className={scss.product_dispatch_button}>{tr('remove-from-cart')}</button>
-				</Fragment>
+				</Fragment> : null
 			}
 		</div>
 	)

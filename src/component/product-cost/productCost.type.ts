@@ -1,4 +1,1 @@
-export type ProductCostProps = {
-  cost: number
-  precent?: number 
-}
+export type ProductCostProps = { cost: number, precent?: number }

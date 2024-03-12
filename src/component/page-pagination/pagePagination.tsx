@@ -1,7 +1,8 @@
 'use client'
 
-import { useCurrentLocale, useScopedI18n } from '@/i18n/client'
 import scss from './pagePagination.module.scss'
+
+import { useCurrentLocale, useScopedI18n } from '@/i18n/client'
 
 import type { PaginationProps } from './pagePagination.type'
 
@@ -13,18 +14,18 @@ export default function Pagination({ currentPage, pagesCount }: PaginationProps)
   const tr = useScopedI18n('Search')
   const router = useRouter()
 
-  const goToPreviousPage = () => {
-    const prevPage = currentPage - 1 !== -1 ? --currentPage : 0
+  const goToPreviousPage = (): void => {
+    const prevPage: number = currentPage - 1 !== -1 ? --currentPage : 0
     router.push(`/${currLanguage}/search?page=${prevPage}`)
   }
 
-  const goToNextPage = () => {
-    const prevPage = (currentPage >= (pagesCount - 1)) ? pagesCount - 1 : ++currentPage
+  const goToNextPage = (): void => {
+    const prevPage: number = (currentPage >= (pagesCount - 1)) ? pagesCount - 1 : ++currentPage
     router.push(`/${currLanguage}/search?page=${prevPage}`)
   }
 
-  const sliceStart = (+currentPage - 2) < 0 ? 0 : (+currentPage - 2)
-  const sliceEnd = +currentPage + 3
+  const sliceStart: number = (+currentPage - 2) < 0 ? 0 : (+currentPage - 2)
+  const sliceEnd: number = +currentPage + 3
 
   return(
     <section className={scss.pagination_container}>

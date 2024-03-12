@@ -15,28 +15,18 @@ import getFormatedValue from '../helpers/getFromatedValue'
 
 import StarRating from '@/component/star-rating/starRating'
 
-export default function DataPage({
-	data,
-	ignore,
-	title,
-	children,
-}: PropsWithChildren<DataPageProps>) {
+export default function DataPage({ data, ignore, title, children }: PropsWithChildren<DataPageProps>) {
 	const [hoveredIMG, setHoveredIMG] = useState<string | undefined>(undefined)
 
+	//Create entries from object.
 	const findedItemEntries = Object.entries(data)
-	const itemIcons =
-		data.images || data.avatar
-			? ((data.images || [data.avatar]) as string[])
-			: false
-	const totalCost = data.products
-		? (data.products as []).reduce(
-				(prev, curr: { price: number; precent: number }) =>
-					prev + (curr.price - curr.price * curr.precent),
-				0
-		  )
-		: 0
-
+	//Get User Avatar or Product Images
+	const itemIcons = data.images || data.avatar ? ((data.images || [data.avatar]) as string[]) : false
+	//Calculate total cost
+	const totalCost = data.products ? (data.products as []).reduce((prev, curr: { price: number; precent: number }) => prev + (curr.price - curr.price * curr.precent), 0) : 0
+	//If data is Section, get their products
 	const dataItems = data.products as ProductData[]
+
 	return (
 		<div className={scss.data_container}>
 			<div className={scss.data_container_info}>
@@ -77,13 +67,7 @@ export default function DataPage({
 								let renderValue = getFormatedValue(itemValue, itemKey)
 								let isValueArray = Array.isArray(itemValue)
 
-								if (itemKey === 'price' && data.precent)
-									renderValue = `${itemValue}$ (with ${(
-										data.precent * 100
-									).toFixed(2)}% price is ${(
-										itemValue -
-										itemValue * data.precent
-									).toFixed(2)}$)`
+								if (itemKey === 'price' && data.precent) renderValue = `${itemValue}$ (with ${(data.precent * 100).toFixed(2)}% price is ${(itemValue - itemValue * data.precent).toFixed(2)}$)`
 
 								return (
 									<Fragment key={itemKey}>
@@ -108,12 +92,10 @@ export default function DataPage({
 								<section
 									style={{ gap: '1.45rem', flexWrap: 'wrap', alignItems: 'flex-start' }}
 									className={scss.data_body_content}>
-									<p style={{ width: '100%' }} className={scss.data_key}>
-										Products:
-									</p>
+									<p style={{ width: '100%' }} className={scss.data_key}>Products:</p>
 									<Fragment>
 										{dataItems.map(item => (
-											<Link href={`/admin/product?id=${item._id}`} key={item._id}>
+											<Link href={`/ru/admin/product?id=${item._id}`} key={item._id}>
 												<div className={scss.data_body_image}>
 													<Image
 														alt={item.title}

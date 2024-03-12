@@ -1,11 +1,8 @@
-import { REVALIDATE_CONF } from '@/const'
 import fetcher from '@/lib/fetcher/fetcher'
 
-type ReturnType = {
-  usersLenght: number
-  productsLenght: number
-  brandsLenght: number
-}
+import { REVALIDATE_CONF } from '@/const'
+
+type ReturnType = { usersLenght: number, productsLenght: number, brandsLenght: number }
 
 export default async function serverGetStatistic(): Promise<ReturnType> {
   try {

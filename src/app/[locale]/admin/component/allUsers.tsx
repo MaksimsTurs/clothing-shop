@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
 
 import type { AdminInitState } from '@/store/admin/admin.type'
-import type { RootState, AppDispatch } from '@/store/store'
+import type { RootState } from '@/store/store'
 
 export default function AllUsers() {
   const router = useRouter()
@@ -16,16 +16,16 @@ export default function AllUsers() {
       <thead>
         <tr>
           <th>Nr.</th>
-          <th>First Name</th>
-          <th>Second Name</th>
-          <th>E-Mail</th>
-          <th>Role</th>
+          <th>Имя</th>
+          <th>Фамилия</th>
+          <th>Е-маил</th>
+          <th>Роль</th>
         </tr>
       </thead>
       <tbody>
         {
           users && users.map((user, index) => (
-            <tr key={user._id} onClick={() => router.push(`/admin/user?id=${user._id}`)}>
+            <tr key={user._id} onClick={() => router.push(`/ru/admin/user?id=${user._id}`)}>
               <td style={{ textAlign: 'center' }}>{index + 1}</td>
               <td style={{ textAlign: 'center' }}>{user.firstName}</td>
               <td style={{ textAlign: 'center' }}>{user.secondName}</td>

@@ -17,13 +17,14 @@ import { RootState } from '@/store/store'
 
 export default function AsideMenu() {
 	const [isMenuVisible, setMenuVisible] = useState<boolean>(false)
+
 	const currLanguage = useCurrentLocale()
 	const tr = useScopedI18n('Header')
 	const useLocale = useChangeLocale()
 
 	const { userLocal } = useSelector<RootState, UserInitState>(state => state.user)
 
-	const URLs = [{ URL: `/${currLanguage}`, name: tr('home.link') },	{ URL: `/${currLanguage}/search`, name: tr('search.link') }, { URL: `/${currLanguage}/cart`, name: tr('cart.link') }]
+	const URLs: { URL: string, name: string }[] = [{ URL: `/${currLanguage}`, name: tr('home.link') },	{ URL: `/${currLanguage}/search`, name: tr('search.link') }, { URL: `/${currLanguage}/cart`, name: tr('cart.link') }]
 
 	if(userLocal) URLs.unshift({ URL: `/${currLanguage}/user/${userLocal.token}`, name: `${userLocal.firstName} ${userLocal.secondName}`})
 

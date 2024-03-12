@@ -5,9 +5,9 @@ import type { RootState } from "@/store/store"
 import type { PageProps } from "../admin.type"
 
 import { useSelector } from "react-redux"
+import { Fragment } from "react"
 
 import DataPage from "../component/dataPage"
-import { Fragment } from "react"
 import FetchLoader from "@/component/loader/fetch-loader/fetchLoader"
 import ProductsSectionForm from "../component/productsSectionForm"
 import editProductsSection from "@/store/admin/action/editProductsSection"
@@ -20,9 +20,12 @@ export default function Page({ searchParams }: PageProps) {
   return(
     <Fragment>
       {isAdminActionLoading && <FetchLoader/>}
-      <DataPage id={searchParams.id} data={findedSection} ignore={{ forData: ['__v', 'items', 'productID'] }} title="Section Information">
-        <ProductsSectionForm currentProductsID={findedSection?.productID} id={searchParams.id} dispatchFunc={editProductsSection} title="Section Edit Form"/>
-      </DataPage>
+      <DataPage 
+        children={<ProductsSectionForm currentProductsID={findedSection?.productID} id={searchParams.id} dispatchFunc={editProductsSection} title="Section Edit Form"/>}
+        id={searchParams.id} 
+        data={findedSection} 
+        ignore={{ forData: ['__v', 'items', 'productID'] }} 
+        title="Section Information"/>
     </Fragment>
   )
 }

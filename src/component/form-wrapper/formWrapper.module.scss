@@ -4,7 +4,7 @@
 @import './media-query/formWrapper.media-query.scss';
 
 .form_container {
-	@include flex-column-alignitems-justifycontent(center, center);
+	@include flex-column-alignitems-justifycontent(center, start);
 	flex-grow: 1;
 	padding: 1rem;
 	background-color: white;

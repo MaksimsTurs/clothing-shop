@@ -1,0 +1,1 @@
+export type DropdownListProps = { data: { icon?: string, text: string }[], listTitle: string }

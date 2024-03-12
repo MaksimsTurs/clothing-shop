@@ -4,13 +4,14 @@
 @import '../media-query/navbar.media-query.scss';
 
 .nav_page_link {
-  transition: all $transition-time-very-fast;
+  // transition: all $transition-time-very-fast;
   border-radius: $border-radius-link;
   padding: 0.5rem 1rem;
   color: white;
 
   &:hover {
-    transition: all $transition-time-very-fast;
+    box-shadow: inset  $box-shadow-input-focus-hover;
+    // transition: all $transition-time-very-fast;
     background-color: white;
     color: black;
   }
@@ -48,5 +49,6 @@
 
 .nav_link_active {
   background-color: rgb(255, 255, 255);
+  box-shadow: inset  $box-shadow-input-focus-hover;
   color: black;
 }

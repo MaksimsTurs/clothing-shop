@@ -18,15 +18,16 @@ import ImgInput from '@/component/input/file-input/fileInput'
 import FetchLoader from '@/component/loader/fetch-loader/fetchLoader'
 import addProduct from '@/store/admin/action/addProduct'
 
-export default function ProductForm({ dispatchFunc, formWrapperTitle, productID, section }: ProductFormProps) {
+export default function ProductForm({ dispatchFunc, formWrapperTitle, findedProduct, productSection }: ProductFormProps) {
 	const dispatch = useDispatch<AppDispatch>()
 	
 	const { isAdminActionLoading, productsSection } = useSelector<RootState, AdminInitState>(state => state.admin)
 	const { userLocal } = useSelector<RootState, UserInitState>(state => state.user)
 
-	const [selectedOption, setSelectOption] = useState<{ _id: string, title: string } | undefined>(section)
+	const [selectedOption, setSelectOption] = useState<{ _id: string, title: string } | undefined>(productSection)
 	
 	const { register,	handleSubmit } = useForm<ProductFormAction>()
+	
 	const createProduct: SubmitHandler<ProductFormAction> = (productData) => {
 		const productFormData = new FormData()
 
@@ -41,7 +42,7 @@ export default function ProductForm({ dispatchFunc, formWrapperTitle, productID,
 		productFormData.append('token', userLocal?.token || 'null')
 		productFormData.append('selectedSection', JSON.stringify(selectedOption))
 		
-		if(productID) productFormData.append('productID', productID)
+		if(findedProduct) productFormData.append('productID', findedProduct._id)
 
 		if(dispatchFunc) {
 			dispatch(dispatchFunc(productFormData))
@@ -66,7 +67,7 @@ export default function ProductForm({ dispatchFunc, formWrapperTitle, productID,
 				<SelectInput<ProductFormAction>
 					selectedOption={selectedOption}
 					setSelectOption={setSelectOption}
-					options={productsSection.map(section => ({ _id: section._id, title: section.title }))}
+					options={findedProduct?.sectionID ? [] : productsSection.map(section => ({ _id: section._id, title: section.title }))}
 				/>
 				<MultipleInput>
 					<TextInput<ProductFormAction>

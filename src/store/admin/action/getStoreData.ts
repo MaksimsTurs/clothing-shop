@@ -11,7 +11,7 @@ const getStoreData = createAsyncThunk<GetStoreData>(
       const response = await fetcher.get<GetStoreData>('/admin/get/store')
       return response
     } catch(error) {
-      return thunkApi.rejectWithValue(error as string)
+      return thunkApi.rejectWithValue(error)
     }
   }
 )

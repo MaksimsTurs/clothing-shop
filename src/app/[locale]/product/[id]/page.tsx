@@ -10,10 +10,11 @@ import ProductCost from '@/component/product-cost/productCost'
 import ProductCountContainer from '../component/productCountContainer'
 
 import getTranslation from '@/i18n/server'
+import getDefaultMeta from '@/util/getDefaultMeta'
 
 export async function generateMetadata({ params }: ProductProps): Promise<Metadata> {
   const product = await serverGetProductByID(params.id)
-  return { title: product.title, description: product.description }
+  return {...getDefaultMeta(), title: product.title, description: product.description}
 }
 
 export default async function Page({ params }: ProductProps) {

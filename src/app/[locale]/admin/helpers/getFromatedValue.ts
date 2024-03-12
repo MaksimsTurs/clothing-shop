@@ -1,3 +1,5 @@
+import { CURR_CURRENCY } from "@/const"
+
 import formatDate from "@/lib/formatDate/formatDate"
 
 export default function getFormatedValue(value: any, key?: string) {
@@ -11,15 +13,12 @@ export default function getFormatedValue(value: any, key?: string) {
     case 'precent':
       return `${((value as number) * 100).toFixed(2)}%`
     case 'price':
-      return `${value}$`
+      return `${value}${CURR_CURRENCY}`
   }
   
   if(key === 'stock' || key === 'rating') return `${value}`
-
   if(typeof value === 'string' && !Number.isInteger(value)) return value
-  
   if(value === undefined || value === null) return false
-
   if(value < 10) return `0${value}`
   
   return value

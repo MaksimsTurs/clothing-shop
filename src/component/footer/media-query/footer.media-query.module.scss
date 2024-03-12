@@ -6,6 +6,12 @@
 
 @media(width <= 680px) {
   .footer_website_name {
+    font-size: $font-x-large;
+  }
+}
+
+@media(width <= 530px) {
+  .footer_website_name {
     display: none;
   }
 }

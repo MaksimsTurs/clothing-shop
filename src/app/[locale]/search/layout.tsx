@@ -4,9 +4,12 @@ import { Fragment, type PropsWithChildren } from 'react'
 import Footer from '@/component/footer/footer'
 import Header from '@/component/header/header'
 
-export const metadata: Metadata = {
-	title: 'Search',
-	description: 'Search page!',
+import getTranslation from '@/i18n/server'
+import getDefaultMeta from '@/util/getDefaultMeta'
+
+export async function generateMetadata(): Promise<Metadata> {
+	const tr = await getTranslation('Head')
+	return {...getDefaultMeta(), title: tr('search.title'), description: tr('search.description') }
 }
 
 export default function RootLayout({ children }: PropsWithChildren) {

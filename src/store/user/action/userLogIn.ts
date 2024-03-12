@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import type { UserLocalData } from "../user.type";
-import type { ServerResError } from "@/lib/fetcher/fetcher.type";
 import type { UserLogin } from "@/app/[locale]/login/login.type";
 
 import fetcher from "@/lib/fetcher/fetcher";
@@ -13,7 +12,7 @@ const userLogin = createAsyncThunk<UserLocalData, UserLogin>(
       const response = await fetcher.post<UserLocalData>('/user/login', userData)
       return response
     } catch(error) {
-      return thunkApi.rejectWithValue((error as ServerResError).message)
+      return thunkApi.rejectWithValue(error)
     }
   }
 )

@@ -25,10 +25,7 @@
 		@include flex-alignitems-justifycontent(center);
 		gap: 1rem;
 		
-		p {
-			font-size: $font-medium;
-			color: white;
-		}
+		p { font-size: $font-medium; color: white; }
 
 		.header_dropdown_button {
 			@include flex-alignitems-justifycontent(center);

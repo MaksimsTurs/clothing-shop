@@ -2,25 +2,15 @@
 
 import scss from './fileInput.module.scss'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import type { ImgInputProps } from '../input.type'
 import type { FieldValues } from 'react-hook-form'
 
-export default function ImgInput<T extends FieldValues>({
-	register,
-	htmlFor,
-	isMultiple,
-	labelText,
-}: ImgInputProps<T>) {
+export default function ImgInput<T extends FieldValues>({ register, htmlFor, isMultiple, labelText }: ImgInputProps<T>) {
 	const [imgSrc, setImgSrc] = useState<string[]>([])
 
-	const inputSupplieFormat: string[] = [
-		'image/png',
-		'image/jpg',
-		'image/jpeg',
-		'image/webp',
-	]
+	const inputSupplieFormat: string[] = ['image/png', 'image/jpg', 'image/jpeg', 'image/webp']
 
 	const choseImg = (event: any) => {
 		const files = Array.from(event.target.files) as File[]
@@ -57,12 +47,7 @@ export default function ImgInput<T extends FieldValues>({
 			) : (
 				<label style={multipleLabelStyle}>
 					{labelText}
-					<input
-						type='file'
-						multiple={isMultiple}
-						accept={'image/png,  image/jpg, image/jpeg, image/webp'}
-						{...register(htmlFor, { onChange: choseImg })}
-					/>
+					<input type='file' multiple={isMultiple} accept={'image/png,  image/jpg, image/jpeg, image/webp'} {...register(htmlFor, { onChange: choseImg })} />
 				</label>
 			)}
 		</div>

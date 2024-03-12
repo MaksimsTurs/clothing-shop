@@ -8,3 +8,4 @@ export function middleware(request: NextRequest) {
 
   if(!Boolean(nextUrl.locale)) return redirect(`${nextUrl.origin}/en`)
 }
+

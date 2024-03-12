@@ -18,12 +18,12 @@ export default function SearchForm() {
   const [findedProducts, setFindedProducts] = useState<ProductData[]>([])
   const [fetchStatus, setFetchStatus] = useState<{ isLoading: boolean, error: string | undefined }>({ error: undefined, isLoading: false })
 
-  const debounceValue = useDebounce(searchValue, 1000)
+  const debounceValue: string = useDebounce(searchValue, 1000)
 
   const tr = useScopedI18n('Header')
 
-  const liveSearch = (event: SyntheticEvent<HTMLInputElement>) => {
-    const value = event.currentTarget.value
+  const liveSearch = (event: SyntheticEvent<HTMLInputElement>): void => {
+    const value: string = event.currentTarget.value
     setSearchValue(value)
   }
 
