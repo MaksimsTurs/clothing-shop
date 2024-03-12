@@ -8,7 +8,7 @@ import Link from 'next/link'
 
 import { useScopedI18n } from '@/i18n/client'
 
-export default function FormWrapper<T extends FieldValues>({ onSubmit, title, children, serverError, link, styles, isLoading }: PropsWithChildren<FormWrapperProps<T>>) {
+export default function FormWrapper({ onSubmit, title, children, serverError, link, styles, isLoading }: PropsWithChildren<FormWrapperProps>) {
 	const tr = useScopedI18n("User-Log")
 
 	return (

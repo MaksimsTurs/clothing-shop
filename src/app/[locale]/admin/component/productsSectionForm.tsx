@@ -36,7 +36,7 @@ export default function ProductsSectionForm({ title, dispatchFunc, id, currentPr
     <Fragment>
       {isAdminActionLoading  && <FetchLoader/>}
       <FormWrapper title={title} isLoading={isAdminActionLoading} onSubmit={handleSubmit(onSubmit)}>
-          <TextInput<AddProductsSectionData>
+          <TextInput
             htmlFor='title'
             placeholder='Section name'
             register={register}/>

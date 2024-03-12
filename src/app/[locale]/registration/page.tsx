@@ -45,7 +45,7 @@ export default function Page() {
 	return (
 		<Fragment>
 			{isUserActionLoading && <FetchLoader/>}
-			<FormWrapper<UserRegistration>
+			<FormWrapper
 				onSubmit={handleSubmit(registration)}
 				title={tr("form.title.reg")}
 				isLoading={isUserActionLoading}

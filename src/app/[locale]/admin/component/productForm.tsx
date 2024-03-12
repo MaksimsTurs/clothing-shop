@@ -54,7 +54,7 @@ export default function ProductForm({ dispatchFunc, formWrapperTitle, findedProd
 	return (
 		<Fragment>
 			{isAdminActionLoading && <FetchLoader />}
-			<FormWrapper<ProductFormAction>
+			<FormWrapper
 				onSubmit={handleSubmit(createProduct)}
 				isLoading={false}
 				title={formWrapperTitle}>

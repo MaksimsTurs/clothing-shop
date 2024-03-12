@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Fragment, useEffect } from 'react'
 
 import userLogin from '@/store/user/action/userLogIn'
-import { resetState } from '@/store/user/user'
 import { useCurrentLocale, useScopedI18n } from '@/i18n/client'
 
 export default function Login() {
@@ -30,14 +29,10 @@ export default function Login() {
 		reset()
 	}
 	
-	useEffect(() => {
-		dispatch(resetState())
-	}, [])
-
 	return (
 		<Fragment>
 			{isUserActionLoading && <FetchLoader/>}
-			<FormWrapper<UserLogin>
+			<FormWrapper
 			onSubmit={handleSubmit(login)}
 			title={tr("form.title.log")}
 			serverError={userErrorMessage}

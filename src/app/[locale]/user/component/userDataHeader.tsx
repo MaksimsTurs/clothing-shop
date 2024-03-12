@@ -57,7 +57,7 @@ export default function UserDataHeader({ userData }: UserDataHeaderProps) {
 			<section className={scss.user_data_info_container}>
 				{
 					isEditMode ?
-					<FormWrapper<EditUserData> onSubmit={handleSubmit(editUserData)} styles={{ formStyle: { padding: '0rem' } }}>
+					<FormWrapper onSubmit={handleSubmit(editUserData)} styles={{ formStyle: { padding: '0rem' } }}>
 						<ImgInput<EditUserData> htmlFor='avatar' labelText='Chose new avatar!' register={register}/>
 						<MultipleInput>
 							<TextInput<EditUserData> htmlFor='firstName' register={register} placeholder='First Name'/>
