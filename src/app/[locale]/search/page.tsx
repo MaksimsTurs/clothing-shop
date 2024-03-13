@@ -67,7 +67,7 @@ export default function Search({ searchParams }: SearchProps) {
 						</svg>
 					}
 				</div>
-				{!isLoading && currPageProducts ? (
+				{!isLoading && currPageProducts.length > 0 ? (
 					<ProductsContainer data={currPageProducts} />
 				) : (
 					<ProductsLoader />
