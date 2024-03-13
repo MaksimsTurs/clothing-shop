@@ -26,7 +26,7 @@ export default function Login() {
 
 	const login: SubmitHandler<UserLogin> = async (userData) => {
 		dispatch(userLogin(userData))
-		reset()
+		// reset()
 	}
 	
 	return (

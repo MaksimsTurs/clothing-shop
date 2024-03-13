@@ -15,7 +15,7 @@ const fetcher = {
 
 		if(body && !(body instanceof FormData)) {
 			if(!headers) init.headers = { 'Content-Type': 'application/json' }
-			if(!Object.hasOwn(headers, 'Content-Type')) init.headers = {...init.headers, 'Content-Type': 'application/json'}
+			if(headers && !Object.hasOwn(headers, 'Content-Type')) init.headers = {...init.headers, 'Content-Type': 'application/json'}
 			
 			init.body = JSON.stringify(body)
 		} else {
@@ -35,7 +35,7 @@ const fetcher = {
 	post: async function <T>(URL: string, body?: any, headers?: Headers, revalidate?: RevalidateConf): Promise<T> {
 		const init = this.getInit(headers, body)
 
-		const response: Response = await fetch(this.createURL(URL), { method: 'POST', body: init.body as BodyInit, headers: init.headers, cache: revalidate?.cache, next: {...revalidate } })
+		const response: Response = await fetch(this.createURL(URL), { method: 'POST', body: init.body as BodyInit, headers: init.headers })
 		const responseJSON = await response.json()
 
 		if (!response.ok) throw JSON.stringify(responseJSON)
