@@ -28,7 +28,7 @@ const fetcher = {
 		const response: Response = await fetch(this.createURL(URL), { cache: revalidate?.cache, next: {...revalidate } })
 		const responseJSON = await response.json()
 
-		if (!response.ok) throw JSON.stringify(responseJSON)
+		if (!response.ok) throw new Error(JSON.stringify(responseJSON))
 
 		return responseJSON as T
 	},
@@ -38,7 +38,7 @@ const fetcher = {
 		const response: Response = await fetch(this.createURL(URL), { method: 'POST', body: init.body as BodyInit, headers: init.headers })
 		const responseJSON = await response.json()
 
-		if (!response.ok) throw JSON.stringify(responseJSON)
+		if (!response.ok) throw new Error(JSON.stringify(responseJSON)).message
 
 		return responseJSON as T
 	},

@@ -37,13 +37,15 @@ const adminStore = createSlice({
 				state.products = products
 				state.users = users
 
-				state.productsSection = productsSection.map(section => ({
-					...section, 
-					products: isIncludeInsertProp({
-						includeOption: { inclArray: section.productID, inclKey: '_id' },
-						newPropOption: { newPropName: 'sectionID', newPropKey: '_id' }
-					}, state.products)
-				}))
+				if(productsSection.length > 0) {
+					state.productsSection = productsSection.map(section => ({
+						...section, 
+						products: isIncludeInsertProp({
+							includeOption: { inclArray: section.productID, inclKey: '_id' },
+							newPropOption: { newPropName: 'sectionID', newPropKey: '_id' }
+						}, state.products)
+					}))
+				}
 
 				state.isAdminActionLoading = false
 			})

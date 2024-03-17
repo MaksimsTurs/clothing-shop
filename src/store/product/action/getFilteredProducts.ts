@@ -8,7 +8,7 @@ const getFilteredProduct = createAsyncThunk<GetFilteredProductReturn, GetFiltere
   'product/filter',
   async (filter, thunkApi) => {
     try {
-      const response = fetcher.post<GetFilteredProductReturn>('/product/pagination/filter', filter)
+      const response = await fetcher.post<GetFilteredProductReturn>('/product/pagination/filter', filter)
       return response
     } catch(error) {
       return thunkApi.rejectWithValue(error)

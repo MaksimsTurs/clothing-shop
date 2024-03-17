@@ -7,6 +7,14 @@
   padding: 1rem 0rem;
   position: relative;
 
+  .search_not_founded {
+    @include flex-alignitems-justifycontent(center, center);
+    font-size: $font-x-large;
+    color: $background-color-input-form;
+    width: 100%;
+    height: 100%;
+  }
+
   .search_page_body { width: 100%; }
 
   .search_filter_data {
@@ -18,9 +26,7 @@
       margin-bottom: 1rem;
     }
 
-    svg > path, rect {
-      pointer-events: none
-    }
+    svg > path, rect { pointer-events: none }
   }
 }
 

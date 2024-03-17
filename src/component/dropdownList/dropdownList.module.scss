@@ -1,0 +1,48 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+.dropdown_title {
+	border-radius: $border-radius-link;
+  font-size: $font-medium;
+	position: relative;
+	border: 1px solid white;
+	padding: 0.5rem 1rem;
+	color: white;
+	cursor: pointer;
+
+	&:hover .dropdown_list_container {
+		height: fit-content
+	}
+
+	&::after {
+		content: '';
+		@include absolute-left-top(0%, 100%);
+		width: 100%;
+		height: 1rem;
+	}
+}
+
+.dropdown_list_container {
+	@include absolute-left-top(50%, 110%);
+	@include flex-column-alignitems-justifycontent();
+	transition: all $transition-time-very-fast;
+	border-radius: $border-radius-dropdown;
+	box-shadow: $box-shadow-dropdown;
+	height: 0%;
+	overflow: hidden;
+	transform: translate(-50%, 0%);
+	z-index: 10;
+	background-color: white;
+
+	li {
+		@include flex-alignitems-justifycontent(center);
+		gap: 0.5rem;
+		color: black;
+		padding: 0rem 1rem;
+
+		&:hover {
+			background-color: $background-color-input-form;
+			cursor: pointer;
+		}
+	}
+}

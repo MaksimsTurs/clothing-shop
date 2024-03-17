@@ -11,7 +11,8 @@ import parseJSONError from '@/lib/parseJSONError/parseJSONError'
 import fetcher from '@/lib/fetcher/fetcher'
 
 import useDebounce from '@/custom-hook/useDebounce'
-import { useScopedI18n } from '@/i18n/client'
+
+import { useCurrentLocale, useScopedI18n } from '@/i18n/client'
 
 export default function SearchForm() {
   const [searchValue, setSearchValue] = useState<string>('')
@@ -21,11 +22,9 @@ export default function SearchForm() {
   const debounceValue: string = useDebounce(searchValue, 1000)
 
   const tr = useScopedI18n('Header')
+  const currLanguage = useCurrentLocale()
 
-  const liveSearch = (event: SyntheticEvent<HTMLInputElement>): void => {
-    const value: string = event.currentTarget.value
-    setSearchValue(value)
-  }
+  const liveSearch = (event: SyntheticEvent<HTMLInputElement>): void => setSearchValue(event.currentTarget.value)
 
   useEffect(() => {
     const fetch = async () => {
@@ -57,7 +56,7 @@ export default function SearchForm() {
           {
             fetchStatus.isLoading ? <li className={scss.search_form_list_empty}>{tr('search.product.loading')}</li> : 
             findedProducts.length === 0 ? <li className={scss.search_form_list_empty}>{tr('search.product.empty')}</li> :
-            findedProducts.map(product => (<li key={product._id}><Link href={`/product/${product._id}`}>{product.title}</Link></li>))
+            findedProducts.map(product => (<li key={product._id}><Link href={`/${currLanguage}/product/${product._id}`}>{product.title}</Link></li>))
           }
        </ul>
       }

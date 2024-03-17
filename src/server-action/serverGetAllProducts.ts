@@ -6,7 +6,7 @@ import { REVALIDATE_CONF } from '@/const'
 
 import type { ProductSectionExtended } from '@/store/admin/admin.type';
 
-type ReturnType = { productsSections: ProductSectionExtended[] }
+type ReturnType = { sections: ProductSectionExtended[] }
 
 export default async function serverGetAllProducts(): Promise<ReturnType> {
   try {

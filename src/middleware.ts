@@ -6,6 +6,6 @@ export function middleware(request: NextRequest) {
   const { nextUrl } = request
   const { redirect } = NextResponse
 
-  if(!Boolean(nextUrl.locale)) return redirect(`${nextUrl.origin}/en`)
+  if(!Boolean(nextUrl.locale)) return redirect(`${nextUrl.origin}/en/home`)
 }
 

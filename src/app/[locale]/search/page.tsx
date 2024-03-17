@@ -4,8 +4,9 @@ import scss from './scss/page.module.scss'
 
 import NMPagintion from '@/component/page-pagination/pagePagination'
 import NMPorudctsContainer from '@/component/product-container/productsContainer'
+import NMFilter from './component/filter'
 import ProductsLoader from '@/component/loader/products-loader/productsLoader'
-import Filter from './component/filter'
+import Error from '@/component/error/error'
 
 import { useState, memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,6 +20,7 @@ import { useScopedI18n } from '@/i18n/client'
 
 const Pagination = memo(NMPagintion)
 const ProductsContainer = memo(NMPorudctsContainer)
+const Filter = memo(NMFilter)
 
 export default function Search({ searchParams }: SearchProps) {
 	const [filterState, setFilterState] = useState<FilterState>({ category: [], price: 0, rating: 0 })
@@ -29,7 +31,7 @@ export default function Search({ searchParams }: SearchProps) {
 
 	const dispatch = useDispatch<AppDispatch>()
 
-	const { currPageProducts, maxPages, isLoading, productsRange, productsLength } = useSelector<RootState, ProductInitState>(state => state.product)
+	const { currPageProducts, maxPages, isLoading, productsRange, productsLength, filterError } = useSelector<RootState, ProductInitState>(state => state.product)
 
 	const isMobile = window.matchMedia('(width <= 760px)').matches
 
@@ -67,11 +69,10 @@ export default function Search({ searchParams }: SearchProps) {
 						</svg>
 					}
 				</div>
-				{!isLoading && currPageProducts.length > 0 ? (
-					<ProductsContainer data={currPageProducts} />
-				) : (
-					<ProductsLoader />
-				)}
+				{isLoading ? <ProductsLoader /> : 
+					filterError ? <Error error={{ code: filterError.code, message: filterError.message  }}/> :
+					currPageProducts.length === 0 ? <div className={scss.search_not_founded}>No Product founded!</div> : <ProductsContainer data={currPageProducts} />
+				}
 			</div>
 		</section>
 	)

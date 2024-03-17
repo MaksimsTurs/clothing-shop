@@ -10,7 +10,7 @@ const initialState: ProductInitState = {
   productsLength: 0,
   productsRange: { max: 0, min: 0 },
   isLoading: true,
-  filterError: ''
+  filterError: { code: 0, message: '' }
 }
 
 const productSlice = createSlice({
@@ -30,11 +30,11 @@ const productSlice = createSlice({
       state.productsRange = payload.productsRange
 
       state.isLoading = false
-      state.filterError = ''
+      state.filterError = undefined
     }).addCase(getFilteredProduct.rejected, (state, { payload }) => {
-      const { message } = parseJSONError(payload as string)
+      const error = parseJSONError(payload as string)
 
-      state.filterError = message
+      state.filterError = error
       state.isLoading = false
     })
 /*--------------------------------------Get filtered products------------------------------------------------*/

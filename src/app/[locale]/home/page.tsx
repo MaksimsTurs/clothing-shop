@@ -20,14 +20,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-	const { productsSections } = await serverGetAllProducts()
-
+	const { sections } = await serverGetAllProducts()
 	return (
 		<Fragment>
 			<Header />
 			<WebsiteStatistic />
 			<BrandList />
-			<main>{productsSections.map(list => <ProductsContainer key={list._id} data={list.products.slice(0, 6)} title={list.title} expiredDate={list.expiredDate} viewAllLink={list.products.length > 6}/>)}</main>
+			<main>{sections.map(list => <ProductsContainer key={list._id} data={list.products.slice(0, 6)} title={list.title} expiredDate={list.expiredDate} viewAllLink={list.products.length > 6}/>)}</main>
 			<Footer />
 		</Fragment>
 	)

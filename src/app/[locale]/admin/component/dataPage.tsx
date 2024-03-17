@@ -12,6 +12,7 @@ import Link from 'next/link'
 
 import createEntrieName from '@/lib/createEntrieName/createEntrieName'
 import getFormatedValue from '../helpers/getFromatedValue'
+import firstLetterUpperCase from '@/util/firstLetterUpperCase'
 
 import StarRating from '@/component/star-rating/starRating'
 
@@ -63,7 +64,7 @@ export default function DataPage({ data, ignore, title, children }: PropsWithChi
 								const itemKey = itemData[0]
 								const itemValue = itemData[1] as any
 
-								let renderKey = createEntrieName(itemKey)
+								let renderKey = firstLetterUpperCase(createEntrieName(itemKey))
 								let renderValue = getFormatedValue(itemValue, itemKey)
 								let isValueArray = Array.isArray(itemValue)
 

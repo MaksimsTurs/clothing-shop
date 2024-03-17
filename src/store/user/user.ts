@@ -78,7 +78,7 @@ const cartSlice = createSlice({
       state.userLocal = undefined
       state.cart = []
 
-      window.open(`/${cookies.getCookie('locale') || 'en'}`, '_self')
+      window.open(`/${cookies.getCookie('locale') || 'en'}/home`, '_self')
     },
   },
   extraReducers(builder) {
@@ -98,7 +98,7 @@ const cartSlice = createSlice({
       state.isUserActionLoading = false
       state.userErrorMessage = ''
 
-      window.open(`/${cookies.getCookie('locale') || 'en'}`, '_self')
+      window.open(`/${cookies.getCookie('locale') || 'en'}/home`, '_self')
     })
 /*----------------------------------------User Registration-------------------------------------------------------------*/
 /*----------------------------------------User Log in-------------------------------------------------------------------*/
@@ -117,7 +117,7 @@ const cartSlice = createSlice({
       state.isUserActionLoading = false
       state.userErrorMessage = ''
 
-      window.open(`/${cookies.getCookie('locale') || 'en'}`, '_self')
+      window.open(`/${cookies.getCookie('locale') || 'en'}/home`, '_self')
     })
 /*----------------------------------------User Log in-------------------------------------------------------------------*/
 /*----------------------------------------Remove user-------------------------------------------------------------------*/
@@ -137,7 +137,7 @@ const cartSlice = createSlice({
         state.cart = []
         state.userLocal = undefined
 
-        window.open(`/${cookies.getCookie('locale') || 'en'}`, '_self')
+        window.open(`/${cookies.getCookie('locale') || 'en'}/home`, '_self')
       }
 
       state.isUserActionLoading = false

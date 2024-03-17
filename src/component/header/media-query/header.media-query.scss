@@ -1,8 +1,14 @@
 @import '@/scss/mixin';
 @import '@/scss/variabel';
 
-@media (width <= 830px) {
-	//Center Website name and show menu button.
+@media (width <= 675px) {
+	.header_user_action_container {
+		display: none !important;
+	}
+}
+
+@media (width <= 590px) {
+	// Center Website name and show menu button.
 	.header_website_label {
 		width: 100%;
 
@@ -12,12 +18,8 @@
 		}
 	}
 
-	//Hidde pages link, search form and user links.
+	// Hidde pages link, search form and user links.
 	.header_nav_menu_container {
-		display: none !important;
-	}
-
-	.header_user_action_container {
 		display: none !important;
 	}
 }

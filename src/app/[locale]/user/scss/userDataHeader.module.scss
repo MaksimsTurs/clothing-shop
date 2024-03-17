@@ -11,8 +11,10 @@
 	@include flex-alignitems-justifycontent(center);
 
 	img {
-		margin-right: 1rem;
 		border-radius: 50%;
+		object-fit: cover;
+		width: 8rem;
+		height: 8rem;
 	}
 
 	.user_data_info_body {

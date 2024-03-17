@@ -4,16 +4,11 @@ import scss from '../scss/productImagePreview.module.scss'
 
 import type { ProductImagePreviewProps } from '../product.type'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 
 export default function ProductImagePreview({ images }: ProductImagePreviewProps) {
   const [currentIMG, setCurrentIMG] = useState<{src: string, index: number}>({ index: 0, src: images[0] })
-
-  useEffect(() => {
-    setCurrentIMG({ index: 0, src: images[0] })
-  }, [images])
-
   return(
     <aside className={scss.image_preview_container}>
       <div className={scss.image_preview_images}>

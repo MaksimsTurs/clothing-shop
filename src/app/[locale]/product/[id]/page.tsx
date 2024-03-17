@@ -20,7 +20,6 @@ export async function generateMetadata({ params }: ProductProps): Promise<Metada
 export default async function Page({ params }: ProductProps) {
   const productData = await serverGetProductByID(params.id)
   const tr = await getTranslation('Product-Page')
-  
   return(
     <main>
       <div className={scss.product_data_container}>

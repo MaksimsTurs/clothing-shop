@@ -20,8 +20,8 @@ export default function Pagination({ currentPage, pagesCount }: PaginationProps)
   }
 
   const goToNextPage = (): void => {
-    const prevPage: number = (currentPage >= (pagesCount - 1)) ? pagesCount - 1 : ++currentPage
-    router.push(`/${currLanguage}/search?page=${prevPage}`)
+    const nextPage: number = (currentPage >= (pagesCount - 1)) ? pagesCount : ++currentPage
+    router.push(`/${currLanguage}/search?page=${nextPage}`)
   }
 
   const sliceStart: number = (+currentPage - 2) < 0 ? 0 : (+currentPage - 2)

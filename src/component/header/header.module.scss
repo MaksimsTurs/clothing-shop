@@ -34,25 +34,11 @@
 			color: black !important;
 			fill: black;
 
-			svg {
-				width: $icon-small;
-				height: $icon-small;
-				transition: all $transition-time-very-fast;
-				fill: white;
-				margin-top: 0.23rem;
-				transform: rotate(-90deg);
-			}
-
 			&::before {
 				@include absolute-left-top(0%, 100%);
 				content: '';
 				width: 100%;
 				height: 0.9rem;
-			}
-
-			&:hover > svg {
-				transition: all $transition-time-very-fast;
-				transform: rotate(0deg);
 			}
 
 			&:hover > .header_dropdown_list {

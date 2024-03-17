@@ -69,8 +69,9 @@ export default function UserDataHeader({ userData }: UserDataHeaderProps) {
 						<Image
 							alt={`${userData?.firstName} ${userData?.secondName}` || 'User icon'}
 							src={userData?.avatar || userDefIcon}
-							width={70}
-							height={70}
+							width={1400}
+							height={1400}
+							quality={100}
 						/>
 						<div className={scss.user_data_info_body}>
 							<h4>{userData?.firstName} {userData?.secondName}</h4>

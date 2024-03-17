@@ -11,8 +11,8 @@ export default function FilterContainerWrapper({ title, children }: PropsWithChi
   const showCurrFilter = () => setVisible(prev => !prev)
 
   return(
-    <section className={scss.filter_container_wrapper} onClick={showCurrFilter}>
-      <div className={scss.filter_header_wrapper}>
+    <section className={scss.filter_container_wrapper}>
+      <div className={scss.filter_header_wrapper} onClick={showCurrFilter}>
         <h4>{title}</h4>
         <button className={scss.filter_hidde_button} style={{ transform: isVisible ? 'rotate(180deg)' : undefined }}>
           <svg viewBox="0 0 12 8">

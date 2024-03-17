@@ -17,7 +17,7 @@ export type ProductInitState = {
   productsRange: { min: number, max: number }
   currPageProducts: ProductData[]
   isLoading: boolean
-  filterError: string
+  filterError?: { code: number, message: string }
 }
 
 export type ProductSection = { _id: string, title: string, productID: string[], precent: number }
