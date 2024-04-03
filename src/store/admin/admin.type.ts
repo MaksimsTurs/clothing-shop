@@ -54,7 +54,7 @@ export type Order = {}
 export type GetStoreData = { products: ProductData[], productsSection: ProductSection[], users: UserData[], orders: Order }
 
 //Create new product
-export type CreateNewProduct = { newProduct: ProductData, updatedSection: ProductSection }
+export type CreateNewProduct = { newProduct: ProductData, updatedSection?: ProductSection }
 
 //Edit product
 export type EditProduct = { updatedProduct: ProductData, updatedProductsSection?: ProductSection }

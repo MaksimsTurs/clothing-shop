@@ -17,6 +17,7 @@ import { isInclude, replaceByKey } from './tool/adminUtils'
 import deleteFrom from './tool/deleteFrom'
 import updateIn from './tool/updateIn'
 import findFrom from './tool/findFrom'
+import replaceFrom from './tool/replaceFrom'
 
 const initialState: AdminInitState = {
 	products: [],
@@ -91,7 +92,7 @@ const adminStore = createSlice({
 				state.products = [...state.products, newProduct]
 
 				//1) Push product in products section
-				state.productsSection = updateIn<ProductSection>({ _id: updatedSection._id }, {...updatedSection, $push: { products: [newProduct] } }, state.productsSection)
+				if(updatedSection) state.productsSection = updateIn<ProductSection>({ _id: updatedSection._id }, {...updatedSection, $push: { products: [newProduct] } }, state.productsSection)
 
 				state.isAdminActionLoading = false
 				state.adminActionError = undefined
@@ -109,7 +110,7 @@ const adminStore = createSlice({
 				const { updatedProduct, updatedProductsSection } = payload
 
 				//1) Replace product from products with new product.
-				state.products = updateIn<ProductData>({ _id: updatedProduct._id }, updatedProduct, state.products)
+				state.products = replaceFrom<ProductData>({ _id: updatedProduct._id }, state.products, updatedProduct)
 
 				//2) Replace/Push product from section products.
 				if(updatedProductsSection) {

@@ -12,7 +12,7 @@ export default function updateIn<T>(filter: DataFilter<T>, update: DataUpdate<T>
 
   let findedItem = findFrom<T>(filter, _in) as T | undefined
 
-  if(!findedItem) throw new Error(`Element with filter ${filter} in ${_in} not found!`)
+  if(!findedItem) throw new Error(`Element with filter ${JSON.stringify(filter)} in ${JSON.stringify(_in).slice(0, 120)} not found!`)
 
   //@ts-ignore
   for(let [key, value] of updateData) if(!isObjectArray(findedItem[key])) findedItem[key] = value
