@@ -1,13 +1,15 @@
+'use client'
+
 import scss from './footer.module.scss'
 
-import getTranslation from '@/i18n/server'
+import { useScopedI18n } from '@/i18n/client'
+import cookies from '@/util/coockies'
 
-import { cookies } from 'next/headers'
 import Link from 'next/link'
 
-export default async function Footer() {
-  const tr = await getTranslation('Footer')
-  const currLanguage = cookies().get('locale')?.value || 'en'
+export default function Footer() {
+  const tr = useScopedI18n('Footer')
+  const currLanguage = cookies.getCookie('locale') || 'en'
 
   return(
     <footer className={scss.footer_container}>

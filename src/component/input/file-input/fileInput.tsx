@@ -21,7 +21,7 @@ export default function ImgInput<T extends FieldValues>({ register, htmlFor, isM
 	}
 
 	const multipleLabelStyle = isMultiple
-		? { borderRadius: '5px', width: '100%', maxWidth: '38.5rem', height: '6rem' }
+		? { borderRadius: '5px', width: '100%', height: '6rem' }
 		: { borderRadius: '50%', width: '6rem', height: '6rem' }
 
 	return (

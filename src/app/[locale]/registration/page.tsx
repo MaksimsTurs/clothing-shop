@@ -1,7 +1,7 @@
 'use client'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { Fragment, useEffect } from 'react'
+import { Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import type { UserRegistration } from './registration.type'
@@ -16,6 +16,7 @@ import FetchLoader from '@/component/loader/fetch-loader/fetchLoader'
 
 import userRegistration from '@/store/user/action/userRegistration'
 import { useCurrentLocale, useScopedI18n } from '@/i18n/client'
+import createFormData from '@/util/createFormData'
 
 export default function Page() {
 	const currLanguage = useCurrentLocale()
@@ -26,19 +27,7 @@ export default function Page() {
 	const { isUserActionLoading, userErrorMessage } = useSelector<RootState, UserInitState>(state => state.user)
 
 	const registration: SubmitHandler<UserRegistration> = (userData) => {
-		const userFormData = new FormData()
-
-		for(let [key, value] of Object.entries(userData)) {
-			if(key === 'avatar') {
-				userFormData.append('avatar', userData.avatar[0])
-			} else {
-				userFormData.append(key, value)
-			}
-
-			console.log(key, value)
-		}
-		
-		dispatch(userRegistration(userFormData))
+		dispatch(userRegistration(createFormData(userData)))
 		reset()
 	}
 
@@ -51,11 +40,7 @@ export default function Page() {
 				isLoading={isUserActionLoading}
 				serverError={userErrorMessage}
 				link={{ linkURL: `/${currLanguage}/login`, text: tr("have-account") }}>
-				<ImgInput<UserRegistration> 
-					htmlFor='avatar'
-					labelText={tr("add-avatar")}
-					register={register}
-				/>
+				<ImgInput<UserRegistration> htmlFor='avatar' labelText={tr("add-avatar")} register={register} />
 				<MultipleInput>
 					<TextInput<UserRegistration>
 						placeholder={`${tr("firstname-place")} 15`}

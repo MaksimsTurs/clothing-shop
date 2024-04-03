@@ -23,11 +23,11 @@ export default function Timer({ expiredDate }: TimerProps) {
 
 		const intervalID = setInterval(() => renderTime(), 1000)
 
-		if(time < 0) clearInterval(intervalID)
+		return () => { if(time < 0) clearInterval(intervalID) }
 	}, [expiredTime.seconds])
 
 	return (
-		<p className={scss.timer_end_date}>
+		<p title='test-id-timer' className={scss.timer_end_date}>
 			{getFormatedValue(expiredTime.days)}:
 			{getFormatedValue(expiredTime.hours)}:
 			{getFormatedValue(expiredTime.minutes)}:

@@ -16,9 +16,9 @@ import de from '../img/germany.png'
 
 import type { UserInitState } from '@/store/user/user.type'
 import type { RootState } from '@/store/store' 
-import type { ListLink } from '@/component/dropdownList/dropdownList.type'
+import type { ListLink } from '@/component/dropdown-list/dropdownList.type'
 import type { FetchResult } from '@/global.type'
-import type { ProductData } from '@/store/product/product.type'
+import type { ProductData } from '@/store/admin/admin.type'
 
 import parseJSONError from '@/lib/parseJSONError/parseJSONError'
 import fetcher from '@/lib/fetcher/fetcher'

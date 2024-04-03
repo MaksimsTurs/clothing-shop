@@ -1,7 +1,7 @@
 @import '@/scss/variabel';
 @import '@/scss/mixin';
 
-@import '../media-query/cartList.media-query.scss';
+@import './media-query/cartList.media-query.scss';
 
 .cart_container {
 	@include flex-column-alignitems-justifycontent();
@@ -27,33 +27,34 @@
 		width: 100%;
 		border: 1px solid rgba(0, 0, 0, 0.1);
 		padding: 1rem;
-
+		
 		.cart_content_item {
 			display: flex;
 			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 			width: 100%;
 			padding-bottom: 0.8rem;
-
+			
 			&:last-child {
 				padding-bottom: 0rem;
 				border-bottom: none;
 			}
-
+			
 			.cart_product_icon {
 				border-radius: $border-radius-img;
+				object-fit: cover
 			}
-
+			
 			.cart_product_data {
 				@include flex-column-alignitems-justifycontent(normal, space-between);
 				position: relative;
 				overflow: hidden;
 				flex-grow: 1;
 				margin-left: 1rem;
-
+				
 				.cart_delete_product {
 					@include absolute-left-top(95%, 0%);
 					z-index: 20;
-
+					
 					svg,
 					path {
 						fill: red;
@@ -61,18 +62,18 @@
 						width: $icon-large;
 					}
 				}
-
+				
 				.cart_product_name {
-					@include text-overflow-ellipsis();
+					@include text-overflow-ellipsis(12rem);
 					font-size: $font-large;
 					margin-bottom: 0.5rem;
 					font-weight: bolder;
 				}
-
+				
 				.cart_cost_container {
 					@include flex-alignitems-justifycontent(center, space-between);
 					gap: 0.5rem;
-
+					
 					p:first-child {
 						font-size: 1.3rem;
 						font-weight: bolder;

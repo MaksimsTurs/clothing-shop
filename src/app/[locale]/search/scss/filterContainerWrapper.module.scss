@@ -1,7 +1,7 @@
 @import '@/scss/mixin';
 @import '@/scss/variabel';
 
-@import '../media-query/filterContainerWrapper.media-query.scss';
+@import './media-query/filterContainerWrapper.media-query.scss';
 
 .filter_container_wrapper {
   border-bottom: 1px solid $background-color-hover-list-item;

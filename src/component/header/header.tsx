@@ -8,13 +8,13 @@ import { useSelector } from 'react-redux'
 import SearchForm from './component/searchForm'
 import UserSection from './component/userSection'
 import AsideMenu from './component/asideMenu'
-import DropdownList from '../dropdownList/dropdownList'
+import DropdownList from '../dropdown-list/dropdownList'
 
 import en from './img/united-kingdom.png'
 import ru from './img/russia.png'
 import de from './img/germany.png'
 
-import type { ListLink } from '../dropdownList/dropdownList.type'
+import type { ListLink } from '../dropdown-list/dropdownList.type'
 import type { RootState } from '@/store/store'
 import type { UserInitState } from '@/store/user/user.type'
 
@@ -46,7 +46,7 @@ export default function Header() {
 		<header className={scss.header_container}>
 			<div className={scss.header_website_label}>
 				<AsideMenu/>
-				<Link className={scss.header_website_name} href={`/${currLanguage}/home`}><h1>SHOP.COM</h1></Link>
+				<Link className={scss.header_website_name} href={`/${currLanguage}/home`}><h1>EB</h1></Link>
 			</div>
 			<nav className={scss.header_nav_menu_container}>
 				<DropdownList listTitle='Pages' data={pagesURL}/>

@@ -4,10 +4,10 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import type { ProductFormAction, ProductFormProps } from '../admin.type'
+import type { ProductFormProps } from '../admin.type'
 import type { AppDispatch, RootState } from '@/store/store'
 import type { AdminInitState } from '@/store/admin/admin.type'
-import type { UserInitState } from '@/store/user/user.type'
+import type { ProductData } from '@/store/admin/admin.type'
 
 import FormWrapper from '@/component/form-wrapper/formWrapper'
 import TextInput from '@/component/input/text-input/textInput'
@@ -16,84 +16,70 @@ import SelectInput from '@/component/input/select-input/selectInput'
 import MultipleInput from '@/component/form-wrapper/component/multipleInput'
 import ImgInput from '@/component/input/file-input/fileInput'
 import FetchLoader from '@/component/loader/fetch-loader/fetchLoader'
+
 import addProduct from '@/store/admin/action/addProduct'
 
-export default function ProductForm({ dispatchFunc, formWrapperTitle, findedProduct, productSection }: ProductFormProps) {
+import createFormData from '@/util/createFormData'
+
+export default function ProductForm({ dispatchFunc, formWrapperTitle, findedProduct, section }: ProductFormProps) {
+	const [selectedOption, setSelectOption] = useState<{ _id: string, title: string } | undefined>(section)
+	
 	const dispatch = useDispatch<AppDispatch>()
 	
-	const { isAdminActionLoading, productsSection } = useSelector<RootState, AdminInitState>(state => state.admin)
-	const { userLocal } = useSelector<RootState, UserInitState>(state => state.user)
-
-	const [selectedOption, setSelectOption] = useState<{ _id: string, title: string } | undefined>(productSection)
+	const { isAdminActionLoading, productsSection, adminActionError } = useSelector<RootState, AdminInitState>(state => state.admin)
 	
-	const { register,	handleSubmit } = useForm<ProductFormAction>()
+	const { register,	handleSubmit, formState: { errors } } = useForm<ProductData>({ mode: 'onSubmit' })
+
+	//If product have sectionID then render 'None' on the section list
+	const options: { _id: string, title: string }[] = findedProduct?.sectionID ? [] : productsSection.map(section => ({ _id: section._id, title: section.title }))
 	
-	const createProduct: SubmitHandler<ProductFormAction> = (productData) => {
-		const productFormData = new FormData()
+	const productHandler: SubmitHandler<ProductData> = (productData) => {
+		const formData: FormData = createFormData(productData)
 
-		for (let [key, value] of Object.entries(productData)) {
-			if (value instanceof FileList) {
-				for (let image in value) if(value[image] instanceof File) productFormData.append('images', value[image])
-			} else {
-				productFormData.append(key, value as string)
-			}
-		}
-
-		productFormData.append('token', userLocal?.token || 'null')
-		productFormData.append('selectedSection', JSON.stringify(selectedOption))
+		formData.append('selectedSection', JSON.stringify(selectedOption))
 		
-		if(findedProduct) productFormData.append('productID', findedProduct._id)
+		// Need for update the Product data.
+		if(findedProduct) formData.append('productID', findedProduct._id)
 
-		if(dispatchFunc) {
-			dispatch(dispatchFunc(productFormData))
-		} else {
-			dispatch(addProduct(productFormData))
-		}
+		if(dispatchFunc) return dispatch(dispatchFunc(formData))
+			
+		dispatch(addProduct(formData))
 	}
 
 	return (
 		<Fragment>
 			{isAdminActionLoading && <FetchLoader />}
-			<FormWrapper
-				onSubmit={handleSubmit(createProduct)}
-				isLoading={false}
-				title={formWrapperTitle}>
-				<TextInput<ProductFormAction>
+			<FormWrapper 
+				serverError={adminActionError?.message} 
+				onSubmit={handleSubmit(productHandler)} 
+				isLoading={false} 
+				title={formWrapperTitle} 
+				styles={{ formStyle: { justifyContent: 'start' }, formInputsStyle: { maxWidth: '34rem' }}}>
+				<TextInput<ProductData> 
 					htmlFor='title'
-					register={register}
-					type='text'
-					placeholder='Product Name'
-				/>
-				<SelectInput<ProductFormAction>
-					selectedOption={selectedOption}
-					setSelectOption={setSelectOption}
-					options={findedProduct?.sectionID ? [] : productsSection.map(section => ({ _id: section._id, title: section.title }))}
-				/>
+					errors={errors}
+					register={register} 
+					type='text' 
+					placeholder='Название продукта'/>
+				<SelectInput<ProductData> selectedOption={selectedOption} setSelectOption={setSelectOption} options={options}/>
 				<MultipleInput>
-					<TextInput<ProductFormAction>
-						htmlFor='price'
-						placeholder='Cost'
-						type='number'
+					<TextInput<ProductData> 
+						htmlFor='price' 
+						placeholder='Цена' 
+						type='number' 
 						register={register}
-					/>
-					<TextInput<ProductFormAction>
-						htmlFor='inStock'
-						placeholder='In stock'
-						type='number'
+						minNum={0}
+						errors={errors}/>
+					<TextInput<ProductData> 
+						htmlFor='stock' 
+						placeholder='В наличии' 
+						type='number' 
 						register={register}
-					/>
+						errors={errors}/>
+				<TextInput<ProductData> htmlFor='rating' placeholder='Рейтинг' type='number' step={0.1} maxNum={5} register={register}/>
 				</MultipleInput>
-				<TextAreaInput<ProductFormAction>
-					htmlFor='description'
-					placeholder='Product Description'
-					register={register}
-				/>
-				<ImgInput<ProductFormAction>
-					htmlFor='images'
-					register={register}
-					isMultiple
-					labelText='Add Product images'
-				/>
+				<TextAreaInput<ProductData> htmlFor='description' placeholder='Описание продукта' register={register}/>
+				<ImgInput<ProductData> htmlFor='images' register={register} isMultiple labelText='Картинки продукта'/>
 			</FormWrapper>
 		</Fragment>
 	)

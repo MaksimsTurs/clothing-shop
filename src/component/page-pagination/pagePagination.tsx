@@ -7,21 +7,24 @@ import { useCurrentLocale, useScopedI18n } from '@/i18n/client'
 import type { PaginationProps } from './pagePagination.type'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function Pagination({ currentPage, pagesCount }: PaginationProps) {
   const currLanguage = useCurrentLocale()
-  const tr = useScopedI18n('Search')
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const tr = useScopedI18n('Search')
+
+  const title: string | null = searchParams.get('title')
 
   const goToPreviousPage = (): void => {
     const prevPage: number = currentPage - 1 !== -1 ? --currentPage : 0
-    router.push(`/${currLanguage}/search?page=${prevPage}`)
+    router.push(`/${currLanguage}/search?page=${prevPage}${title ? `&title=${title}` : ''}`)
   }
 
   const goToNextPage = (): void => {
-    const nextPage: number = (currentPage >= (pagesCount - 1)) ? pagesCount : ++currentPage
-    router.push(`/${currLanguage}/search?page=${nextPage}`)
+    const nextPage: number = currentPage >= (pagesCount - 1) ? (pagesCount - 1) : ++currentPage
+    router.push(`/${currLanguage}/search?page=${nextPage}${title ? `&title=${title}` : ''}`)
   }
 
   const sliceStart: number = (+currentPage - 2) < 0 ? 0 : (+currentPage - 2)
@@ -42,7 +45,7 @@ export default function Pagination({ currentPage, pagesCount }: PaginationProps)
             <Link 
               className={index == currentPage ? `${scss.pagination_link} ${scss.pagination_link_active}` : scss.pagination_link}
               key={index} 
-              href={`/${currLanguage}/search?page=${index}`}
+              href={`/${currLanguage}/search?page=${index}${title ? `&title=${title}` : ''}`}
               >{index}</Link>
           )).slice(sliceStart, sliceEnd)
         }

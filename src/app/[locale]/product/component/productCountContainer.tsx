@@ -1,6 +1,6 @@
 'use client'
 
-import scss from '../scss/productData.module.scss'
+import scss from '../scss/page.module.scss'
 
 import ProductCount from '@/component/product-count/productCount'
 

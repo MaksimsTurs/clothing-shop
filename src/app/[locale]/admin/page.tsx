@@ -1,4 +1,4 @@
-import serverCheckUser from '@/server-action/serverCheckUser'
+import actionCheckUser from './action/actionControllUser'
 
 import AdminPanel from './component/adminPanel'
 
@@ -10,7 +10,7 @@ import { cookies } from 'next/headers'
 
 export default async function Page({ searchParams }: PageProps) {
 	const currLanguage = cookies().get('locale')?.value || 'en'
-	const response = await serverCheckUser(searchParams.token)
+	const response = await actionCheckUser(searchParams.token)
 
 	if(response.code !== 200) redirect(`/${currLanguage}/home`)
 

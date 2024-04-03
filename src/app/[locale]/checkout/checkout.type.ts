@@ -1,7 +1,7 @@
-import type { ProductDataWithCount } from "@/store/user/user.type"
+import type { ProductInLocalStorage } from "@/store/user/user.type"
 
 export type CheckoutResult = {
-  products: ProductDataWithCount[]
+  products: ProductInLocalStorage[]
   error: { code: number, message: string } | undefined
   isLoading: boolean
   totalCost: string

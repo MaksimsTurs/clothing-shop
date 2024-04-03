@@ -1,7 +1,7 @@
 @import '@/scss/variabel';
 @import '@/scss/mixin';
 
-@import '../media-query/brandList.media-query.scss';
+@import './media-query/brandList.media-query.scss';
 
 .brand_list_container {
   @include flex-alignitems-justifycontent(center, space-between);

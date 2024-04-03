@@ -1,7 +1,8 @@
 import type { Dispatch, SetStateAction } from "react"
-import type { ProductData } from "@/store/product/product.type"
+import type { ProductData } from "@/store/admin/admin.type"
 
-export type SearchProps = { searchParams: { page?: number } }
+export type SearchProps = { searchParams: { page?: number, title?: string } }
+export type FilterContainerProps = Required<SearchProps>
 export type FilterContainerWrapperProps = { title: string }
 export type DressTypeProps = { setFilterState: Dispatch<SetStateAction<FilterState>>, filterState: FilterState }
 export type FilterState = { category: string[], price: number, rating: number }
@@ -10,8 +11,8 @@ export type FilteredProducts = { filteredProducts?: ProductData[], filteredProdu
 export type FilterProps = {
   filterState: FilterState
   isChild?: boolean
+  refetch: any
   setFilterVisible?: Dispatch<SetStateAction<boolean>>
-  setFilterActive: Dispatch<SetStateAction<boolean>>
   setFilterState: Dispatch<SetStateAction<FilterState>>
 }
 
@@ -22,3 +23,8 @@ export type FilterRange = {
   max: number
   filterState: FilterState
 }
+
+export type FilterActionParams = { page: number | string, title?: string } & FilterState
+export type FilterActionReturn = { maxPages: number, currPageProducts: ProductData[], productsRange: { min: number, max: number }, maxProducts: number, categories: string[] } & FilterState
+
+export type MobileFilterProps = { isFilterVisible: boolean } & Required<Pick<FilterProps, 'filterState' | 'setFilterState' | 'setFilterVisible' | 'refetch'>>

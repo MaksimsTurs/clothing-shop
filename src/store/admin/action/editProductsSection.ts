@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import fetcher from '@/lib/fetcher/fetcher'
 
-import type { AddProductsSectionData, EditProductsSectionReturn } from '@/app/[locale]/admin/admin.type'
+import { EditProductsSectionReturn, AddProductsSectionData } from '../admin.type'
 
 const editProductsSection = createAsyncThunk<EditProductsSectionReturn, AddProductsSectionData>(
 	'admin/product-section/edit',

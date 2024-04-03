@@ -1,5 +1,0 @@
-@media(width <= 580px) {
-  .loading_container {
-    @include flex-column-alignitems-justifycontent();
-  }
-}

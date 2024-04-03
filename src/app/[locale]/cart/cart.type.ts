@@ -1,4 +1,4 @@
-import type { ProductDataWithCount } from "@/store/user/user.type"
+import type { ProductInLocalStorage } from "@/store/user/user.type"
 
-export type CartListProps = { products: ProductDataWithCount[] | null }
-export type CartTotalCostProps = { products?: ProductDataWithCount[] | null, deliveryFee?: number  }
+export type CartListProps = { products: ProductInLocalStorage[] | null }
+export type CartTotalCostProps = { products?: ProductInLocalStorage[] | null, deliveryFee?: number  }

@@ -11,6 +11,8 @@ export default function TextInput<T extends Record<any, any>>({
 	placeholder,
 	max,
 	min,
+	maxNum,
+	minNum,
 	required,
 	step,
 	value
@@ -20,7 +22,8 @@ export default function TextInput<T extends Record<any, any>>({
 				<input
 					className={scss.text_input_input}
 					step={step || 1}
-					min={0}
+					min={minNum}
+					max={maxNum}
 					type={type}
 					value={value}
 					placeholder={placeholder}

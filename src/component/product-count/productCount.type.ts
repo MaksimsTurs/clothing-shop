@@ -1,3 +1,3 @@
-import type { ProductData } from "@/store/product/product.type"
+import type { ProductData } from "@/store/admin/admin.type"
 
 export type ProductCountProps = { product: ProductData }

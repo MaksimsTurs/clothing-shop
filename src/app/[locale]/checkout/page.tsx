@@ -15,8 +15,6 @@ import type { UserInitState } from "@/store/user/user.type"
 import fetcher from "@/lib/fetcher/fetcher"
 import parseJSONError from "@/lib/parseJSONError/parseJSONError"
 
-import { removeFullProduct } from '@/store/user/user'
-
 import { CURR_CURRENCY } from '@/const'
 
 export default function PaypalCheckout() {
@@ -34,12 +32,12 @@ export default function PaypalCheckout() {
 
   const { cart } = useSelector<RootState, UserInitState>(state => state.user)
 
-  const productIDs: { id: string, count: number, sectionID?: string }[] = cart.map(product => ({ count: product.count, id: product._id, sectionID: product?.sectionID  }))
+  const productsInfo: { id: string, count: number, sectionID?: string }[] = cart.map(product => ({ count: product.count, id: product._id, sectionID: product?.sectionID  }))
 
   useEffect(() => {
     const makeCheckout = async() => {
       try {
-        const response = await fetcher.post<CheckoutResult>('/common/checkout', { productIDs })
+        const response = await fetcher.post<CheckoutResult>('/common/checkout', { productsInfo })
         setCheckoutResult(() => ({...response, isLoading: false}))
       } catch(error) {
         setCheckoutResult(prev => ({...prev, error: parseJSONError(error as string), isLoading: false}))
@@ -81,7 +79,7 @@ export default function PaypalCheckout() {
                 </section>
                 <section className={scss.checkout_data_container}>
                   <p>Price:</p>
-                  <p>{product.price.toFixed(2)}{CURR_CURRENCY}</p>
+                  <p>{product.price.toFixed(2)} {CURR_CURRENCY}</p>
                 </section>
                 <section className={scss.checkout_data_container}>
                   <p>Precent:</p>
@@ -89,7 +87,7 @@ export default function PaypalCheckout() {
                 </section>
                 <section className={scss.checkout_data_container}>
                   <p>Price with Precent:</p>
-                  <p>{(product.price - ((product.precent || 0) * product.price)).toFixed(2)}{CURR_CURRENCY}</p>
+                  <p>{(product.price - ((product.precent || 0) * product.price)).toFixed(2)} {CURR_CURRENCY}</p>
                 </section>
                 <section className={scss.checkout_data_container}>
                   <p>Count:</p>
@@ -97,7 +95,7 @@ export default function PaypalCheckout() {
                 </section>
                 <section className={scss.checkout_data_container}>
                   <p>Total price:</p>
-                  <p>{((product.price - ((product.precent || 0) * product.price)) * product.count).toFixed(2)}{CURR_CURRENCY}</p>
+                  <p>{((product.price - ((product.precent || 0) * product.price)) * product.count).toFixed(2)} {CURR_CURRENCY}</p>
                 </section>
               </div>
             </div>
@@ -107,19 +105,19 @@ export default function PaypalCheckout() {
       <div className={`${scss.checkout_border} ${scss.checkout_data_cost}`}>
         <section className={scss.checkout_data_container}>
           <p>Products price:</p>
-          <p>{checkoutResult.totalProductsCost}{CURR_CURRENCY}</p>
+          <p>{checkoutResult.totalProductsCost} {CURR_CURRENCY}</p>
         </section>
         <section className={scss.checkout_data_container}>
           <p>Delivery price:</p>
-          <p>{checkoutResult.deliveryCost}{CURR_CURRENCY}</p>
+          <p>{checkoutResult.deliveryCost} {CURR_CURRENCY}</p>
         </section>
         <section className={scss.checkout_data_container}>
           <p>Discount:</p>
-          <p style={{ color: parseFloat(checkoutResult.discount) > 0 ? '#700' : undefined }}>{parseFloat(checkoutResult.discount) > 0 ? `-${checkoutResult.discount}` : 0}{CURR_CURRENCY}</p>
+          <p style={{ color: parseFloat(checkoutResult.discount) > 0 ? '#700' : undefined }}>{parseFloat(checkoutResult.discount) > 0 ? `-${checkoutResult.discount}` : 0} {CURR_CURRENCY}</p>
         </section>
         <section className={scss.checkout_data_container}>
           <p>Total price:</p>
-          <p>{checkoutResult.totalCost}{CURR_CURRENCY}</p>
+          <p>{checkoutResult.totalCost} {CURR_CURRENCY}</p>
         </section>
         <PayPalButtons displayOnly={['vaultable']} createOrder={createOrder} onApprove={onApprove}/>
       </div>

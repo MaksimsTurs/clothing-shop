@@ -1,6 +1,6 @@
 import type { RevalidateConf } from './fetcher.type'
 
-import { DEV_API_URL, PROD_API_URL } from '@/const'
+import { DEV_API_URL, PROD_API_URL } from '../../const'
 
 const URL: string = process.env.NODE_ENV === 'development' ? DEV_API_URL : PROD_API_URL
 
@@ -15,20 +15,17 @@ const fetcher = {
 
 		if(body && !(body instanceof FormData)) {
 			if(!headers) init.headers = { 'Content-Type': 'application/json' }
-			if(headers && !Object.hasOwn(headers, 'Content-Type')) init.headers = {...init.headers, 'Content-Type': 'application/json'}
-			
-			init.body = JSON.stringify(body)
-		} else {
-			init.body = body
+			if(headers && !('Content-Type' in headers)) init.headers = {...init.headers, 'Content-Type': 'application/json'}
+			return {...init, body: JSON.stringify(body) }
 		}
-		
+	
 		return init
 	},
 	get: async function <T>(URL: string, revalidate?: RevalidateConf): Promise<T> {
 		const response: Response = await fetch(this.createURL(URL), { cache: revalidate?.cache, next: {...revalidate } })
 		const responseJSON = await response.json()
 
-		if (!response.ok) throw new Error(JSON.stringify(responseJSON))
+		if (!response.ok) throw new Error(JSON.stringify(responseJSON)).message
 
 		return responseJSON as T
 	},

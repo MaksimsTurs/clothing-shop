@@ -5,16 +5,11 @@ import storage from "redux-persist/lib/storage";
 
 import userStore from "./user/user";
 import adminStore from "./admin/admin";
-import productStore from './product/product'
 
 const userPersistConf = { key: 'user', storage }
 const adminPersistConf = { key: 'admin', storage }
 
-const rootReducer = combineReducers({
-  user: persistReducer(userPersistConf, userStore),
-  admin: persistReducer(adminPersistConf, adminStore),
-  product: productStore
-})
+const rootReducer = combineReducers({ user: persistReducer(userPersistConf, userStore), admin: persistReducer(adminPersistConf, adminStore) })
 
 export const store = configureStore({
   reducer: rootReducer  ,

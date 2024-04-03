@@ -3,11 +3,10 @@
 
 .user_data_container {
   align-items: center;
-  margin: 2rem 0rem;
+  padding: 2rem;
   
   .user_data_body {
     @include flex-column-alignitems-justifycontent();
-    width: 31.5rem;
     gap: 1rem;
 
     .user_admin_link {

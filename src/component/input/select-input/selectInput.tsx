@@ -2,11 +2,7 @@ import scss from './selectInput.module.scss'
 
 import type { SelectInputProps } from '../input.type'
 
-export default function SelectInput<T extends Record<any, any>>({
-	setSelectOption,
-	options,
-	selectedOption,
-}: SelectInputProps<T>) {
+export default function SelectInput<T extends Record<any, any>>({ setSelectOption, options, selectedOption }: SelectInputProps<T>) {
 	return (
 		<div className={scss.select_input_container}>
 			<section className={scss.select_select}>
@@ -16,7 +12,10 @@ export default function SelectInput<T extends Record<any, any>>({
 							key={item._id}
 							style={{background: item._id === selectedOption?._id ? 'rgba(0, 0, 0, 0.1)' : undefined}}
 							className={scss.select_option}
-							onClick={() => setSelectOption(item)}>
+							onClick={() => {
+								if(selectedOption?._id !== item._id) return setSelectOption(item)
+								setSelectOption(undefined)
+							}}>
 							{item.title}
 						</option>
 					))

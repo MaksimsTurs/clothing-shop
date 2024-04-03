@@ -2,7 +2,7 @@
 
 import scss from '../scss/userDataHeader.module.scss'
 
-import type { EditUserData, UserDataHeaderProps } from '../userData.type'
+import type { EditUserData, UserDataHeaderProps } from '../user.type'
 import type { AppDispatch, RootState } from '@/store/store'
 import type { UserInitState } from '@/store/user/user.type'
 
@@ -17,9 +17,11 @@ import ImgInput from '@/component/input/file-input/fileInput'
 import MultipleInput from '@/component/form-wrapper/component/multipleInput'
 import FetchLoader from '@/component/loader/fetch-loader/fetchLoader'
 import TextInput from '@/component/input/text-input/textInput'
+import ExtendedIMG from '@/component/extended-img/extendedIMG'
+
 import editUser from '@/store/user/action/editUser'
 
-import userDefIcon from '../img/def-user-icon.webp'
+import createFormData from '@/util/createFormData'
 
 export default function UserDataHeader({ userData }: UserDataHeaderProps) {
 	const router = useRouter()
@@ -32,31 +34,21 @@ export default function UserDataHeader({ userData }: UserDataHeaderProps) {
 	const { userLocal, isUserActionLoading } = useSelector<RootState, UserInitState>(state => state.user)
 
 	const editUserData: SubmitHandler<EditUserData> = async(newUserData) => {
-		const newUserFormData = new FormData()
-
-		for(let [key, value] of Object.entries(newUserData)) {
-			if((value as any) instanceof FileList) {
-				newUserFormData.append('img', value[0])
-			} else {
-				newUserFormData.append(key, value)
-			}
-		}
+		const newUserFormData = createFormData(newUserData)
 
 		newUserFormData.append('token', userLocal?.token || 'undefined')
 				
-		dispatch(editUser(newUserFormData)).then(() => {
-			router.refresh()
-			reset()
-			setEditMode(false)
-		})
+		await dispatch(editUser(newUserFormData))
+	  router.refresh()
+		reset()
+		setEditMode(false)
 	}
 
 	return (
 		<Fragment>
 			{isUserActionLoading && <FetchLoader/>}
 			<section className={scss.user_data_info_container}>
-				{
-					isEditMode ?
+				{isEditMode ?
 					<FormWrapper onSubmit={handleSubmit(editUserData)} styles={{ formStyle: { padding: '0rem' } }}>
 						<ImgInput<EditUserData> htmlFor='avatar' labelText='Chose new avatar!' register={register}/>
 						<MultipleInput>
@@ -66,9 +58,9 @@ export default function UserDataHeader({ userData }: UserDataHeaderProps) {
 						<TextInput<EditUserData> htmlFor='email' register={register} placeholder='E-Mail'/>
 					</FormWrapper> :
 					<Fragment>
-						<Image
+						<ExtendedIMG
 							alt={`${userData?.firstName} ${userData?.secondName}` || 'User icon'}
-							src={userData?.avatar || userDefIcon}
+							src={userData?.avatar}
 							width={1400}
 							height={1400}
 							quality={100}

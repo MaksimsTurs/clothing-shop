@@ -1,7 +1,7 @@
 @import '@/scss/mixin';
 @import '@/scss/variabel';
 
-@import '../media-query/filter.media-query.scss';
+@import './media-query/filter.media-query.scss';
 
 .filter_container {
   border-radius: $border-radius-img;

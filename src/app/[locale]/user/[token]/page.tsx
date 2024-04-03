@@ -1,34 +1,49 @@
 import scss from '../page.module.scss'
 
 import type { Metadata } from 'next'
-import type { UserDataProps } from '../userData.type'
+import type { GetUserByToken, UserDataProps } from '../user.type'
 
-import serverGetUserByToken from '@/server-action/serverGetUserByToken'
+import actionGetUserByToken from '../action/actionGetUserByToken'
 
 import UserCartData from '../component/userCartData'
 import UserDataHeader from '../component/userDataHeader'
 import UserActionContainer from '../component/userActionContainer'
+import Error from '@/component/error/error'
 
 import getDefaultMeta from '@/util/getDefaultMeta'
 import getTranslation from '@/i18n/server'
 
+import Link from 'next/link'
+
+import handleServerAction from '@/util/handleServerAction'
+
 export async function generateMetadata({ params }: UserDataProps): Promise<Metadata> {
-  const user = await serverGetUserByToken(params.token)
+  const { error, data } = await handleServerAction<GetUserByToken>(actionGetUserByToken, [params.token])
 	const tr = await getTranslation("Head")
-	return {...getDefaultMeta(), title: `${user.firstName} ${user.secondName}`, description: `${tr("user.description")} ${user.firstName} ${user.secondName}`}
+
+	let userName: string = ''
+
+	if(data) userName = `${data.firstName} ${data.secondName}`
+	else userName = error?.message!
+
+	return {...getDefaultMeta(), title: userName, description: `${tr("user.description")} ${userName}`}
 }
 
 export default async function Page({ params }: UserDataProps) {
-  const user = await serverGetUserByToken(params.token)
-  
+  const { data, error } = await handleServerAction<GetUserByToken>(actionGetUserByToken, [params.token])
+
 	return (
 		<main className={scss.user_data_container}>
-			<div className={scss.user_data_body}>
-				<UserDataHeader userData={user} />
-				{user.role === 'admin' && <a className={scss.user_admin_link} href={`/ru/admin?token=${user.token}`}>ADMIN PANEL</a>}
-				<UserCartData />
-        <UserActionContainer/>
-			</div>
+			{
+				error && !data ?
+				<Error error={error}/> :
+				<div className={scss.user_data_body}>
+					<UserDataHeader userData={data} />
+					{data!.role === 'admin' && <Link className={scss.user_admin_link} href={`/ru/admin?token=${data!.token}`}>ADMIN PANEL</Link>}
+					<UserCartData />
+					<UserActionContainer/>
+				</div>
+			}
 		</main>
 	)
 }

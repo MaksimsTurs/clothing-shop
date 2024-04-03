@@ -1,29 +1,28 @@
 @import '@/scss/variabel';
 @import '@/scss/mixin';
 
-@import '../media-query/websiteStatistic.media-query.scss';
+@import './media-query/websiteStatistic.media-query.scss';
 
 .website_statistic_container {
   @include flex-alignitems-justifycontent(center, center);
   position: relative;
-  padding: 4rem;
-  width: 100%;
+  background-color: rgba(192, 192, 192, 0.3);
 
   &::after {
     @include absolute-left-top(0%, 0%);
     content: '';
+    filter: blur(3px);
     z-index: -1;
-    background-image: url('../img/bg.webp');
+    background-image: url('../img/background.webp');
     background-position: center;
     width: 100%;
     height: 100%;
   }
 
   .website_statistic_body {
-    border-radius: $border-radius-img;
+    flex-grow: 1;
+    padding: 2rem;
     max-width: 30rem;
-    background-color: rgba(192, 192, 192, 0.3);
-    padding: 1rem;
     
     .website_statistic_greeting_container {
       

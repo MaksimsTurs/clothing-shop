@@ -37,6 +37,19 @@
 		grid-column-gap: 2rem;
 		grid-row-gap: 2rem;
 		width: 100%;
+		
+		.product_article_container {
+			border-radius: $border-radius-img;
+			transition: all $transition-time-fast;
+			padding: 0.5rem;
+			border: 1px solid transparent;
+
+			&:hover {
+				box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 5px;
+				transition: all $transition-time-very-fast;
+				transform: scale(1.075);
+			}
+		}
 
 		.product_img { 
 			border-radius: $border-radius-img;

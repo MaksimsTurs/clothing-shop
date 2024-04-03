@@ -1,0 +1,3 @@
+@media(width <= 500px) {
+  .user_cart_product_list { grid-template-columns: repeat(3, minmax(4rem, 1fr)) !important; }
+}

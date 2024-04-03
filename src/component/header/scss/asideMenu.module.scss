@@ -44,19 +44,16 @@
     .side_menu_header {
       @include flex-column-alignitems-justifycontent();
       border-bottom: 1px solid $background-color-input-form;
-      padding-bottom: 1rem;
 
       .side_menu_search_container {
         @include flex-alignitems-justifycontent();
-        padding-bottom: 1rem;
         gap: 2rem;
       }
       
       .side_menu_result_container {
         @include flex-column-alignitems-justifycontent();
         gap: 0.5rem;
-        border-top: 1px solid $background-color-input-form;
-        padding-top: 1rem;
+        padding: 0.5rem 0rem;
 
         p { color: rgba(0, 0, 0, 0.5); font-weight: bolder; }
       }

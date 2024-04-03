@@ -4,10 +4,11 @@
 @import './media-query/formWrapper.media-query.scss';
 
 .form_container {
-	@include flex-column-alignitems-justifycontent(center, flex-start);
+	@include flex-column-alignitems-justifycontent(center, center);
 	flex-grow: 1;
 	padding: 1rem;
 	background-color: white;
+	height: 100%;
 
 	.form_header {
 		@include flex-alignitems-justifycontent(normal, center);
@@ -27,6 +28,8 @@
 	}
 
 	.form_server_error {
+		@include flex-alignitems-justifycontent(center, center);
+		gap: 0.5rem;
 		border-radius: $border-radius-dropdown;
 		font-size: $font-medium;
 		color: $font-color-error;
@@ -35,7 +38,8 @@
 		padding: 0.4rem;
 		font-weight: bolder;
 		text-align: center;
-		display: block;
+
+		svg { width: 1.1rem; height: 1.1rem;  fill: $font-color-error }
 	}
 
 	.form_submit_container {

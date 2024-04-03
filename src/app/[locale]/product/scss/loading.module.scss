@@ -1,29 +1,57 @@
 @import '@/scss/variabel';
 @import '@/scss/mixin';
 
-@import '../media-query/loading.media-query.scss';
+@import './media-query/loading.media-query.scss';
 
-.loading_def_style {
-  background-color: $background-color-hover-list-item;
+.default_style {
+  background-color: $background-color-input-form;
   border-radius: $border-radius-img;
-  box-shadow: $box-shadow-dropdown;
+  box-shadow: $box-shadow-loading;
 }
 
 .loading_container {
-  @include flex-alignitems-justifycontent(center, center);
-  padding: 2rem;
-  height: 100%;
+  @include flex-alignitems-justifycontent(flex-start, center);
   gap: 1rem;
+  padding: 2rem 0rem;
 
-  .loading_big_img {
-    width: 17rem;
-    height: 17.2rem;
+  .loading_img_container {
+    display: flex;
+    gap: 1rem;
+
+    .loading_slider_container {
+      @include flex-column-alignitems-justifycontent();
+      gap: 0.75rem;  
+    
+      .loading_small_img {
+        width: 5.5rem;
+        height: 5.5rem;
+      }
+    }
+  
+    .loading_big_img {
+      width: 17.95rem;
+      height: 17.95rem;
+    }
   }
 
   .loading_text_container {
     @include flex-column-alignitems-justifycontent();
     gap: 1rem;
 
-    .loading_text { height: 1.5rem; }
+    .loading_text { 
+      height: 1.5rem; 
+
+      &:nth-child(1) { width: 14rem; }
+
+      &:nth-child(2) { width: 13rem; }
+       
+      &:nth-child(3) { width: 12rem; }
+      
+      &:nth-child(4) { width: 14rem; }
+      
+      &:nth-child(5) { width: 14.5rem; }
+      
+      &:nth-child(6) { width: 12.5rem; }
+    }
   }
 }

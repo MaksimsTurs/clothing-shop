@@ -1,0 +1,17 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@media (width <= 1035px) {
+  .product_data_container {
+    flex-direction: column;
+    align-items: baseline !important;
+    gap: 1rem;
+  }
+}
+
+@media (width <= 590px) {
+  .product_data_content {
+    margin-left: 0 !important ;
+    width: 18rem !important;
+  }
+}

@@ -1,1 +1,1 @@
-export type StarRatingProps = { rating: number }
+export type StarRatingProps = { rating: number | null }

@@ -10,9 +10,13 @@ import ProductsContainer from '@/component/product-container/productsContainer'
 
 import getTranslation from '@/i18n/server'
 
-import serverGetAllProducts from '@/server-action/serverGetAllProducts'
+import actionGetAll from '@/app/[locale]/home/action/actionGetAll'
 
 import getDefaultMeta from '@/util/getDefaultMeta'
+import handleServerAction from '@/util/handleServerAction'
+
+import type { GetAll } from './page.type'
+import Error from '@/component/error/error'
 
 export async function generateMetadata(): Promise<Metadata> {
 	const tr = await getTranslation('Head')
@@ -20,13 +24,23 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-	const { sections } = await serverGetAllProducts()
+	const { data, error } = await handleServerAction<GetAll>(actionGetAll)
+
 	return (
 		<Fragment>
 			<Header />
-			<WebsiteStatistic />
-			<BrandList />
-			<main>{sections.map(list => <ProductsContainer key={list._id} data={list.products.slice(0, 6)} title={list.title} expiredDate={list.expiredDate} viewAllLink={list.products.length > 6}/>)}</main>
+			{
+				error && !data ?
+				<Error error={error}/> :
+				<Fragment>
+					<WebsiteStatistic brandsNumber={data!.brandsNumber} productsNumber={data!.productsNumber} usersNumber={data!.usersNumber}/>
+					<BrandList />
+					<main>
+						{data!.sections.map(list => <ProductsContainer key={list._id} data={list.products!.slice(0, 6)} title={list.title} expiredDate={list.expiredAt} viewAllLink={list.products!.length > 6}/>)}
+						<ProductsContainer data={data!.products.slice(0, 6)} viewAllLink={data!.products.length > 6}/>
+					</main>
+				</Fragment>
+			}
 			<Footer />
 		</Fragment>
 	)

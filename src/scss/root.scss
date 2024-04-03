@@ -8,12 +8,32 @@
 	min-height: 100%;
 }
 
-.error_message_container {
+.error_main_container {
 	@include flex-alignitems-justifycontent(center, center);
-	font-size: $font-xx-large;
-	color: $font-color-error;
 	width: 100%;
 	height: 100%;
+	font-size: $font-xx-large;
+	fill: $font-color-error;
+	font-weight: bold;
+	gap: 0.5rem;
+
+	* {	color: $font-color-error;	}
+
+	svg { width: 3.5rem; height: 3.5rem; }
+
+	a {
+		font-size: $font-medium;
+		font-weight: normal;
+
+		&:hover { text-decoration: underline; }
+	}
+
+	.error_main_body {
+		@include flex-alignitems-justifycontent(center, center);
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		max-width: 35rem;
+	}
 }
 
 ::-webkit-scrollbar {

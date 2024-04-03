@@ -25,11 +25,12 @@
     font-size: $font-small;
     color: $font-color-error;
     background-color: $background-color-error;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     width: 100%;
     font-weight: bolder;
-    text-align: center;
     margin-top: 0.25rem;
-    display: block;
     padding: 0.25rem;
   }
 }

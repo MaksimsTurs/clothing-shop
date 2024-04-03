@@ -5,6 +5,7 @@
   @include flex-alignitems-justifycontent(center);
   font-size: $font-large;
   gap: 0.5rem;
+  margin-bottom: 0.5rem;
 
   .product_cost {
     font-weight: bolder;

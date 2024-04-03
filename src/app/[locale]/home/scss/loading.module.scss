@@ -1,10 +1,12 @@
 @import '@/scss/variabel';
 @import '@/scss/mixin';
 
-.img_default_style {
-  background-color: $background-color-hover-list-item;
+@import './media-query/loading.media-query.scss';
+
+.default_style {
+  background-color: $background-color-input-form;
   border-radius: $border-radius-img;
-  box-shadow: $box-shadow-dropdown;
+  box-shadow: $box-shadow-loading;
 }
 
 .img_loading_container {
@@ -25,5 +27,15 @@
     gap: 1rem;
   }
 
-  .img_text { height: 1.7rem; }
+  .img_text { 
+    height: 1.25rem; 
+
+    &:nth-child(1) { width: 10rem; }
+
+    &:nth-child(2) { width: 11rem; }
+    
+    &:nth-child(3) { width: 10rem; }
+    
+    &:nth-child(4) { width: 12rem; }
+  }
 }

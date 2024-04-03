@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import type { ProductDataWithCount, UserInitState } from "./user.type";
-import type { ProductData } from "../product/product.type";
+import type { ProductInLocalStorage, UserInitState } from "./user.type";
+import type { ProductData } from "../admin/admin.type";
 
 import userLogin from "./action/userLogIn";
 import userRegistration from "./action/userRegistration";
@@ -10,6 +10,7 @@ import editUser from "./action/editUser";
 
 import cookies from "@/util/coockies";
 import parseJSONError from "@/lib/parseJSONError/parseJSONError";
+import deleteFrom from "../admin/tool/deleteFrom";
 
 const initialState: UserInitState  = {
   cart: [],
@@ -23,56 +24,23 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     removeFullProduct: (state, { payload }: PayloadAction<string>) => {
-      state.cart = state.cart!.filter(product => product._id !== payload)
+      state.cart = deleteFrom<ProductInLocalStorage>({ _id: payload }, state.cart)!
     },
-    addCartProductCount: (state, { payload }: PayloadAction<{ product: ProductData | ProductDataWithCount, count: number }>) => {
+    addCartProductCount: (state, { payload }: PayloadAction<{ product: ProductData | ProductInLocalStorage, count: number }>) => {
       if(payload.count === 0) return
  
-      const existedProduct: ProductDataWithCount | undefined = state.cart.find(cartProduct => cartProduct._id === payload.product._id)
+      const existedProduct: ProductInLocalStorage | undefined = state.cart.find(cartProduct => cartProduct._id === payload.product._id)
     
       if(!existedProduct) {
-        const newStock: number = payload.product.stock - payload.count
-        if(newStock >= 0) {
-          state.cart = [
-            ...state.cart, 
-            {
-              ...payload.product, 
-              stock: (newStock >= 0) ? newStock : 0, 
-              count: (newStock >= 0) ? payload.count : payload.product.stock 
-            }
-          ]
-        } 
+        state.cart = [...state.cart, {...payload.product, count: payload.count }]
       } else {
-        const newStock: number = existedProduct.stock - payload.count
-        state.cart = state.cart.map(cartProduct => {
-          if(cartProduct._id === payload.product._id) {
-            return {
-              ...existedProduct, 
-              stock: (newStock >= 0) ? newStock : 0, 
-              count: (newStock >= 0) ? payload.count + existedProduct.count : existedProduct.count + existedProduct.stock
-            }
-          } else {
-            return cartProduct
-          }
-        })
+        state.cart = state.cart.map(product => ({...product, count: product.count + payload.count }))
       }
     },
-    removeCartProductCount: (state, { payload }: PayloadAction<{ product: ProductData | ProductDataWithCount, count: number }>) => {
+    removeCartProductCount: (state, { payload }: PayloadAction<{ product: ProductData | ProductInLocalStorage, count: number }>) => {
       if(!state.cart || payload.count === 0) return
 
-      state.cart = state.cart.map(product => {
-        if(product._id === payload.product._id) {
-          if(product.count < payload.count) {
-            product.stock += product.count
-            product.count -= product.count
-          } else {
-            product.count = product.count - payload.count
-            product.stock += payload.count
-          }
-        }
-
-        return product
-      })
+      state.cart = state.cart.map(product => ({...product, count: ((product.count - payload.count) <= 0) ? 0 : product.count - payload.count }))
     },
     logOut: (state) => {
       state.userLocal = undefined
@@ -87,9 +55,7 @@ const cartSlice = createSlice({
       state.isUserActionLoading = true
     })
     builder.addCase(userRegistration.rejected, (state, { payload }) => {
-      const { message } = parseJSONError(payload as string)
-
-      state.userErrorMessage = message      
+      state.userErrorMessage = parseJSONError(payload as string).message      
       state.isUserActionLoading = false
     })
     builder.addCase(userRegistration.fulfilled, (state, { payload }) => {
@@ -106,9 +72,7 @@ const cartSlice = createSlice({
       state.isUserActionLoading = true
     })
     builder.addCase(userLogin.rejected, (state, { payload }) => {
-      const { message } = parseJSONError(payload as string)
-
-      state.userErrorMessage = message      
+      state.userErrorMessage = parseJSONError(payload as string).message      
       state.isUserActionLoading = false
     })
     builder.addCase(userLogin.fulfilled, (state, { payload }) => {
@@ -125,15 +89,11 @@ const cartSlice = createSlice({
       state.isUserActionLoading = true
     })
     builder.addCase(removeMe.rejected, (state, { payload }) => {
-      const { message } = parseJSONError(payload as string)
-
-      state.userErrorMessage = message
+      state.userErrorMessage = parseJSONError(payload as string).message
       state.isUserActionLoading = false
     })
     builder.addCase(removeMe.fulfilled, (state, { payload }) => {
-      const { isRemoved } = payload
-      
-      if(isRemoved) {
+      if(payload.isRemoved) {
         state.cart = []
         state.userLocal = undefined
 
@@ -145,19 +105,15 @@ const cartSlice = createSlice({
     })
 /*----------------------------------------Remove user-------------------------------------------------------------------*/
 /*----------------------------------------Edit user---------------------------------------------------------------------*/
-    builder.addCase(editUser.pending, (state, { payload }) => {
+    builder.addCase(editUser.pending, (state) => {
       state.isUserActionLoading = true
     })
     builder.addCase(editUser.rejected, (state, { payload }) => {
-      const { message } = parseJSONError(payload as string)
-
-      state.userErrorMessage = message
+      state.userErrorMessage = parseJSONError(payload as string).message
       state.isUserActionLoading = false
     })
     builder.addCase(editUser.fulfilled, (state, { payload }) => {
-      const { firstName, secondName, avatar, token  } = payload
-      
-      state.userLocal = { firstName, secondName, avatar, token }
+      state.userLocal = payload
 
       state.isUserActionLoading = false
       state.userErrorMessage = ''

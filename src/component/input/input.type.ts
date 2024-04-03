@@ -17,6 +17,8 @@ export interface TextNumberInputProps<T extends FieldValues> extends InputProps<
   step?: number
   min?: { message: string, value: number }
   max?: { message: string, value: number }
+  maxNum?: number
+  minNum?: number
 }
 
 export interface ImgInputProps<T extends FieldValues> extends Omit<InputProps<T>, 'type'> {

@@ -1,10 +1,10 @@
 @import '@/scss/mixin';
 @import '@/scss/variabel';
 
-.loading_def_style {
-  background-color: $background-color-hover-list-item;
+.default_style {
+  background-color: $background-color-input-form;
   border-radius: $border-radius-img;
-  box-shadow: $box-shadow-dropdown;
+  box-shadow: $box-shadow-loading;
 }
 
 .loading_container {

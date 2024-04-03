@@ -1,5 +1,3 @@
-'use client'
-
 import scss from '../scss/brandList.module.scss'
 
 export default function BrandList() {
