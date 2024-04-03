@@ -14,12 +14,11 @@ import { useSearchParams } from 'next/navigation'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useScopedI18n } from '@/i18n/client'
 
-import type { FilterActionReturn, FilterState } from '../search.type'
+import type { FilterState } from '../search.type'
 
 import actionFilteredProduct from '../action/actionFilteredProduct'
 
 import parseJSONError from '@/lib/parseJSONError/parseJSONError'
-import queryCache from '@/util/queryCache'
 
 const Pagination = memo(NMPagination)
 const ProductsContainer = memo(NMPorudctsContainer)

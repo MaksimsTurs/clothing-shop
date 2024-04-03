@@ -70,7 +70,10 @@ const adminStore = createSlice({
 					break;
 					case 'product-section':
 						state.productsSection = deleteFrom<ProductSection>({ _id: id }, state.productsSection)!
-						state.products = updateIn<ProductData>({ sectionID: id }, { category: '', sectionID: '', precent: null }, state.products)
+						state.products = state.products.map(product => {
+							if(product.sectionID === id) return {...product,  category: '', sectionID: '', precent: null }
+							return product
+						}) 
 					break;
 				}
 
@@ -120,7 +123,7 @@ const adminStore = createSlice({
 							return {
 								...section, 
 								productsID: include ? section.productsID : [...section.productsID, updatedProduct._id], 
-								products: include ? replaceByKey('_id', section.products!, updatedProduct) : [...section.products || [], updatedProduct]	
+								products: include ? replaceFrom<ProductData>({ _id: updatedProduct._id }, section.products!, updatedProduct) : [...section.products || [], updatedProduct]	
 							}
 						}
 						return section

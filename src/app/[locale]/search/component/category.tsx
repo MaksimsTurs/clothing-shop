@@ -13,7 +13,7 @@ export default function Category({ setFilterState, filterState }: DressTypeProps
   const currCategory = useSearchParams().get('title')
   const currLanguage = useCurrentLocale()
 
-  const { data } = useQuery<FilterActionReturn>({ queryKey: ['page-0', 'category-null'], enabled: false })
+  const { data } = useQuery<FilterActionReturn>({ queryKey: [`page-0', 'category-${currCategory}`], enabled: false })
   
   return(
     <div className={scss.dress_type_container}>
