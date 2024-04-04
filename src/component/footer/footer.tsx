@@ -35,8 +35,8 @@ export default function Footer() {
           <div>
             <p className={scss.footer_list_name}>{tr('other.title')}</p>
             <ul>
-              <li><Link href={''}>{tr('about.link')}</Link></li>
-              <li><Link href={''}>{tr('privacy.policy')}</Link></li>
+              <li><Link href={'/'}>{tr('about.link')}</Link></li>
+              <li><Link href={'/'}>{tr('privacy.policy')}</Link></li>
             </ul>
           </div>
         </div>

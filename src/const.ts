@@ -1,7 +1,7 @@
 import type { Currency } from "./global.type"
 import type { RevalidateConf } from "./lib/fetcher/fetcher.type"
 
-export const REVALIDATE_CONF: RevalidateConf = { cache: 'no-cache' }
+export const REVALIDATE_CONF: RevalidateConf = { cache: 'force-cache', time: 60 }
 export const CURR_CURRENCY: Currency = '€'
 
 export const PROD_API_URL: string = 'https://clothing-shop-api.vercel.app'

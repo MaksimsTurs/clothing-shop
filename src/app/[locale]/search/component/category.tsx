@@ -13,11 +13,11 @@ export default function Category({ setFilterState, filterState }: DressTypeProps
   const currCategory = useSearchParams().get('title')
   const currLanguage = useCurrentLocale()
 
-  const { data } = useQuery<FilterActionReturn>({ queryKey: [`page-0', 'category-${currCategory}`], enabled: false })
-  
+  const { data } = useQuery<FilterActionReturn>({ queryKey: ['page-0', 'category-null'], enabled: false })
+
   return(
     <div className={scss.dress_type_container}>
-      {data ? data.categories.map(type => (
+      {data && data.categories.length > 0 ? data.categories.map(type => (
           <button 
             key={type} 
             className={(filterState.category.includes(type) || currCategory === type)  ? `${scss.dress_type_active_type} ${scss.dress_type_type}` : scss.dress_type_type }

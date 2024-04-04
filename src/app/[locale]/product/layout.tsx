@@ -7,7 +7,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 	return (
 		<Fragment>
 			<Header/>
-			{children}
+			<main>{children}</main>
 			<Footer/>
 		</Fragment>
 	)

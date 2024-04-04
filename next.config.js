@@ -1,3 +1,7 @@
 /** @type {import('next').NextConfig} */
 
-export default { images: { remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com' }] } }
+export default { 
+  images: { 
+    remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com' }] 
+  } 
+}
