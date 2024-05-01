@@ -7,8 +7,14 @@
   }
 }
 
-@media(width <= 950px) {
+@media(width <=985) {
   .search_form_container {
-    display: none;
+    width: 10rem;
+  }
+}
+
+@media(width <= 830px) {
+  .search_form_container {
+    width: 100%;
   }
 }

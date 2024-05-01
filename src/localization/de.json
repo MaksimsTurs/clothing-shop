@@ -1,0 +1,180 @@
+{
+  "metadata-home": {
+    "title": "Startseite",
+    "description": "Startseite, hier kannst du finden paar unsere produkten.",
+    "category": "Web shop kleidung schop für Frauen",
+    "keyword-1": "Kleidung vorschau",
+    "keyword-2": "Kleidung shop",
+    "keyword-3": "Kleidung"
+  },
+  "metadata-search": {
+    "title": "Suchen",
+    "description": "Hier kannst du beliebige produkt finden.",
+    "keyword-1": "Produkten aussuchen",
+    "keyword-2": "Produkten filter"
+  },
+  "metadata-help": {
+    "title": "Kunden service",
+    "description": "Hier kannst du schreiben uns eine e-mil wenn du problemen mit website hast oder wenn du uns mit übersetzung helfen möschtest",
+    "keyword-1": "Website fehler",
+    "keyword-2": "Übersetztung hilfe"
+  },
+  "metadata-checkout": {
+    "title": "Order Überprüfen",
+    "description": "Hier kansst du unsere produkte bestellen"
+  },
+  "metadata-checkout-thank": {
+    "title": "Danke für bestellung",
+    "greeting": "Danke für deine bestellung",
+    "greeting-go-home": "Zu Startseite",
+    "greeting-or": "oder",
+    "greeting-find": "finde",
+    "greeting-other": "mehr produkten"
+  },
+  "checkout-page": {
+    "end-price": "Bestellung price",
+    "products-to-by": "Ihre produkten",
+    "price": "Price",
+    "discount": "Rabat",
+    "price-with-discount": "Price mit rabat",
+    "products-price": "Produkts price",
+    "delivery-fee": "Liferung price",
+    "total-price": "Gesamtprice",
+    "address": "Liefern in",
+    "address-required": "Tipp deine addresse rein für Paypal zu aktivieren",
+    "count": "Anzahl"
+  },
+  "user-page": {
+    "edit": "BEARBEITERN",
+    "user-information": "Meine daten",
+    "user-orders": "Meine bestellungen",
+    "user-cart": "Meine produkt korb",
+    "admin-panel": "ADMIN PANEL",
+    "remove": "LÖSCHEN",
+    "log-out": "ABMELDEN",
+    "firstname-placeholder": "Vorname",
+    "secondname-placeholder": "Nachname",
+    "avatar-add": "Avatar laden",
+    "email": "Е-Mail",
+    "modal-wrapper": "Über bestellung",
+    "adress": "Adresse",
+    "status": "Status",
+    "total-products": "Anzahl von produkten",
+    "total-price": "Gesamtprice",
+    "show-details": "übersicht anzeigen",
+    "no-orders": "Sie haben noch keine bestellungen",
+    "sent-to": "Angekukt",
+    "on-my-way": "In weg",
+    "appeared": "Angekommen",
+    "empty-cart": "Ihr produkt korb ist leer",
+    "in-cart": "In produkt korb",
+    "discount": "Rabat",
+    "price-with-discount": "Price mit rabat",
+    "close": "Schließen",
+    "price": "Price"
+  },
+  "help-page": {
+    "title-website-error": "Website fehler",
+    "requirement-title-error": "Nutzliche daten",
+    "title-translation": "Hilfe mit übersetztung",
+    "error-req-1": "Browser name und version",
+    "error-req-2": "Bild aufnahme mit fehler",
+    "error-req-3": "Was hat zum fehler geführt",
+    "requirement-title-translation": "Beispiel für email (Englisch - Deutsch)",
+    "example-1": "Language - Sprache",
+    "example-2": "Find - Finden",
+    "example-3": "Help - Hilfe",
+    "send": "Senden"
+  },
+  "website-statistic": {
+    "title": "FINDE KLEIDUNG DIE ZU DEINE STILL PASST",
+    "description": "Stöbern Sie in unserem vielfältigen Sortiment sorgfältig ausgewählter Kleidung, die Ihre Persönlichkeit unterstreicht und Ihrem Stilempfinden entspricht.",
+    "brand-count": "Bestellungen",
+    "product-count": "Produkten",
+    "user-count": "Aktiven Users"
+  },
+  "products-container": {
+    "link": "ALLE ANKUKEN"
+  },
+  "product-page": {
+    "in-category": "in Kategorie",
+    "buy": "Kaufen",
+    "insert-product-in-cart": "Produkt in corb hinzufügen",
+    "remove-product-from-cart": "Produkt aus corb löschen",
+    "sign-in": "Melde dich an",
+    "or": "oder",
+    "log-in": "erstelle eine neue konto",
+    "get-cart-acccess": "zu Produktcorb zugreifen"
+  },
+  "cart": {
+    "title": "IHRE PRODUKT KORB",
+    "rating": "Bewertung",
+    "stock": "In lager",
+    "in-cart": "In korb",
+    "empty": "Produkt korb ist leer",
+    "cart-order": "KORB PRICE",
+    "product-sum": "Produkten price",
+    "total-sum": "Gesamtkosten",
+    "discount": "Rabat",
+    "delivery": "Lieferung price"
+  },
+  "header-footer": {
+    "home": "Startseite",
+    "search": "Suchen",
+    "help": "Hilfe",
+    "registration": "Registration",
+    "login": "Anmelden",
+    "cart": "Produkt korb",
+    "dropdown-pages": "Seiten",
+    "dropdown-user": "Account",
+    "dropdown-language": "Sprachen",
+    "website-help": "Website hilfe",
+    "translation-help": "Übersetztung hilfe",
+    "other": "Andere",
+    "other-about": "Über uns",
+    "other-policy": "Datenschutz"
+  },
+  "page-pagination": {
+    "next": "Weiter",
+    "past": "Vorig"
+  },
+  "search": {
+    "category": "Kategorien",
+    "price": "Price",
+    "rating": "Bewertung",
+    "filter": "Suchen",
+    "reset": "Widerherstellen",
+    "showed": "Gezeigt",
+    "of": "von",
+    "products": "produkten",
+    "total-products": "Anzahl von produkten"
+  },
+  "search-form": {
+    "placeholder": "Was wollen Sie finden?",
+    "loading": "Suche",
+    "empty": "Nichts gefunden!"
+  },
+  "form-wrapper": {
+    "submit": "Senden"
+  },
+  "user-action": {
+    "wrapper-log": "Anmelden",
+    "no-account": "Keine profill?",
+    "firstname-placeholder": "Vorname",
+    "firstname-invalid": "Vorname darf nicht so lang sein!",
+    "firstname-required": "Vorname ist erfordelich!",
+    "secondname-placeholder": "Nachname",
+    "secondname-invalid": "Nachname darf nich so lang sein!",
+    "secondname-required": "Nahcname ist erfordelich!",
+    "password-placeholder": "Kennwort",
+    "password-invalid": "Kennwort darf nicht kürzer als 8 zeichen sein!",
+    "password-required": "Kennwort ist erfordelich!",
+    "confirm-password-invalid": "Kennwort widerholung ist zu kurz!",
+    "confirm-password-required": "Kennwort widerholung ist erfordelich!",
+    "email": "E-Mail",
+    "email-required": "E-Mail ist erfordelich!",
+    "wrapper-reg": "Account Erstellen",
+    "have-account": "Hast du ein profill?",
+    "avatar-add": "Profilbild laden"
+  }
+}

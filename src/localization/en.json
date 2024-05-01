@@ -1,0 +1,180 @@
+{
+  "metadata-home": {
+    "title": "Home",
+    "description": "Clothing shop home page, here you cann see us product range.",
+    "category": "Women clothing Shop.",
+    "keyword-1": "Products preview",
+    "keyword-2": "Clothing Shop",
+    "keyword-3": "Clothing"
+  },
+  "metadata-search": {
+    "title": "Find products",
+    "description": "Here you can find lovely products.",
+    "keyword-1": "Find products",
+    "keyword-2": "Products filter"
+  },
+  "metadata-help": {
+    "title": "Help",
+    "description": "Here you can write a e-mail when you have problems or when you won't help us with translation.",
+    "keyword-1": "Website errors",
+    "keyword-2": "Translation help"
+  },
+  "metadata-checkout": {
+    "title": "Checkout",
+    "description": "Here you cann check your order and buy it"
+  },
+  "metadata-checkout-thank": {
+    "title": "Thank you for payment",
+    "greeting": "Thank you for payment",
+    "greeting-go-home": "Go home",
+    "greeting-or": "or",
+    "greeting-find": "find",
+    "greeting-other": "more products"
+  },
+  "checkout-page": {
+    "end-price": "Order price",
+    "products-to-by": "Youre products",
+    "price": "Price",
+    "discount": "Discount",
+    "price-with-discount": "Price with discount",
+    "products-price": "Products price",
+    "delivery-fee": "Delivery price",
+    "total-price": "Total price",
+    "address": "Sent to",
+    "count": "Count",
+    "address-required": "Pass youre address to activate Paypal"
+  },
+  "user-page": {
+    "edit": "EDIT",
+    "user-information": "User information",
+    "user-orders": "My orders",
+    "user-cart": "My cart",
+    "admin-panel": "ADMIN PANEL",
+    "remove": "REMOVE",
+    "log-out": "LOG OUT",
+    "firstname-placeholder": "First name",
+    "secondname-placeholder": "Password",
+    "avatar-add": "Avatar upload",
+    "email": "Е-Mail",
+    "modal-wrapper": "About order",
+    "adress": "Adress",
+    "status": "Status",
+    "total-products": "Products count",
+    "total-price": "Total price",
+    "show-details": "show details",
+    "no-orders": "You have no orders",
+    "sent-to": "Showed",
+    "on-my-way": "In my way",
+    "appeared": "Arrived",
+    "empty-cart": "You have no products in cart",
+    "in-cart": "In cart",
+    "discount": "Discount",
+    "price-with-discount": "Price with discount",
+    "close": "Close",
+    "price": "Price"
+  },
+  "help-page": {
+    "title-website-error": "Website errors",
+    "requirement-title-error": "Useful data",
+    "title-translation": "Help with translation",
+    "error-req-1": "Browser name and version",
+    "error-req-2": "Screenshot with error",
+    "error-req-3": "What have triggered the Error",
+    "requirement-title-translation": "Example for email (from English to Germany):",
+    "example-1": "Language - Sprache",
+    "example-2": "Find - Finden",
+    "example-3": "Help - Hilfe",
+    "send": "Send"
+  },
+  "website-statistic": {
+    "title": "FIND CLOTHES THAT MATCHES YOUR STYLE",
+    "description": "Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.",
+    "brand-count": "Orders",
+    "product-count": "Products",
+    "user-count": "Active Users"
+  },
+  "products-container": {
+    "link": "VIEW ALL"
+  },
+  "product-page": {
+    "in-category": "in Category",
+    "buy": "Buy",
+    "insert-product-in-cart": "Inser product in cart",
+    "remove-product-from-cart": "Remove product from cart",
+    "sign-in": "Sign in",
+    "or": "or",
+    "log-in": "Log in",
+    "get-cart-acccess": "to get product corb access"
+  },
+  "cart": {
+    "title": "YOU CART",
+    "rating": "Rating",
+    "stock": "In stock",
+    "in-cart": "In cart",
+    "empty": "Product cart is empty",
+    "cart-order": "CART ORDER",
+    "product-sum": "Product sum",
+    "total-sum": "Total sum",
+    "discount": "Discount",
+    "delivery": "Delivery"
+  },
+  "header-footer": {
+    "home": "Home",
+    "search": "Find",
+    "help": "Help",
+    "registration": "Registration",
+    "login": "Log in",
+    "cart": "Product cart",
+    "dropdown-pages": "Pages",
+    "dropdown-user": "Account",
+    "dropdown-language": "Languages",
+    "website-help": "Website",
+    "translation-help": "Translation",
+    "other": "Other",
+    "other-about": "About us",
+    "other-policy": "Private policy"
+  },
+  "search-form": {
+    "placeholder": "What would you find?",
+    "loading": "Finding",
+    "empty": "Nothing founded!"
+  },
+  "page-pagination": {
+    "next": "Next",
+    "past": "Past"
+  },
+  "search": {
+    "category": "Categories",
+    "price": "Price",
+    "rating": "Rating",
+    "filter": "Search",
+    "reset": "Reset",
+    "showed": "Showed",
+    "of": "of",
+    "products": "products",
+    "total-products": "Products count"
+  },
+  "form-wrapper": {
+    "submit": "Submit"
+  },
+  "user-action": {
+    "wrapper-log": "Log in",
+    "no-account": "No account?",
+    "firstname-placeholder": "First name",
+    "password-placeholder": "Password",
+    "firstname-invalid": "First name cann not be so long!",
+    "firstname-required": "Fist name is required!",
+    "secondname-placeholder": "Second name",
+    "secondname-invalid": "Second name cann not be so long!",
+    "secondname-required": "Second name is required!",
+    "password-invalid": "Password cann not be so short!",
+    "password-required": "Passwrod is required!",
+    "email": "E-Mail",
+    "email-required": "E-Mail is required!",
+    "confirm-password-invalid": "Confirm password cann not be so short!",
+    "confirm-password-required": "Confirm password is required!",
+    "wrapper-reg": "Registrate",
+    "have-account": "Have account?",
+    "avatar-add": "Avatar upload"
+  }
+}

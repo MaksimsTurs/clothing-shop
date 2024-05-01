@@ -1,80 +1,58 @@
 @import '@/scss/variabel';
 @import '@/scss/mixin';
 
-.checkout_container {
-  @include flex-alignitems-justifycontent(normal, space-between);
-  gap: 1rem;
-  flex-direction: row;
-  padding: 1rem 3rem;
+@import './scss/media-query/page.media-query.scss';
 
-  .checkout_border {
-    border-radius: $border-radius-input-form;
-    border: 1px solid $background-color-input-form;
-    height: fit-content;
-  }
+.page_checkout_container {
+	padding: 1rem 3rem;
+	align-items: center;
   
-  .checkout_data {
+  .page_checkout_body {
     @include flex-column-alignitems-justifycontent();
-    width: 100%;
-
-    section {
-      border-bottom: 1px solid $background-color-input-form;
-      padding: 0.5rem 0rem;
-
-      &:first-child {
-        padding-top: 0rem;
-      }
-
-      &:last-child {
-        border-bottom: none
-      }
-    }
-    
-    .checkout_product_container {
-      @include flex-alignitems-justifycontent();
-      border-bottom: 1px solid $background-color-input-form;
-      padding: 1rem;
-
-      &:last-child {
-        border-bottom: none;
-      }
-
-      img {
-        border-radius: $border-radius-input-form;
-        margin-right: 1rem;
-        object-fit: cover;
-      }
-    }
-  }
-
-  .checkout_data_cost {
-    @include flex-column-alignitems-justifycontent();
-    flex-shrink: 0;
-    padding: 1rem;
     gap: 1rem;
+		width: 45rem;
+		flex-grow: 1;
   }
 
-  .checkout_data_container {
-    @include flex-alignitems-justifycontent(normal, space-between);
+	.page_prices_body {
+		display: flex;
+		gap: 0.5rem;
 
-    p {
-      &:first-child {
-        font-weight: bold;
-        margin-right: 2rem;
-      }
-    }
-  }
+		.page_order_adress {
+			border-radius: $border-radius-img;
+			border: 1px solid $background-color-input-form;
+			box-shadow: $box-shadow-dropdown;
+			padding: 0.75rem 0.5rem;
+			width: 100%;
+			background-color: white;
+		}
 
-  button {
-    border-radius: $border-radius-img;
-    padding: 0.5rem;
-    border: 1px solid black;
-    color: white;
-    background-color: black;
+		.page_product_price {
+			@include flex-column-alignitems-justifycontent();
+			gap: 0.5rem;
+			flex-grow: 1;
+			flex-shrink: 0;
+		}
 
-    &:hover {
-      color: black;
-      background-color: white;
-    }
-  }
+		.page_adress_empty {
+			@include flex-alignitems-justifycontent(center);
+			color: $font-color-error;
+			font-size: $font-small;
+			gap: 0.3rem;
+		}
+	}
+}
+
+.page_prices_warning_container {
+	@include flex-alignitems-justifycontent(center);
+	border-radius: $border-radius-img;
+	border: 1px solid $background-color-input-form;
+	box-shadow: $box-shadow-dropdown;
+	font-size: $font-small;
+	background-color: rgb(255, 183, 0);
+	padding: 0.5rem;
+	color: black;
+  width: 100%;
+	height: fit-content;
+	gap: 0.5rem;
 }

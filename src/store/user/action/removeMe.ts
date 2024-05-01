@@ -1,15 +1,15 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import fetcher from "@/lib/fetcher/fetcher"
+import fetcher from "@/util/fetcher/fetcher";
+import ResponseError from "@/util/exeption/ResponseError";
 
-const removeMe = createAsyncThunk<{ isRemoved: boolean }, string>(
+const removeMe = createAsyncThunk<void, string>(
   'user/remove',
-  async (token, thunkApi) => {
+  async(data, thunkApi) => {
     try {
-      const response = await fetcher.get<{ isRemoved: boolean }>(`/user/delete/${token}`)
-      return response
+      await fetcher.get(`/user/remove/${data}`)
     } catch(error) {
-      return thunkApi.rejectWithValue(error)
+      return thunkApi.rejectWithValue(new ResponseError(error))
     }
   }
 )

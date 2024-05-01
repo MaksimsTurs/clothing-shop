@@ -1,10 +1,13 @@
-import type { CSSProperties, FormEventHandler } from "react"
+import ResponseError from "@/util/exeption/ResponseError"
+
+import type { CSSProperties, FormEventHandler, ReactNode } from "react"
 
 export type FormWrapperProps = {
-  title?: string
+  title?: ReactNode | string
+  className?: string
   onSubmit: FormEventHandler
   isLoading?: boolean
-  serverError?: string
+  serverError?: ResponseError
   link?: { text: string, linkURL: string }
   styles?: { formStyle?: CSSProperties; formInputsStyle?: CSSProperties }
 }

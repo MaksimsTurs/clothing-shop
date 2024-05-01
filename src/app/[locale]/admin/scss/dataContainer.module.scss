@@ -1,0 +1,11 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.product_container {
+  @include text-overflow-ellipsis();
+	display: flex;
+	flex-grow: 1;
+	gap: 0.8rem;
+	padding: 1rem;
+	height: fit-content;
+}

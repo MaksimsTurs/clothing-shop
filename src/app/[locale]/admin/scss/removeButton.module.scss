@@ -1,0 +1,27 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+
+.product_remove_button {
+  background-color: $font-color-error;
+  border-radius: $border-radius-img;
+  border: 1px solid $font-color-error;
+  transition: all $transition-time-very-fast;
+  width: fit-content;
+  padding: 0.5rem 3rem;
+
+  &:hover {
+    transition: all $transition-time-very-fast;
+    background-color: white;
+
+    svg {
+      color: $font-color-error;
+    }
+  }
+
+  svg {
+    color: white;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}

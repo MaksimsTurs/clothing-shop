@@ -1,33 +1,35 @@
-import { Dispatch, SetStateAction } from "react"
-import type { UseFormRegister, FieldValues, FieldErrors, Path } from "react-hook-form"
+import type { Dispatch, SetStateAction } from "react"
+import type { UseFormRegister, FieldValues, FieldErrors, Path, ValidationRule } from "react-hook-form"
 
 export type InputProps<T extends FieldValues> = {
   register: UseFormRegister<T>
-  htmlFor: Path<T>
-  type?: 'text' | 'email' | 'number' | 'password' | 'date'
+  validate?: (string: string) => string | undefined
   errors?: FieldErrors<T>
-  serverError?: string
+  attributes: Attributes<T>
   required?: { message: string, value: boolean }
-  validation?: (string: string) => string | undefined
 }
 
-export interface TextNumberInputProps<T extends FieldValues> extends InputProps<T> {
-  value?: string
+export type Attributes<T> = {
+  name: Path<T>
+  defaultValue?: any
   placeholder?: string
+  type?: 'text' | 'email' | 'password' | 'date' | 'number'
+  value?: string
   step?: number
-  min?: { message: string, value: number }
-  max?: { message: string, value: number }
-  maxNum?: number
-  minNum?: number
-}
-
-export interface ImgInputProps<T extends FieldValues> extends Omit<InputProps<T>, 'type'> {
+  min?: number | ValidationRule<any>
+  max?: number | ValidationRule<any>
   isMultiple?: boolean
-  labelText: string
 }
 
-export interface SelectInputProps<T extends FieldValues> extends Omit<InputProps<T>, 'register' | 'htmlFor' | 'type'> {
-  options?: { _id: string, title: string }[]
-  selectedOption?: { _id: string, title: string }
-  setSelectOption: Dispatch<SetStateAction<{ _id: string, title: string } | undefined>>
+export interface ImgInputProps<T extends FieldValues> extends Omit<InputProps<T>, 'type'> { 
+  labelText: string
+  isSubmited?: boolean
+}
+
+export interface CheckBoxInputProps<T extends FieldValues> extends InputProps<T> { label: string }
+
+export interface SelectInputProps<T extends FieldValues> extends Omit<InputProps<T>, 'register' | 'attributes'> {
+  options: string[]
+  selected: string
+  setSelect: Dispatch<SetStateAction<string>>
 }

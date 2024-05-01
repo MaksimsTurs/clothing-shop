@@ -1,31 +1,23 @@
 'use client'
 
-import { Provider as ReduxProvider } from 'react-redux'
+import { Provider as P, useDispatch } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
+import { I18nProviderClient } from '@/localization/client'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
-import { I18nProviderClient } from '@/i18n/client'
-import { QueryClientProvider } from '@tanstack/react-query'
 
 import { persistor, store } from './store'
 
 import type { PropsWithChildren } from 'react'
+import type { Languages } from '@/localization/client'
 
-import { PAYPAL_CLIENT_ID } from '@/const'
-
-import queryCache from '@/util/queryCache'
-
-export default function Provider({ children, locale }: PropsWithChildren<{ locale: string }>) {
+export default function Provider({ children, lan, clientID }: PropsWithChildren<{ lan: Languages, clientID: string }>) {
 	return (
-		<QueryClientProvider client={queryCache}>
-			<PayPalScriptProvider options={{ clientId: PAYPAL_CLIENT_ID, currency: 'EUR' }}>
-				<I18nProviderClient locale={locale}>
-					<ReduxProvider store={store}>
-						<PersistGate loading={null} persistor={persistor}>
-							{children}
-						</PersistGate>
-					</ReduxProvider>
-				</I18nProviderClient>
-			</PayPalScriptProvider>	
-		</QueryClientProvider>
+		<P store={store}>
+			<PayPalScriptProvider options={{ clientId: clientID, currency: 'EUR' }}>
+				<PersistGate persistor={persistor}>
+					<I18nProviderClient locale={lan}>{children}</I18nProviderClient>
+				</PersistGate>				
+			</PayPalScriptProvider>
+		</P>
 	)
 }

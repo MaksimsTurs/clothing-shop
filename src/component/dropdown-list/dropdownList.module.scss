@@ -2,43 +2,48 @@
 @import '@/scss/mixin';
 
 .dropdown_title {
-	border-radius: $border-radius-link;
   font-size: $font-medium;
+	transition: all $transition-time-very-fast;
 	position: relative;
-	border: 1px solid white;
-	padding: 0.5rem 1rem;
+	padding: 1.5rem;
 	color: white;
+	width: 8rem;
 	cursor: pointer;
 
-	&:hover .dropdown_list_container {
-		height: fit-content
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.3);
+		transition: all $transition-time-very-fast;
 	}
 
-	&::after {
-		content: '';
-		@include absolute-left-top(0%, 100%);
-		width: 100%;
-		height: 1rem;
+	&:hover .dropdown_list_container {
+		display: block;
 	}
 }
 
 .dropdown_list_container {
-	@include absolute-left-top(50%, 110%);
+	@include absolute-left-top(50%, 100%);
 	@include flex-column-alignitems-justifycontent();
 	transition: all $transition-time-very-fast;
-	border-radius: $border-radius-dropdown;
 	box-shadow: $box-shadow-dropdown;
-	height: 0%;
 	overflow: hidden;
+	display: none;
 	transform: translate(-50%, 0%);
 	z-index: 10;
 	background-color: white;
+	width: 150%;
 
-	li {
-		@include flex-alignitems-justifycontent(center);
-		gap: 0.5rem;
-		color: black;
-		padding: 0rem 1rem;
+	li {		
+		> a, p { 
+			@include flex-alignitems-justifycontent();
+			color: black !important; 
+			gap: 0.5rem;
+			padding: 0.7rem 0.9rem; 
+		}
+
+		svg {
+			width: $icon-medium;
+			height: $icon-medium;
+		}
 
 		&:hover {
 			background-color: $background-color-input-form;

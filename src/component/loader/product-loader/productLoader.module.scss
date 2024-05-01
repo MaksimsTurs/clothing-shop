@@ -1,57 +1,52 @@
-@import '@/scss/variabel';
 @import '@/scss/mixin';
+@import '@/scss/variabel';
 
-@import './productLoader.media-query.scss';
-
-.product_loader_style {
-  background-color: $background-color-hover-list-item;
+.default_style {
   border-radius: $border-radius-img;
-  box-shadow: $box-shadow-dropdown;
+  box-shadow: $box-shadow-input-focus-hover;
+  background-color: $background-color-input-form;
 }
 
 .product_loader_container {
-	@include flex-alignitems-justifycontent(normal, center);
-	flex-grow: 1;
-  padding: 2rem 0rem;
+  overflow: hidden;
+  height: 17.8rem;
 
-	.product_loader_img_container {
-    display: flex;
-
-    .product_loader_imgs_container {
-      @include flex-column-alignitems-justifycontent();
-      gap: 1rem;
-
-			.product_loader_img {
-				width: 6rem;
-				height: 6rem;
-			}
-		}
-
-    .product_loader_curr_img {
-      margin-left: 1rem;
-      width: 20rem;
-      height: 20rem;
-    }
-	}
-
-  .product_loader_data_container {
-    @include flex-column-alignitems-justifycontent();
-    gap: 1rem;
-    margin-left: 2rem;
-
-    .product_loader_big {
-      width: 19rem;
-      height: 1.5rem;
-    }
-
-    .product_loader_small {
-      width: 12rem;
-      height: 1.5rem;
-    }
-
-    .product_loader_medium {
-      width: 7rem;
-      height: 1.5rem;
+  .product_loader_img_container {
+    width: 100%;
+    height: 45%;
+    padding: 0.5rem;
+    
+    .product_loader_img {
+      background: linear-gradient(-90deg, rgb(151, 151, 151), rgb(225, 225, 225));
+      animation: img-gradient 3s infinite;
+      background-size: 250%, 250%;
+      width: 100%;
+      height: 100%;
     }
   }
+
+  .product_loader_text_container {
+    @include flex-column-alignitems-justifycontent();
+    gap: 0.5rem;
+    padding: 0.5rem;  
+    
+    .product_loader_text {
+      height: 1rem;
+      background: linear-gradient(-90deg, rgb(151, 151, 151), rgb(225, 225, 225));
+      animation: img-gradient 3s infinite;
+      background-size: 250%, 250%;
+
+      &:nth-child(2) { width: 40%; }
+
+      &:nth-child(3) { width: 55%; }
+      
+      &:nth-child(5) { width: 40%; }
+    }
+  }
+}
+
+@keyframes img-gradient {
+	0% { background-position: 0% 100%; }
+  
+  50% { background-position: 100% 0%; }
 }

@@ -1,0 +1,181 @@
+{
+  "metadata-home": {
+    "title": "Домашная страница",
+    "description": "Домашная страница, здесь вы можете ознакомитсья с некоторыми продуктами.",
+    "category": "Веб магазин женской одежды.",
+    "keyword-1": "Предпросмотр продуктов",
+    "keyword-2": "Магазин одежды",
+    "keyword-3": "Одежда"
+  },
+  "metadata-checkout": {
+    "title": "Проверить заказ",
+    "description": "Здесь вы можете проверить и сделать заказ"
+  },
+  "metadata-checkout-thank": {
+    "title": "Спасибо за покупку",
+    "greeting": "Спасибо за покупку",
+    "greeting-go-home": "Домой",
+    "greeting-or": "или",
+    "greeting-find": "найти",
+    "greeting-other": "больше продуктов"
+  },
+  "metadata-search": {
+    "title": "Поиск",
+    "description": "Здесь ты можешь найти продукты на любой вкус",
+    "keyword-1": "Поиск продуктов",
+    "keyword-2": "Фильтрация продуктов"
+  },
+  "metadata-help": {
+    "title": "Помощь",
+    "description": "Здесь ты можешь написать е-майл если у тебя возникли проблемы с веб-сайтом или если вы хотите помочь нам с переводом",
+    "keyword-1": "Помощь с сайтом",
+    "keyword-2": "Помощь с переводом"
+  },
+  "checkout-page": {
+    "end-price": "Цена заказа",
+    "products-to-by": "Ваши продукты",
+    "price": "Цена",
+    "discount": "Скидка",
+    "price-with-discount": "Цена с скидкой",
+    "products-price": "Цена продуктов",
+    "delivery-fee": "Цена отправки",
+    "total-price": "Общая цена",
+    "count": "Кол-ство",
+    "address": "Отправить в",
+    "address-required": "Введи адресс чтоб активировать Paypal"
+  },
+  "user-page": {
+    "edit": "ИЗМЕНИТЬ",
+    "user-information": "Информация о мне",
+    "user-orders": "Ваши заказы",
+    "user-cart": "Ваша корзина",
+    "admin-panel": "АДМИН ПАНЕЛЬ",
+    "remove": "УДАЛИТЬ",
+    "log-out": "ВЫЙТИ",
+    "firstname-placeholder": "Имя",
+    "secondname-placeholder": "Фамилия",
+    "avatar-add": "Загрузить аватар",
+    "email": "Е-Маил",
+    "modal-wrapper": "О заказе",
+    "adress": "Адресс",
+    "status": "Статус",
+    "total-products": "Кол-ство продуктов",
+    "total-price": "Общая цена",
+    "show-details": "показать детали",
+    "no-orders": "У вас нет заказов",
+    "sent-to": "Просмотрено",
+    "on-my-way": "В пути",
+    "appeared": "Получено",
+    "empty-cart": "Ваша корзина пуста",
+    "in-cart": "В корзине",
+    "total-sum": "Общая цена",
+    "discount": "Скидка",
+    "price-with-discount": "Цена с скидкой",
+    "close": "Закрыть",
+    "price": "Цена"
+  },
+  "help-page": {
+    "title-website-error": "Ошибки веб-сайта",
+    "requirement-title-error": "Полезная информация",
+    "title-translation": "Помощь с переводом",
+    "error-req-1": "Имя браузера и версия",
+    "error-req-2": "Скриншот ошибки",
+    "error-req-3": "Какие действия вызвали ошибку",
+    "requirement-title-translation": "Пример емайла (Англйиски - Немецкий)",
+    "example-1": "Language - Sprache",
+    "example-2": "Find - Finden",
+    "example-3": "Help - Hilfe",
+    "send": "Отправить"
+  },
+  "website-statistic": {
+    "title": "НАЙДИТЕ ОДЕЖДУ, СООТВЕТСТВУЮЩУЮ ВАШЕМУ СТИЛЮ",
+    "description": "Просмотрите наш разнообразный ассортимент тщательно отобраной одежды, призванной подчеркнуть вашу индивидуальность и удовлетворить ваше чувство стиля.",
+    "brand-count": "Заказов",
+    "product-count": "Продуктов",
+    "user-count": "Пользователей"
+  },
+  "products-container": {
+    "link": "ПРОСМОТРЕТЬ ВСЕ"
+  },
+  "product-page": {
+    "in-category": "в Категории",
+    "buy": "Купить",
+    "insert-product-in-cart": "Добавить продукт в карзину",
+    "remove-product-from-cart": "Удалить продукт из корзины",
+    "sign-in": "Войди в аккаунт",
+    "or": "или",
+    "log-in": "Зарегестрируйся",
+    "get-cart-acccess": "чтобы получить доступ к корзине"
+  },
+  "cart": {
+    "in-cart": "В корзине",
+      "total-sum": "Общая стоимость",
+    "title": "ВАША КОРЗИНА",
+    "rating": "Рейтинг",
+    "stock": "В наличии",
+    "empty": "Корзина пуста",
+    "cart-order": "СТОИМОСТЬ КОРЗИНЫ",
+    "product-sum": "Цена продуктов",
+    "discount": "Скидка",
+    "delivery": "Стоимость доставки"
+  },
+  "header-footer": {
+    "dropdown-pages": "Страницы",
+    "dropdown-user": "Профиль",
+    "dropdown-language": "Языки",
+    "home": "Домой",
+    "search": "Найти",
+    "help": "Помощь",
+    "registration": "Регистрация",
+    "login": "Войти",
+    "cart": "Корзина",
+    "website-help": "Ошибка сайта",
+    "translation-help": "Перевод",
+    "other": "Другое",
+    "other-about": "Про нас",
+    "other-policy": "Полотика конфедициальности"
+  },
+  "page-pagination": {
+    "next": "Следущая",
+    "past": "Прошлая"
+  },
+  "search": {
+    "category": "Категории",
+    "price": "Цена",
+    "rating": "Рейтинг",
+    "filter": "Поиск",
+    "reset": "Сбросить",
+    "showed": "Показано",
+    "of": "из",
+    "products": "продуктов",
+    "total-products": "Кол-ство продуктов"
+  },
+  "search-form": {
+    "placeholder": "Что хотите найти?",
+    "loading": "Поиск",
+    "empty": "Ничего не найдено!"
+  },
+  "form-wrapper": {
+    "submit": "Отправить"
+  },
+  "user-action": {
+    "wrapper-log": "Вход",
+    "no-account": "Нет аккаунта?",
+    "firstname-placeholder": "Имя",
+    "secondname-placeholder": "Фамилия",
+    "avatar-add": "Загрузить аватар",
+    "email": "Е-Маил",
+    "firstname-invalid": "Имя не может быть таким длинным!",
+    "firstname-required": "Имя не может быть пустым!",
+    "secondname-invalid": "Фамилия не может быть такой длинной!",
+    "secondname-required": "Фамилия не может быть пустой!",
+    "password-placeholder": "Пароль",
+    "password-invalid": "Пароль не может быть таким коротким!",
+    "password-required": "Пароль не может быть пустым!",
+    "email-required": "Е-Маил не может быть пустым!",
+    "confirm-password-invalid": "Повтор пароля не может быть таким коротким!",
+    "confirm-password-required": "Повтоп пароля обязателень!",
+    "wrapper-reg": "Регистрация",
+    "have-account": "Уже зарегестритован(а)?"
+  }
+}

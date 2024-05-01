@@ -1,0 +1,44 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+.root_panel_container {
+  @include flex-alignitems-justifycontent();
+  height: fit-content;
+  min-height: 100%;
+  width: 100%;
+
+  .nav_items_list {
+    border-right: 1px solid black;
+    width: 14.5rem;
+    height: 100%;
+    flex-shrink: 0;
+    overflow: hidden;
+  
+    button, a {
+      @include flex-alignitems-justifycontent(center);
+      font-size: $font-medium;
+      transition: all $transition-time-very-fast;
+      border-bottom: 1px solid black;
+      width: 100%;
+      gap: 0.5rem;
+      padding: 0.95rem 1.5rem;
+  
+      &:hover {
+        transition: all $transition-time-very-fast;
+        transform: scale(1.075);
+        background-color: black;
+        color: white;
+        fill: white;
+      }
+    }
+  
+    p, svg, path {
+      pointer-events: none;
+    }
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+@import './media-query/filterResult.medua-query.scss';
+
+.result_container {
+  @include flex-alignitems-justifycontent(center, space-between);
+
+  .result_category_title {
+    font-size: $font-xx-large;
+    font-weight: bolder;
+  }
+
+  .result_product_range {
+    @include flex-alignitems-justifycontent();
+    font-size: 0.9rem;
+
+  }
+
+  p:first-child {
+    color: rgb(167, 167, 167);
+    padding-right: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  button {
+    @include flex-alignitems-justifycontent(center, center);
+    border-radius: $border-radius-dropdown;
+    transition: all $transition-time-very-fast;
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+    padding: 0.5rem;
+
+    &:hover {
+      box-shadow: $box-shadow-input-focus-hover;
+      transition: all $transition-time-very-fast;
+      background-color: white;
+      color: black;
+    }
+  }
+}

@@ -1,12 +1,8 @@
 @import '@/scss/variabel';
 @import '@/scss/mixin';
 
-@import './media-query/header.media-query.scss';
-
 .header_container {
 	@include flex-alignitems-justifycontent(center, space-between);
-	padding-top: 1.5rem;
-	padding-bottom: 1.5rem;
 	background-color: rgba(0, 0, 0, 0.875);
 	color: white;
 	fill: white;
@@ -23,7 +19,7 @@
 
 	.header_nav_menu_container {
 		@include flex-alignitems-justifycontent(center);
-		gap: 1rem;
+		gap: 0.5rem;
 		
 		p { font-size: $font-medium; color: white; }
 
@@ -99,11 +95,7 @@
 				color: white;
 			}
 		}
-
-		svg {
-			height: $icon-x-large;
-			width: $icon-x-large;
-			fill: white;
-		}
 	}
 }
+
+@import './media-query/header.media-query.scss';

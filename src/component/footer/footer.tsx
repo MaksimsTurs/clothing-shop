@@ -2,14 +2,14 @@
 
 import scss from './footer.module.scss'
 
-import { useScopedI18n } from '@/i18n/client'
+import Link from 'next/link'
 import cookies from '@/util/coockies'
 
-import Link from 'next/link'
+import { useScopedI18n } from '@/localization/client'
 
 export default function Footer() {
-  const tr = useScopedI18n('Footer')
-  const currLanguage = cookies.getCookie('locale') || 'en'
+  const language: string = cookies.get('locale') || 'en'
+  const t = useScopedI18n('header-footer')
 
   return(
     <footer className={scss.footer_container}>
@@ -17,26 +17,26 @@ export default function Footer() {
         <h2 className={scss.footer_website_name}>SHOP.COM</h2>
         <div className={scss.footer_list_container}>
           <div>
-            <p className={scss.footer_list_name}>{tr('pages.title')}</p>
+            <p className={scss.footer_list_name}>{t('dropdown-pages')}</p>
             <ul>
-              <li><Link href={`/${currLanguage}/home`}>{tr('home.link')}</Link></li>
-              <li><Link href={`${currLanguage}/search`}>{tr('search.link')}</Link></li>
-              <li><Link href={`${currLanguage}/cart`}>{tr('cart.link')}</Link></li>
+              <li><Link href={`/${language}/`}>{t('home')}</Link></li>
+              <li><Link href={`/${language}/search`}>{t('search')}</Link></li>
+              <li><Link href={`/${language}/cart`}>{t('cart')}</Link></li>
             </ul>
           </div>
           <div>
-            <p className={scss.footer_list_name}>{tr('help.title')}</p>
+            <p className={scss.footer_list_name}>{t('help')}</p>
             <ul>
-              <li><Link href={`/${currLanguage}/help`}>{tr('website.link')}</Link></li>
-              <li><Link href={`/${currLanguage}/help`}>{tr('translate.link')}</Link></li>
-              <li><Link href={''}>FAQ</Link></li>
+              <li><Link href={`/${language}/help`}>{t('website-help')}</Link></li>
+              <li><Link href={`/${language}/help`}>{t('translation-help')}</Link></li>
+              <li><Link href={'/${language}/'}>FAQ</Link></li>
             </ul>
           </div>
           <div>
-            <p className={scss.footer_list_name}>{tr('other.title')}</p>
+            <p className={scss.footer_list_name}>{t('other')}</p>
             <ul>
-              <li><Link href={'/'}>{tr('about.link')}</Link></li>
-              <li><Link href={'/'}>{tr('privacy.policy')}</Link></li>
+              <li><Link href={'/${language}/'}>{t('other-about')}</Link></li>
+              <li><Link href={'/${language}/'}>{t('other-policy')}</Link></li>
             </ul>
           </div>
         </div>

@@ -1,8 +1,6 @@
 @import '@/scss/variabel';
 @import '@/scss/mixin';
 
-@import '../media-query/searchForm.media-query.scss';
-
 .search_form_container {
 	background-color: white;
 	border-radius: $border-radius-input-form;
@@ -51,3 +49,5 @@
 		}
 	}
 }
+
+@import '../media-query/searchForm.media-query.scss';

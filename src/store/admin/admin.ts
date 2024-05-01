@@ -1,29 +1,29 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import type { AdminInitState, ProductData, ProductSection } from './admin.type'
+import type { AdminInitState, GetStoreData, Order, ProductData, ProductSection, UserData } from './admin.type'
 
-import getStoreData from './action/getStoreData'
 import removeItem from './action/removeItem'
 import addProduct from './action/addProduct'
 import addProductsSection from './action/addProductsSection'
 import editUser from './action/editUser'
 import editProduct from './action/editProduct'
 import editProductsSection from './action/editProductsSection'
+import changeOrderStatus from './action/changeOrderStatus'
 
-import parseJSONError from '@/lib/parseJSONError/parseJSONError'
-
-import { isInclude, replaceByKey } from './tool/adminUtils'
+import { isInclude } from './tool/adminUtils'
 
 import deleteFrom from './tool/deleteFrom'
 import updateIn from './tool/updateIn'
 import findFrom from './tool/findFrom'
 import replaceFrom from './tool/replaceFrom'
+import editWebsiteSetting from './action/editWebsiteSetting'
 
 const initialState: AdminInitState = {
 	products: [],
 	productsSection: [],
 	users: [],
-	order: [],
+	orders: [],
+	websiteSettings: undefined,
 	isAdminActionLoading: false,
 	adminActionError: undefined,
 }
@@ -31,29 +31,21 @@ const initialState: AdminInitState = {
 const adminStore = createSlice({
 	name: 'admin',
 	initialState,
-	reducers: {},
-	extraReducers(builder) {
-/*--------------------------------------Get store data---------------------------------------------------*/
-			builder.addCase(getStoreData.pending, (state) => {
-				state.isAdminActionLoading = true
-			})
-			.addCase(getStoreData.fulfilled, (state, { payload }) => {
-				const { products, productsSection, users } = payload
-
+	reducers: {
+		setAdminData: (state, { payload }: PayloadAction<GetStoreData | undefined>) => {
+			if(payload) {
+				const { orders, products, productsSection, users, websiteSettings } = payload
+				state.orders = orders
 				state.products = products
-				state.users = users
 				state.productsSection = productsSection
-				
-				state.isAdminActionLoading = false
-				state.adminActionError = undefined
-			})
-			.addCase(getStoreData.rejected, (state, { payload }) => {
-				state.adminActionError = parseJSONError(payload as string)
-				state.isAdminActionLoading = false
-			})
-/*--------------------------------------Get store data---------------------------------------------------*/
+				state.users = users
+				state.websiteSettings = websiteSettings
+			}
+		}
+	},
+	extraReducers(builder) {
 /*--------------------------------------Remove Item------------------------------------------------------*/
-			.addCase(removeItem.pending, (state) => {
+			builder.addCase(removeItem.pending, (state) => {
 				state.isAdminActionLoading = true
 			})
 			.addCase(removeItem.fulfilled, (state, { payload }) => {
@@ -65,23 +57,35 @@ const adminStore = createSlice({
 						state.productsSection = state.productsSection.map(section => ({
 							...section, 
 							productsID: deleteFrom<string>(id, section.productsID)!, 
-							products: deleteFrom<ProductData>({ _id: id }, section.products) 
+							products: deleteFrom<ProductData>({ _id: id }, section.products || []) 
 						}))
 					break;
-					case 'product-section':
+					case 'section':
 						state.productsSection = deleteFrom<ProductSection>({ _id: id }, state.productsSection)!
 						state.products = state.products.map(product => {
-							if(product.sectionID === id) return {...product,  category: '', sectionID: '', precent: null }
+							if(product.sectionID === id) return {...product,  category: undefined, sectionID: undefined, precent: 0.00 }
 							return product
 						}) 
 					break;
+					case 'order':
+						const order = findFrom<Order>({ _id: id }, state.orders) as Order | undefined
+					
+						if(order) {
+							const productsID = order.toBuy.map(product => product._id)
+
+							state.products = state.products.filter(product => !productsID.includes(product._id))
+
+							state.orders = deleteFrom<Order>({ _id: id }, state.orders)
+						}
+
+					break
 				}
 
 				state.isAdminActionLoading = false
 				state.adminActionError = undefined
 			})
 			.addCase(removeItem.rejected, (state, { payload }) => {
-				state.adminActionError = parseJSONError(payload as string)
+				state.adminActionError = JSON.parse(payload as string)
 				state.isAdminActionLoading = false
 			})
 /*--------------------------------------Remove Item------------------------------------------------------*/
@@ -101,7 +105,7 @@ const adminStore = createSlice({
 				state.adminActionError = undefined
 			})
 			.addCase(addProduct.rejected, (state, { payload }) => {
-				state.adminActionError = parseJSONError(payload as string)
+				state.adminActionError = JSON.parse(payload as string)
 				state.isAdminActionLoading = false
 			})
 /*--------------------------------------Add product------------------------------------------------------*/
@@ -110,31 +114,29 @@ const adminStore = createSlice({
 				state.isAdminActionLoading = true
 			})
 			.addCase(editProduct.fulfilled, (state, { payload }) => {
-				const { updatedProduct, updatedProductsSection } = payload
+				const { updatedProduct, updatedCategory } = payload			
 
 				//1) Replace product from products with new product.
 				state.products = replaceFrom<ProductData>({ _id: updatedProduct._id }, state.products, updatedProduct)
 
 				//2) Replace/Push product from section products.
-				if(updatedProductsSection) {
-					state.productsSection = state.productsSection.map(section => {
-						if(section._id === updatedProductsSection._id) {
-							const include: boolean = isInclude(updatedProductsSection.productsID, updatedProduct._id)
-							return {
-								...section, 
-								productsID: include ? section.productsID : [...section.productsID, updatedProduct._id], 
-								products: include ? replaceFrom<ProductData>({ _id: updatedProduct._id }, section.products!, updatedProduct) : [...section.products || [], updatedProduct]	
-							}
+				state.productsSection = state.productsSection.map(section => {
+					if(section._id === (updatedCategory?._id || updatedProduct.sectionID)) {
+						const include: boolean = isInclude(section.productsID, updatedProduct._id)
+						return {
+							...section, 
+							productsID: include ? section.productsID : [...section.productsID, updatedProduct._id], 
+							products: include ? replaceFrom<ProductData>({ _id: updatedProduct._id }, section.products!, updatedProduct) : [...section.products || [], updatedProduct]	
 						}
-						return section
-					})
-				}
+					}
+					return section
+				})
 
 				state.isAdminActionLoading = false
 				state.adminActionError = undefined
 			})
 			.addCase(editProduct.rejected, (state, { payload }) => {
-				state.adminActionError = parseJSONError(payload as string)
+				state.adminActionError = JSON.parse(payload as string)
 				state.isAdminActionLoading = false
 			})
 /*-------------------------------------Edit product------------------------------------------------------*/
@@ -143,28 +145,26 @@ const adminStore = createSlice({
 				state.isAdminActionLoading = true
 			})
 			.addCase(addProductsSection.fulfilled, (state, { payload }) => {
-				const { newSection } = payload
-				
 				//1) Insert products into new Section
 				let products: ProductData[] = []
 
 				for(let index: number = 0; index < state.products.length; index++) {
 					const currProduct = state.products[index]
-					if(isInclude(newSection.productsID, currProduct._id)) {
-						const updatedProduct = {...currProduct, precent: newSection.precent, sectionID: newSection._id, category: newSection.title }
+					if(isInclude(payload.productsID, currProduct._id)) {
+						const updatedProduct = {...currProduct, precent: payload.precent, sectionID: payload._id, category: payload.title }
 
 						products = [...products, updatedProduct]
 						state.products[index] = updatedProduct
 					}
 				}
 
-				state.productsSection = [...state.productsSection, {...newSection, products }]
+				state.productsSection = [...state.productsSection, {...payload, products }]
 
 				state.isAdminActionLoading = false
 				state.adminActionError = undefined
 			})
 		  .addCase(addProductsSection.rejected, (state, { payload }) => {
-				state.adminActionError = parseJSONError(payload as string)
+				state.adminActionError = JSON.parse(payload as string)
 				state.isAdminActionLoading = false
 			})
 /*-------------------------------------Add product section-----------------------------------------------*/
@@ -173,13 +173,13 @@ const adminStore = createSlice({
 				state.isAdminActionLoading = true
 			})
 			.addCase(editUser.fulfilled, (state, { payload }) => {
-				state.users = replaceByKey('_id', state.users, payload)
+				state.users = replaceFrom<UserData>({ _id: payload._id }, state.users, payload)
 
 				state.isAdminActionLoading = false
 				state.adminActionError = undefined
 			})
 			.addCase(editUser.rejected, (state, { payload }) => {
-				state.adminActionError = parseJSONError(payload as string)
+				state.adminActionError = JSON.parse(payload as string)
 				state.isAdminActionLoading = false
 			})
 /*-------------------------------------Edit user---------------------------------------------------------*/
@@ -188,18 +188,16 @@ const adminStore = createSlice({
 				state.isAdminActionLoading = true
 			})
 			.addCase(editProductsSection.fulfilled, (state, { payload }) => {
-				const { updatedProductsSection } = payload
-
 				let sectionProducts: ProductData[] = []
 
 				//1) Update all products in section
 				state.productsSection = state.productsSection.map(section => {
-					if(section._id === updatedProductsSection._id) {
+					if(section._id === payload._id) {
 						for(let index: number = 0; index < state.products.length; index++) {
 							const currProduct = state.products[index]
-							if(updatedProductsSection.productsID.includes(currProduct._id)) sectionProducts = [...sectionProducts, {...currProduct, sectionID: section._id, precent: updatedProductsSection.precent, category: updatedProductsSection.title }]
+							if(payload.productsID.includes(currProduct._id)) sectionProducts = [...sectionProducts, {...currProduct, sectionID: section._id, precent: payload.precent, category: payload.title }]
 						}
-						return {...updatedProductsSection, products: sectionProducts }
+						return {...payload, products: sectionProducts }
 					}
 					return section
 				})
@@ -215,11 +213,41 @@ const adminStore = createSlice({
 				state.adminActionError = undefined
 			})
 			.addCase(editProductsSection.rejected, (state, { payload }) => {
-				state.adminActionError = parseJSONError(payload as string)
+				state.adminActionError = JSON.parse(payload as string)
 				state.isAdminActionLoading = false
 			})
 /*-------------------------------------Edit product section----------------------------------------------*/
+/*-------------------------------------Edit order status------------------------------------------------ */
+			.addCase(changeOrderStatus.pending, (state) => {
+				state.isAdminActionLoading = true
+				state.adminActionError = undefined
+			})
+			.addCase(changeOrderStatus.rejected, (state, { payload }) => {
+				state.adminActionError = JSON.parse(payload as string)
+				state.isAdminActionLoading = false
+			})
+			.addCase(changeOrderStatus.fulfilled, (state, { payload }) => {
+				state.orders = updateIn<Order>({ _id: payload.id }, { status: payload.status }, state.orders)
+				state.adminActionError = undefined
+				state.isAdminActionLoading = false
+			})
+/*-------------------------------------Edit website setting----------------------------------------------*/
+/*-------------------------------------Edit website setting----------------------------------------------*/
+			.addCase(editWebsiteSetting.pending, (state) => {
+				state.isAdminActionLoading = true
+				state.adminActionError = undefined
+			})
+			.addCase(editWebsiteSetting.rejected, (state, { payload }) => {
+				state.adminActionError = JSON.parse(payload as string)
+				state.isAdminActionLoading = false
+			})
+			.addCase(editWebsiteSetting.fulfilled, (state, { payload }) => {
+				state.websiteSettings = payload
+				state.adminActionError = undefined
+				state.isAdminActionLoading = false
+			})
 	},
 })
 
+export const { setAdminData } = adminStore.actions
 export default adminStore.reducer

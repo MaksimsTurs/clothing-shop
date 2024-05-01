@@ -2,125 +2,85 @@
 
 import scss from './page.module.scss'
 
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { PayPalButtons } from '@paypal/react-paypal-js'
-import Image from "next/image"
+import { useSelector } from 'react-redux'
+import { useSearchParams } from 'next/navigation'
+import { TriangleAlert } from 'lucide-react'
+import { SyntheticEvent, useState } from 'react'
 
-import type { PayPalButtonsComponentProps } from '@paypal/react-paypal-js'
-import type { CheckoutResult } from './checkout.type'
-import type { AppDispatch, RootState } from "@/store/store"
-import type { UserInitState } from "@/store/user/user.type"
+import type { CartCheckResult, ToCheck } from './page.type'
+import type { RootState } from '@/store/store'
+import type { UserInitState } from '@/store/user/user.type'
 
-import fetcher from "@/lib/fetcher/fetcher"
-import parseJSONError from "@/lib/parseJSONError/parseJSONError"
+import CheckoutPrice from './component/checkoutPrice'
+import CheckoutProducts from './component/checkoutProducts'
+import PaypalButton from './component/paypalButton'
+import CheckoutLoader from './component/checkoutLoader'
 
-import { CURR_CURRENCY } from '@/const'
+import checkoutWarning from '@/util/checkoutWarnings'
+
+import useRequest from '@/custom-hook/useRequest/useRequest'
+
+import { useScopedI18n } from '@/localization/client'
 
 export default function PaypalCheckout() {
-  const [checkoutResult, setCheckoutResult] = useState<CheckoutResult>({ 
-    deliveryCost: '0', 
-    discount: '0', 
-    totalProductsCost: '0',
-    totalCost: '0', 
-    isLoading: true, 
-    products: [], 
-    error: undefined 
-  })
+	const [adress, setAdress] = useState<string>(localStorage.getItem('adress') || '')
 
-  const dispatch = useDispatch<AppDispatch>()
+	const id: string | null = useSearchParams().get('id')
 
-  const { cart } = useSelector<RootState, UserInitState>(state => state.user)
+  const t = useScopedI18n('checkout-page')
 
-  const productsInfo: { id: string, count: number, sectionID?: string }[] = cart.map(product => ({ count: product.count, id: product._id, sectionID: product?.sectionID  }))
+	const changeAdress = (event: SyntheticEvent<HTMLInputElement>): void => {
+		setAdress(event.currentTarget.value)
+		localStorage.setItem('adress', event.currentTarget.value)
+	}
 
-  useEffect(() => {
-    const makeCheckout = async() => {
-      try {
-        const response = await fetcher.post<CheckoutResult>('/common/checkout', { productsInfo })
-        setCheckoutResult(() => ({...response, isLoading: false}))
-      } catch(error) {
-        setCheckoutResult(prev => ({...prev, error: parseJSONError(error as string), isLoading: false}))
-      }
-    }
-    
-    makeCheckout()
-  }, [])
+	const { cart } = useSelector<RootState, UserInitState>(state => state.user)
 
-  const createOrder: PayPalButtonsComponentProps['createOrder'] = async (_data, actions) => {
-    return actions.order.create({
-      intent: 'CAPTURE',
-      purchase_units: [{ 
-        amount: { currency_code: 'EUR', value: checkoutResult.totalCost },
-        reference_id: (Math.random() + 2000).toString(36), 
-        description: 'Purchasing the cart.' 
-      }]
-    })  
-  }
+	const productIDs: ToCheck[] = cart.map(product => ({ _id: product._id, count: product.count }))
 
-  const onApprove = async () => {
-    // checkoutResult.products.map(product => dispatch(removeFullProduct(product._id)))
-    // await fetcher.post('/common/buy', { productIDs })
-  }
+	const { data, isPending } = useRequest<CartCheckResult>({ URL: '/check-cart', body: id ? [{ _id: id, count: 1 }] : productIDs })
 
-  return(
-    <main className={scss.checkout_container}>
-      <div className={`${scss.checkout_border} ${scss.checkout_data}`}>
-        {
-          checkoutResult.products.length <= 0 ? 
-          <div style={{ padding: '1rem', color: 'silver', textAlign: 'center', fontSize: '1.5rem' }} >NO DATA</div> : 
-          checkoutResult.products.map(product => (
-            <div className={scss.checkout_product_container} key={product._id}>
-              <Image alt={product.title} src={product.images[0]} width={120} height={120}/>
-              <div>
-                <section className={scss.checkout_data_container}>
-                  <p>Title:</p>
-                  <p>{product.title}</p>
-                </section>
-                <section className={scss.checkout_data_container}>
-                  <p>Price:</p>
-                  <p>{product.price.toFixed(2)} {CURR_CURRENCY}</p>
-                </section>
-                <section className={scss.checkout_data_container}>
-                  <p>Precent:</p>
-                  <p>{((product.precent || 0) * 100).toFixed(2)}%</p>
-                </section>
-                <section className={scss.checkout_data_container}>
-                  <p>Price with Precent:</p>
-                  <p>{(product.price - ((product.precent || 0) * product.price)).toFixed(2)} {CURR_CURRENCY}</p>
-                </section>
-                <section className={scss.checkout_data_container}>
-                  <p>Count:</p>
-                  <p>{product.count} count</p>
-                </section>
-                <section className={scss.checkout_data_container}>
-                  <p>Total price:</p>
-                  <p>{((product.price - ((product.precent || 0) * product.price)) * product.count).toFixed(2)} {CURR_CURRENCY}</p>
-                </section>
-              </div>
+	localStorage.setItem('checkID', data?.checkID as string)
+
+	return (
+		<main className={scss.page_checkout_container}>
+			{isPending ? (
+				<CheckoutLoader />
+			) : (
+        <div className={scss.page_checkout_body}>
+          {data?.warnings && data.warnings.length > 0 ? (
+						<div className={scss.page_prices_warning_container}>
+							<TriangleAlert width={20} height={20} />
+							{data?.warnings.map(warning => <p key={warning}>{checkoutWarning(warning)}</p>)}
+						</div>
+					) : null}
+          <div className={scss.page_prices_body}>
+            <CheckoutProducts title={t('products-to-by')} products={data?.products}/>
+            <div className={scss.page_product_price}>
+              <CheckoutPrice
+                title={t('end-price')}
+                isLoading={isPending}
+                prices={{
+                  totalOrderPrice: data?.totalOrderPrice,
+                  delivery: data?.delivery,
+                  discount: data?.discount,
+                  totalItemsPrice: data?.totalItemsPrice,
+                  totalPriceWithDiscount: data?.totalPriceWithDiscount,
+                }}
+              />
+              <input 
+                onInput={changeAdress} 
+                className={scss.page_order_adress} 
+                value={adress} 
+                type='text' 
+                placeholder={t('address')} />
+              {adress ? (
+                <PaypalButton />
+              ) : <p style={{ width: 'fit-content' }} className={scss.page_prices_warning_container}>{t('address-required')}!</p>}
             </div>
-          ))
-        }
-      </div>
-      <div className={`${scss.checkout_border} ${scss.checkout_data_cost}`}>
-        <section className={scss.checkout_data_container}>
-          <p>Products price:</p>
-          <p>{checkoutResult.totalProductsCost} {CURR_CURRENCY}</p>
-        </section>
-        <section className={scss.checkout_data_container}>
-          <p>Delivery price:</p>
-          <p>{checkoutResult.deliveryCost} {CURR_CURRENCY}</p>
-        </section>
-        <section className={scss.checkout_data_container}>
-          <p>Discount:</p>
-          <p style={{ color: parseFloat(checkoutResult.discount) > 0 ? '#700' : undefined }}>{parseFloat(checkoutResult.discount) > 0 ? `-${checkoutResult.discount}` : 0} {CURR_CURRENCY}</p>
-        </section>
-        <section className={scss.checkout_data_container}>
-          <p>Total price:</p>
-          <p>{checkoutResult.totalCost} {CURR_CURRENCY}</p>
-        </section>
-        <PayPalButtons displayOnly={['vaultable']} createOrder={createOrder} onApprove={onApprove}/>
-      </div>
-    </main>
-  )
+          </div>
+        </div>
+      )}
+		</main>
+	)
 }

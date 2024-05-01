@@ -4,10 +4,17 @@ import Header from '@/component/header/header'
 import Footer from '@/component/footer/footer'
 
 import type { Metadata } from 'next'
-import getDefaultMeta from '@/util/getDefaultMeta'
 
-export function generateMetadata(): Metadata {
-	return {...getDefaultMeta(), title: 'Checkout'}
+import defaultMetadata from '../defaultMeta'
+import getTranslation from '@/localization/server'
+
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslation('metadata-checkout')
+	return {
+		...defaultMetadata(), 
+		title: t('title'),
+		description: t('description')
+	}
 }
 
 export default function RootLayout({ children }: PropsWithChildren) {

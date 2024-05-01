@@ -2,10 +2,10 @@ import { Fragment, type PropsWithChildren } from 'react'
 
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
-	title: 'Administration Panel',
-	description: 'It is Administration panel!',
-	robots: { follow: false, index: false },
+import defaultMeta from '../defaultMeta'
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {...defaultMeta, robots: { follow: false, index: false }, title: 'Admin panel' }
 }
 
 export default function RootLayout({ children }: PropsWithChildren) {

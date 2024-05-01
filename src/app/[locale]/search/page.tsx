@@ -1,84 +1,118 @@
 'use client'
 
-import scss from './scss/page.module.scss'
+import scss from './page.module.scss'
 
-import NMPagination from '@/component/page-pagination/pagePagination'
-import NMPorudctsContainer from '@/component/product-container/productsContainer'
-import NMFilter from './component/filter'
-import NMobileFilter from './component/mobileFilter'
-import Error from '@/component/error/error'
-import ProductsLoader from '@/component/loader/products-loader/productsLoader'
+import { Fragment, type SyntheticEvent, useState } from 'react'
+import { Frown } from 'lucide-react'
 
-import { useState, memo, Fragment } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { useScopedI18n } from '@/i18n/client'
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import FilterWrapper from './component/filterWrapper'
+import ProductsContainer from '@/component/product-container/productsContainer'
+import Pagination from '@/component/page-pagination/pagePagination'
+import FilterResult from './component/filterResult'
+import Error from '../error'
+import ProductLoaderContainer from '@/component/loader/product-loader-container/productLoadeContainer'
 
-import type { FilterState } from './search.type'
+import type { FilterActionReturn, PageProps } from './page.type'
 
-import actionFilteredProduct from './action/actionFilteredProduct'
+import { useScopedI18n } from '@/localization/client'
 
-import parseJSONError from '@/lib/parseJSONError/parseJSONError'
+import useRequest from '@/custom-hook/useRequest/useRequest'
 
-const Pagination = memo(NMPagination)
-const ProductsContainer = memo(NMPorudctsContainer)
-const Filter = memo(NMFilter)
-const MobileFilter = memo(NMobileFilter)
+export default function Page({ searchParams }: PageProps) {
+	const { page, title } = searchParams
 
-export default function Page() {
-	const params = useSearchParams()
-	const currPage = params.get('page') || 0
-	const categoryTitle = params.get('title')
+	const [currPrice, setCurrPrice] = useState<number>(0)
+	const [currRating, setCurrRating] = useState<number>(0)
+	const [categories, setCategories] = useState<string[]>([])
+	const [isFilterHidden, setFilterHidden] = useState<boolean>(true)
 
-	const [filterState, setFilterState] = useState<FilterState>({ category: [], price: 0, rating: 0 })
-	const [isFilterVisible, setFilterVisible] = useState<boolean>(false)
+  const t = useScopedI18n('search')
 
-	const tr = useScopedI18n('Search')
-
-	const isMobile: boolean = window.matchMedia('(width <= 760px)').matches
-	
-	const usedFilters = {...filterState, category: categoryTitle ? [categoryTitle] : filterState.category, page: Number(currPage) || 0 }
-
-	const { data, error, isFetching, refetch } = useQuery({ 
-		queryKey: [`page-${currPage}`, `category-${categoryTitle}`], 
-		queryFn: async () => await actionFilteredProduct(usedFilters),
-		placeholderData: keepPreviousData,
-	})
-
-	const parsedError = parseJSONError(error?.message)
-
-	const showFilterContainer = (): void => {
-		setFilterVisible(true)
-		document.body.style.overflow = 'hidden'
+	const filter = { 
+		category: title ? [title] : categories.length > 0 ? categories : [], 
+		page: page || 0, 
+		price: currPrice, 
+		rating: currRating
 	}
 
-	return (
-		<section style={error ? { justifyContent: 'center', alignItems: 'center' } : undefined} className={scss.search_page_container}>
-			{error ? <Error error={parsedError}/> :
-				<Fragment>
-					{isMobile ? 
-						<MobileFilter refetch={refetch} setFilterState={setFilterState} setFilterVisible={setFilterVisible} filterState={filterState} isFilterVisible={isFilterVisible}/> : 
-						<Filter refetch={refetch} setFilterState={setFilterState} filterState={filterState}/>
-					}
-					<div className={scss.search_page_body}>
-						<Pagination currentPage={Number(currPage)} pagesCount={data?.maxPages || 0}/>	
-						{data && data.currPageProducts.length > 0 && !isFetching ?
-							<Fragment>
-								<div className={scss.search_filter_data}>
-									<p className={scss.search_curr_page_data}>{tr('showing')} {data.productsRange.min} - {data.productsRange.max} {tr('of')} {data.maxProducts} {tr('products')}</p>
-										{isMobile &&
-											<svg onClick={showFilterContainer} width="32" height="32" viewBox="0 0 32 32" fill="none">
-												<rect width="32" height="32" rx="16" fill="#F0F0F0"/>
-												<path d="M16.75 15.75V21.5C16.75 21.6989 16.671 21.8897 16.5303 22.0303C16.3897 22.171 16.1989 22.25 16 22.25C15.8011 22.25 15.6103 22.171 15.4697 22.0303C15.329 21.8897 15.25 21.6989 15.25 21.5V15.75C15.25 15.5511 15.329 15.3603 15.4697 15.2197C15.6103 15.079 15.8011 15 16 15C16.1989 15 16.3897 15.079 16.5303 15.2197C16.671 15.3603 16.75 15.5511 16.75 15.75ZM20.5 20C20.3011 20 20.1103 20.079 19.9697 20.2197C19.829 20.3603 19.75 20.5511 19.75 20.75V21.5C19.75 21.6989 19.829 21.8897 19.9697 22.0303C20.1103 22.171 20.3011 22.25 20.5 22.25C20.6989 22.25 20.8897 22.171 21.0303 22.0303C21.171 21.8897 21.25 21.6989 21.25 21.5V20.75C21.25 20.5511 21.171 20.3603 21.0303 20.2197C20.8897 20.079 20.6989 20 20.5 20ZM22 17.5H21.25V10.5C21.25 10.3011 21.171 10.1103 21.0303 9.96967C20.8897 9.82902 20.6989 9.75 20.5 9.75C20.3011 9.75 20.1103 9.82902 19.9697 9.96967C19.829 10.1103 19.75 10.3011 19.75 10.5V17.5H19C18.8011 17.5 18.6103 17.579 18.4697 17.7197C18.329 17.8603 18.25 18.0511 18.25 18.25C18.25 18.4489 18.329 18.6397 18.4697 18.7803C18.6103 18.921 18.8011 19 19 19H22C22.1989 19 22.3897 18.921 22.5303 18.7803C22.671 18.6397 22.75 18.4489 22.75 18.25C22.75 18.0511 22.671 17.8603 22.5303 17.7197C22.3897 17.579 22.1989 17.5 22 17.5ZM11.5 18C11.3011 18 11.1103 18.079 10.9697 18.2197C10.829 18.3603 10.75 18.5511 10.75 18.75V21.5C10.75 21.6989 10.829 21.8897 10.9697 22.0303C11.1103 22.171 11.3011 22.25 11.5 22.25C11.6989 22.25 11.8897 22.171 12.0303 22.0303C12.171 21.8897 12.25 21.6989 12.25 21.5V18.75C12.25 18.5511 12.171 18.3603 12.0303 18.2197C11.8897 18.079 11.6989 18 11.5 18ZM13 15.5H12.25V10.5C12.25 10.3011 12.171 10.1103 12.0303 9.96967C11.8897 9.82902 11.6989 9.75 11.5 9.75C11.3011 9.75 11.1103 9.82902 10.9697 9.96967C10.829 10.1103 10.75 10.3011 10.75 10.5V15.5H10C9.80109 15.5 9.61032 15.579 9.46967 15.7197C9.32902 15.8603 9.25 16.0511 9.25 16.25C9.25 16.4489 9.32902 16.6397 9.46967 16.7803C9.61032 16.921 9.80109 17 10 17H13C13.1989 17 13.3897 16.921 13.5303 16.7803C13.671 16.6397 13.75 16.4489 13.75 16.25C13.75 16.0511 13.671 15.8603 13.5303 15.7197C13.3897 15.579 13.1989 15.5 13 15.5ZM17.5 12.5H16.75V10.5C16.75 10.3011 16.671 10.1103 16.5303 9.96967C16.3897 9.82902 16.1989 9.75 16 9.75C15.8011 9.75 15.6103 9.82902 15.4697 9.96967C15.329 10.1103 15.25 10.3011 15.25 10.5V12.5H14.5C14.3011 12.5 14.1103 12.579 13.9697 12.7197C13.829 12.8603 13.75 13.0511 13.75 13.25C13.75 13.4489 13.829 13.6397 13.9697 13.7803C14.1103 13.921 14.3011 14 14.5 14H17.5C17.6989 14 17.8897 13.921 18.0303 13.7803C18.171 13.6397 18.25 13.4489 18.25 13.25C18.25 13.0511 18.171 12.8603 18.0303 12.7197C17.8897 12.579 17.6989 12.5 17.5 12.5Z" fill="black"/>
-											</svg>
-										}
-								</div>
-								<ProductsContainer data={data.currPageProducts} />
-							</Fragment> : isFetching ? <ProductsLoader/> : <p className={scss.search_not_founded}>Products not founded!</p>
-						}
+	const changePrice = (event: SyntheticEvent<HTMLInputElement>): void => setCurrPrice(+event.currentTarget.value)
+	const changeRating = (event: SyntheticEvent<HTMLInputElement>): void => setCurrRating(+event.currentTarget.value)
+
+	const hideFilter = (): void => setFilterHidden(true)
+
+	const resetState = (): void => {
+		setCurrPrice(0)
+		setCurrRating(0)
+		setCategories([])
+	}
+
+	const { isPending, data, error, retry } = useRequest<FilterActionReturn>({
+		key: `${filter.category.join(',') || 'null'}-${filter.page}-${filter.price}-${filter.rating}`,
+		body: filter,
+		URL: '/product/filter-and-pagination'
+	})
+
+	const getFilteredProducts = async (): Promise<any> => {
+		retry()
+		setFilterHidden(true)
+	}
+
+	const isMobile: boolean = window.matchMedia('(width <= 785px)').matches
+		
+	return(
+		<div className={scss.search_page_container}>
+			<aside className={(isFilterHidden && isMobile) ? `${scss.search_page_filter} ${scss.search_filer_hidden}` : scss.search_page_filter}>
+				<div className={scss.search_filter_container}>
+					<p className={scss.search_filter_title}>Filter</p>
+					<button onClick={hideFilter} className={scss.search_filer_close_button}>&#10005;</button>
+				</div>
+				<FilterWrapper title={t('category')}>
+					<ul className={scss.search_categories_list}>
+						{data?.categories.map(category => <li key={category} className={categories.includes(category) ? scss.search_category_active : undefined} onClick={() => {
+							if(categories.includes(category)) return setCategories(prev => prev.filter(_prev => _prev !== category))
+							else return setCategories(prev => [...prev, category])
+						}}>{category}</li>)}
+					</ul>
+				</FilterWrapper>
+				<FilterWrapper title={t('price')}>
+					<div className={scss.search_price_container}>
+						<input onChange={changePrice} value={currPrice} min={0} max={500} className={scss.search_range_input} type="range" />
+						<div className={scss.search_count_contaier}>
+							<section>
+								<p>0</p> 
+								<p>€</p>
+							</section>
+							<section>
+								<p>{currPrice}</p> 
+								<p>€</p>
+							</section>
+						</div>
+					</div>		
+				</FilterWrapper>
+				<FilterWrapper title={t('rating')}>
+					<div className={scss.search_price_container}>
+						<input onChange={changeRating} value={currRating} min={0} max={5} step={0.5} className={scss.search_range_input} type="range" />
+						<div className={scss.search_count_contaier}>
+							<section>0</section>
+							<section>{currRating}</section>
+						</div>
 					</div>
-				</Fragment>
-			}
-		</section>
+				</FilterWrapper>
+				<div className={scss.search_buttons}>
+					<button onClick={getFilteredProducts}>{t('filter')}</button>
+					<button onClick={resetState}>{t('reset')}</button>
+				</div>
+			</aside>
+			<div className={scss.search_result_container}>
+				<FilterResult maxProducts={data?.maxProducts || 0} productsRange={data?.productsRange || { max: 0, min: 0 }} selectedCategory={title} showFilter={setFilterHidden}/>
+				{error ? <Error error={error} isChild/> :
+					isPending ? <ProductLoaderContainer/> :
+					data?.currPageProducts.length === 0 ? <div className={scss.search_product_empty}><Frown/><p>No products found!</p></div> :
+					<Fragment>
+						<ProductsContainer data={data?.currPageProducts || []}/>
+						<Pagination currentPage={Number(page) || 0} pagesCount={data?.maxPages || 0}/>
+					</Fragment>}
+			</div>
+		</div>
 	)
-}
+}	

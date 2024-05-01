@@ -1,0 +1,20 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.user_wrapper_container {
+  border-radius: $border-radius-img;
+  box-shadow: $box-shadow-input;
+  border: 1px solid $background-color-input-form;
+  padding: 0.5rem;
+
+  section {
+    @include flex-alignitems-justifycontent(center);
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h4 {
+    font-size: $font-large;
+    font-weight: bolder;
+  }
+}

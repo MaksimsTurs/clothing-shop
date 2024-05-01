@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import fetcher from "@/lib/fetcher/fetcher";
+import fetcher from "@/util/fetcher/fetcher";
 
-import type { RemoveFrom } from "../admin.type";
+import type { RemoveItemAction } from "../admin.type";
 
-const removeItem = createAsyncThunk<{ id: string, from: RemoveFrom }, { id: string, from: RemoveFrom }>(
+const removeItem = createAsyncThunk<Required<RemoveItemAction>, RemoveItemAction>(
   'admin/item/remove', 
   async({ from, id }, thunkApi) => {
     try {

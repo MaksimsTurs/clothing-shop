@@ -1,15 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import fetcher from '@/lib/fetcher/fetcher'
+import fetcher from '@/util/fetcher/fetcher'
 
 import type { UserData } from '../admin.type'
 
 const editUser = createAsyncThunk<UserData, FormData>(
 	'admin/user/edit',
-	async(sectionData, thunkApi) => {
+	async(data, thunkApi) => {
 		try {
-			const response = await fetcher.post<UserData>(`/common/user/edit`, sectionData)
-			return response
+			return await fetcher.post<UserData>(`/admin/user/edit`, undefined, data)
 		} catch (error) {
 			return thunkApi.rejectWithValue(error)
 		}

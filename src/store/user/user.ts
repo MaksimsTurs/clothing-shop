@@ -1,127 +1,125 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice, current } from "@reduxjs/toolkit";
 
-import type { ProductInLocalStorage, UserInitState } from "./user.type";
+import type { ProductInLocalStorage, UserClient, UserInitState } from "./user.type";
 import type { ProductData } from "../admin/admin.type";
 
-import userLogin from "./action/userLogIn";
-import userRegistration from "./action/userRegistration";
-import removeMe from "./action/removeMe";
-import editUser from "./action/editUser";
-
-import cookies from "@/util/coockies";
-import parseJSONError from "@/lib/parseJSONError/parseJSONError";
 import deleteFrom from "../admin/tool/deleteFrom";
+import cookies from "@/util/coockies";
+
+import editMe from "./action/editMe";
+import removeMe from "./action/removeMe";
+import logIn from "./action/logIn";
+import registration from "./action/registration";
 
 const initialState: UserInitState  = {
   cart: [],
-  userLocal: undefined,
-  isUserActionLoading: false,
-  userErrorMessage: '',
+  yourself: undefined,
+  userActionError: undefined,
+  isUserActionPending: false
 }
 
 const cartSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    removeFullProduct: (state, { payload }: PayloadAction<string>) => {
+    clearError: (state) => {
+      state.userActionError = undefined
+    },
+    removeUser: (state) => {
+      state.yourself = undefined
+    },
+    clearCart: (state) => {
+      state.cart = []
+    },
+    removeProduct: (state, { payload }: PayloadAction<string>) => {
       state.cart = deleteFrom<ProductInLocalStorage>({ _id: payload }, state.cart)!
     },
-    addCartProductCount: (state, { payload }: PayloadAction<{ product: ProductData | ProductInLocalStorage, count: number }>) => {
+    removeProductCount: (state, { payload }: PayloadAction<{ product: ProductData | ProductInLocalStorage, count: number }>) => {
+      if(!state.cart || payload.count === 0) return
+
+      state.cart = state.cart.map(product => {
+        if(product._id === payload.product._id) {
+          return {...product, count: (product.count - payload.count) <= 0 ? 0 : product.count - payload.count }
+        }
+        return product
+      })
+    },
+    insertProductCount: (state, { payload }: PayloadAction<{ product: ProductData | ProductInLocalStorage, count: number }>) => {
       if(payload.count === 0) return
- 
+
       const existedProduct: ProductInLocalStorage | undefined = state.cart.find(cartProduct => cartProduct._id === payload.product._id)
     
       if(!existedProduct) {
         state.cart = [...state.cart, {...payload.product, count: payload.count }]
       } else {
-        state.cart = state.cart.map(product => ({...product, count: product.count + payload.count }))
+        state.cart = state.cart.map(product => {
+          if(product._id === payload.product._id) return {...product, count: payload.count + product.count }
+          return product
+        })
       }
     },
-    removeCartProductCount: (state, { payload }: PayloadAction<{ product: ProductData | ProductInLocalStorage, count: number }>) => {
-      if(!state.cart || payload.count === 0) return
-
-      state.cart = state.cart.map(product => ({...product, count: ((product.count - payload.count) <= 0) ? 0 : product.count - payload.count }))
-    },
     logOut: (state) => {
-      state.userLocal = undefined
       state.cart = []
-
-      window.open(`/${cookies.getCookie('locale') || 'en'}/home`, '_self')
+      cookies.set('user', state.yourself = undefined)  
     },
   },
   extraReducers(builder) {
-/*----------------------------------------User Registration-------------------------------------------------------------*/
-    builder.addCase(userRegistration.pending, (state) => {
-      state.isUserActionLoading = true
+    builder.addCase(editMe.pending, (state) => {
+      state.isUserActionPending = true
+      state.userActionError = undefined
     })
-    builder.addCase(userRegistration.rejected, (state, { payload }) => {
-      state.userErrorMessage = parseJSONError(payload as string).message      
-      state.isUserActionLoading = false
+    .addCase(editMe.rejected, (state, { payload }) => {
+      state.isUserActionPending = false
+      state.userActionError = JSON.parse(String(payload).replace('Error:', ''))
     })
-    builder.addCase(userRegistration.fulfilled, (state, { payload }) => {
-      state.userLocal = payload
+    .addCase(editMe.fulfilled, (state, { payload }) => {
+      const existed = cookies.get<UserClient>('user')!
+      cookies.set('user', state.yourself = {...existed, ...payload })
 
-      state.isUserActionLoading = false
-      state.userErrorMessage = ''
-
-      window.open(`/${cookies.getCookie('locale') || 'en'}/home`, '_self')
+      state.isUserActionPending = false
+      state.userActionError = undefined
     })
-/*----------------------------------------User Registration-------------------------------------------------------------*/
-/*----------------------------------------User Log in-------------------------------------------------------------------*/
-    builder.addCase(userLogin.pending, (state) => {
-      state.isUserActionLoading = true
-    })
-    builder.addCase(userLogin.rejected, (state, { payload }) => {
-      state.userErrorMessage = parseJSONError(payload as string).message      
-      state.isUserActionLoading = false
-    })
-    builder.addCase(userLogin.fulfilled, (state, { payload }) => {
-      state.userLocal = payload
-
-      state.isUserActionLoading = false
-      state.userErrorMessage = ''
-
-      window.open(`/${cookies.getCookie('locale') || 'en'}/home`, '_self')
-    })
-/*----------------------------------------User Log in-------------------------------------------------------------------*/
-/*----------------------------------------Remove user-------------------------------------------------------------------*/
     builder.addCase(removeMe.pending, (state) => {
-      state.isUserActionLoading = true
+      state.isUserActionPending = true
+      state.userActionError = undefined
     })
-    builder.addCase(removeMe.rejected, (state, { payload }) => {
-      state.userErrorMessage = parseJSONError(payload as string).message
-      state.isUserActionLoading = false
+    .addCase(removeMe.rejected, (state, { payload }) => {
+      state.isUserActionPending = false
+      state.userActionError = JSON.parse(String(payload).replace('Error:', ''))
     })
-    builder.addCase(removeMe.fulfilled, (state, { payload }) => {
-      if(payload.isRemoved) {
-        state.cart = []
-        state.userLocal = undefined
-
-        window.open(`/${cookies.getCookie('locale') || 'en'}/home`, '_self')
-      }
-
-      state.isUserActionLoading = false
-      state.userErrorMessage = ''
+    .addCase(removeMe.fulfilled, () => {
+      window.open(`/${cookies.get('locale') || 'en'}/home`, '_self')
     })
-/*----------------------------------------Remove user-------------------------------------------------------------------*/
-/*----------------------------------------Edit user---------------------------------------------------------------------*/
-    builder.addCase(editUser.pending, (state) => {
-      state.isUserActionLoading = true
+    builder.addCase(logIn.pending, (state) => {
+      state.isUserActionPending = true
+      state.userActionError = undefined
     })
-    builder.addCase(editUser.rejected, (state, { payload }) => {
-      state.userErrorMessage = parseJSONError(payload as string).message
-      state.isUserActionLoading = false
+    .addCase(logIn.rejected, (state, { payload }) => {
+      state.isUserActionPending = false
+      state.userActionError = JSON.parse(String(payload).replace('Error:', ''))
     })
-    builder.addCase(editUser.fulfilled, (state, { payload }) => {
-      state.userLocal = payload
-
-      state.isUserActionLoading = false
-      state.userErrorMessage = ''
+    .addCase(logIn.fulfilled, (state, { payload }) => {
+      cookies.set('user', state.yourself = payload, 2)
+      state.userActionError = undefined
+      state.isUserActionPending = false
+      window.open(`/${cookies.get('locale') || 'en'}/home`, '_self')
     })
-/*----------------------------------------Edit user---------------------------------------------------------------------*/
+    builder.addCase(registration.pending, (state) => {
+      state.isUserActionPending = true
+    })
+    .addCase(registration.rejected, (state, { payload }) => {
+      state.isUserActionPending = false
+      state.userActionError = JSON.parse(String(payload).replace('Error:', ''))
+    })
+    .addCase(registration.fulfilled, (state, { payload }) => {
+      cookies.set('user', state.yourself = payload, 2)
+      state.userActionError = undefined
+      state.isUserActionPending = false
+      window.open(`/${cookies.get('locale') || 'en'}/home`, '_self')
+    })
   },
 })
 
-export const { addCartProductCount, removeCartProductCount, removeFullProduct, logOut } = cartSlice.actions
+export const { logOut, clearCart, clearError, insertProductCount, removeProduct, removeProductCount, removeUser } = cartSlice.actions
 
 export default cartSlice.reducer

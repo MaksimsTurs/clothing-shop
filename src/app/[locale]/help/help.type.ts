@@ -1,1 +1,0 @@
-export type WrapperHelpProps = { wrapperTitle: string, requirementTitle: string, requirements: string[], indexing?: boolean }

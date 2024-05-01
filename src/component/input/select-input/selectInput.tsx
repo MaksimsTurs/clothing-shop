@@ -1,28 +1,23 @@
 import scss from './selectInput.module.scss'
 
+import type { FieldValues } from 'react-hook-form'
 import type { SelectInputProps } from '../input.type'
 
-export default function SelectInput<T extends Record<any, any>>({ setSelectOption, options, selectedOption }: SelectInputProps<T>) {
-	return (
-		<div className={scss.select_input_container}>
-			<section className={scss.select_select}>
-				{options && options.length > 0 ? (
-					options.map(item => (
-						<option
-							key={item._id}
-							style={{background: item._id === selectedOption?._id ? 'rgba(0, 0, 0, 0.1)' : undefined}}
-							className={scss.select_option}
-							onClick={() => {
-								if(selectedOption?._id !== item._id) return setSelectOption(item)
-								setSelectOption(undefined)
-							}}>
-							{item.title}
-						</option>
-					))
-				) : (
-					<option className={scss.select_option}>None</option>
-				)}
-			</section>	
-		</div>
-	)
+export default function SelectInput<T extends FieldValues>({ options, selected, setSelect }: SelectInputProps<T>) {
+  return(
+    <section className={scss.select_container}>
+      <ul>
+        {options.length > 0 ? 
+          options.map(option => (
+            <li 
+              onClick={() => {
+                if(selected === option) setSelect('')
+                else setSelect(option)
+              }}
+              key={option} 
+              className={option === selected ? scss.selected_selected : undefined}>{option}</li>
+          )) : <li className={scss.select_empty}>None</li>}
+      </ul>
+    </section>
+  )
 }

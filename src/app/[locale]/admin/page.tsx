@@ -1,18 +1,12 @@
-import actionCheckUser from './action/actionControllUser'
+import checkUser from './fetching/checkUser'
 
-import AdminPanel from './component/adminPanel'
+import Root from './component/root'
 
-import type { PageProps } from './admin.type'
-
-import { Fragment } from 'react'
-import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
-export default async function Page({ searchParams }: PageProps) {
-	const currLanguage = cookies().get('locale')?.value || 'en'
-	const response = await actionCheckUser(searchParams.token)
-
-	if(response.code !== 200) redirect(`/${currLanguage}/home`)
-
-	return 	<Fragment>{response.code !== 200 ? null : <AdminPanel/>}</Fragment>
+export default async function Page() {
+	const res = await checkUser((JSON.parse(cookies().get('user')?.value || 'null') || undefined)?.token)
+	if(!res.isAdmin) redirect(`${cookies().get('locale')?.value || 'en'}/home`)
+	return <Root/>
 }

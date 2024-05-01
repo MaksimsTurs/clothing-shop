@@ -1,8 +1,18 @@
 @import '@/scss/mixin';
 @import '@/scss/variabel';
 
-@media (width <= 675px) {
-	.header_user_action_container {
+@media(width <= 830px) {
+	.header_container {
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+		gap: 1rem;
+	}
+
+	.header_nav_menu_container {
+		flex-grow: 1;
+	}
+
+	.header_dropdown_container {
 		display: none !important;
 	}
 }

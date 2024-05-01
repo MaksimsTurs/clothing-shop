@@ -8,7 +8,8 @@ export type ExtendedIMGProps = {
   height?: number, 
   className?: string, 
   style?: CSSProperties,
-  quality?: number 
+  quality?: number
+  blurURL?: string
   onClick?: MouseEventHandler<HTMLElement> 
   onMouseEnter?: MouseEventHandler<HTMLElement> 
   onMouseLeave?: MouseEventHandler<HTMLElement> 

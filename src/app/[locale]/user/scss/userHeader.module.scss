@@ -1,0 +1,83 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.user_header_container {
+	@include flex-column-alignitems-justifycontent();
+  gap: 0.5rem;
+
+	.user_header_data_body {
+    @include flex-alignitems-justifycontent();
+    gap: 1rem;
+
+		img {
+			border-radius: $border-radius-input-form;
+			width: 4.5rem;
+			height: 4.5rem;
+		}
+
+		.user_header_data_container {
+			@include flex-column-alignitems-justifycontent();
+
+			h2 {
+				font-size: $font-large;
+			}
+
+			p {
+				font-size: 0.9rem;
+
+				&:last-child {
+					color: rgb(131, 131, 131);
+				}
+			}
+		}
+	}
+
+	.user_buttons_container {
+		@include flex-alignitems-justifycontent();
+		gap: 0.5rem;
+
+    @media(width <= 450px) {
+      @include flex-column-alignitems-justifycontent();
+    }
+
+    button {
+      border-radius: $border-radius-img;
+      box-shadow: $box-shadow-input;
+      transition: all $transition-time-very-fast;
+      border: 1px solid black;
+      padding: 0.5rem 1rem;
+
+      &:hover {
+        transition: all $transition-time-very-fast;
+        background-color: black;
+        color: white;
+      }
+    }
+
+    .user_button_red {
+      color: $font-color-error;
+      border: 1px solid $font-color-error;
+      box-shadow: #ff00002b 1.95px 1.95px 2.6px;
+
+      &:hover {
+        transition: all $transition-time-very-fast;
+        background-color: $font-color-error;
+        color: white;
+      }
+    }
+	}
+}
+
+.user_header_close_button {
+  border: 1px solid $font-color-error;
+  border-radius: $border-radius-img;
+  color: white;
+  background-color: $font-color-error;
+  width: 100%;
+  padding: 0.75rem;
+  
+  &:hover {
+    background-color: white;
+    color: $font-color-error;
+  }
+}

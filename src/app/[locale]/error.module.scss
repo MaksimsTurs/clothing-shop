@@ -1,0 +1,41 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.error_container {
+	@include flex-column-alignitems-justifycontent(center, center);
+	font-size: $font-xx-large;
+	fill: $font-color-error;
+  flex-grow: 1;
+	font-weight: bold;
+	gap: 0.5rem;
+  
+  * {
+    color: $font-color-error;
+  }
+
+  .error_message {
+    font-size: clamp($font-large, 3vw, $font-xxx-large)
+  }
+
+  .error_help_link {
+    @include flex-alignitems-justifycontent();
+    font-size: $font-medium;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    font-weight: normal;
+    
+    a {  
+      font-weight: bold;
+      &:hover { text-decoration: underline; }
+    }
+  }
+
+  .error_go_back {
+    cursor: pointer;
+    font-weight: bold;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

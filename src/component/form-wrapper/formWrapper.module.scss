@@ -12,9 +12,8 @@
 
 	.form_header {
 		@include flex-alignitems-justifycontent(normal, center);
-			font-size: $font-xx-large;
+			font-size: $font-x-large;
 			margin-bottom: 1rem;
-			font-weight: bolder;
 			color: black;
 	}
 
@@ -30,12 +29,9 @@
 	.form_server_error {
 		@include flex-alignitems-justifycontent(center, center);
 		gap: 0.5rem;
-		border-radius: $border-radius-dropdown;
 		font-size: $font-medium;
 		color: $font-color-error;
-		background-color: $background-color-error;
 		width: 100%;
-		padding: 0.4rem;
 		font-weight: bolder;
 		text-align: center;
 
@@ -62,9 +58,24 @@
 				color: black;
 			}
 		}
+	
+		.form_button_submitting {
+			transition: all $transition-time-fast;
+			border: 1px solid rgba(0, 0, 0, 0.8);
+			background-color: rgba(0, 0, 0, 0.8);
+			color: white;
+
+			&:hover {
+				transition: all $transition-time-fast;
+				border: 1px solid rgba(0, 0, 0, 0.8);
+				background-color: rgba(0, 0, 0, 0.8);
+				color: white;
+			}
+		}
 	}
+
 	.form_account_link {
+		color: $font-color-link;
 		text-align: center;
-		color: rgb(89, 89, 255);
 	}
 }

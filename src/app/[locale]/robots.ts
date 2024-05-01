@@ -14,7 +14,7 @@ export default function robots(): MetadataRoute.Robots {
         '/en/product',      '/ru/product',      '/de/product',
         '/en/registration', '/ru/registration', '/de/registration',
       ],
-      disallow: ['/ru/admin', '/ru/admin/product', '/ru/admin/user', '/ru/admin/product-section'],
+      disallow: ['/ru/admin'],
     }
   }
 }

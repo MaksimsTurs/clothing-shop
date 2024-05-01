@@ -1,15 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import fetcher from '@/lib/fetcher/fetcher'
+import fetcher from '@/util/fetcher/fetcher'
 
-import { EditProductsSectionReturn, AddProductsSectionData } from '../admin.type'
+import type { ProductSection, ProductSectionAction } from '../admin.type'
 
-const editProductsSection = createAsyncThunk<EditProductsSectionReturn, AddProductsSectionData>(
+const editProductsSection = createAsyncThunk<ProductSection, ProductSectionAction>(
 	'admin/product-section/edit',
 	async(sectionData, thunkApi) => {
 		try {
-			const response = await fetcher.post<EditProductsSectionReturn>(`/admin/product-section/edit`, sectionData)
-			return response
+			return await fetcher.post<ProductSection>(`/admin/product-section/edit`, undefined, sectionData)
 		} catch (error) {
 			return thunkApi.rejectWithValue(error)
 		}

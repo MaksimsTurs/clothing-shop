@@ -1,10 +1,11 @@
 'use client'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useCurrentLocale, useScopedI18n } from '@/localization/client'
 
-import type { UserRegistration } from './registration.type'
+import type { UserRegistration } from './page.type'
 import type { AppDispatch, RootState } from '@/store/store'
 import type { UserInitState } from '@/store/user/user.type'
 
@@ -12,84 +13,74 @@ import FormWrapper from '@/component/form-wrapper/formWrapper'
 import MultipleInput from '@/component/form-wrapper/component/multipleInput'
 import ImgInput from '@/component/input/file-input/fileInput'
 import TextInput from '@/component/input/text-input/textInput'
-import FetchLoader from '@/component/loader/fetch-loader/fetchLoader'
+import UserFormHeader from '@/component/user-form-header/userFormHeader'
+import SmallLoader from '@/component/loader/fetch-loader/smallLoader'
 
-import userRegistration from '@/store/user/action/userRegistration'
-import { useCurrentLocale, useScopedI18n } from '@/i18n/client'
 import createFormData from '@/util/createFormData'
+import userFormStatus from '@/util/userFormStatus/userFormStatus'
+
+import registration from '@/store/user/action/registration'
+import { clearError } from '@/store/user/user'
 
 export default function Page() {
-	const currLanguage = useCurrentLocale()
-	const tr = useScopedI18n("User-Log")
 	const dispatch = useDispatch<AppDispatch>()
 
-	const { register, handleSubmit, formState: { errors }, getValues, reset } = useForm<UserRegistration>({ mode: 'onChange' })
-	const { isUserActionLoading, userErrorMessage } = useSelector<RootState, UserInitState>(state => state.user)
+	const t = useScopedI18n('user-action')
+	const language = useCurrentLocale()
 
-	const registration: SubmitHandler<UserRegistration> = (userData) => {
-		dispatch(userRegistration(createFormData(userData)))
+	const { register, handleSubmit, formState: { errors }, reset } = useForm<UserRegistration>({ mode: 'onChange' })
+	const { isUserActionPending, userActionError, yourself } = useSelector<RootState, UserInitState>(state => state.user)
+
+	const createUser: SubmitHandler<UserRegistration> = (userData) => {
+		dispatch(registration(createFormData(userData)))
 		reset()
 	}
 
+	const { isFormOk, scssClass } = userFormStatus(userActionError || errors, yourself)
+
+	useEffect(() => {
+		dispatch(clearError())
+	}, [])
+	
 	return (
 		<Fragment>
-			{isUserActionLoading && <FetchLoader/>}
+			{isUserActionPending ? <SmallLoader/> : null}
 			<FormWrapper
-				onSubmit={handleSubmit(registration)}
-				title={tr("form.title.reg")}
-				isLoading={isUserActionLoading}
-				serverError={userErrorMessage}
-				link={{ linkURL: `/${currLanguage}/login`, text: tr("have-account") }}>
-				<ImgInput<UserRegistration> htmlFor='avatar' labelText={tr("add-avatar")} register={register} />
+				styles={{ formInputsStyle: { width: '20rem' } }}
+				onSubmit={handleSubmit(createUser)}
+				title={<UserFormHeader isFormOk={isFormOk} scssClass={scssClass} yourself={yourself} title={t("wrapper-reg")}/>}
+				serverError={userActionError}
+				link={{ linkURL: `/${language}/login`, text: t("have-account") }}>
+				<ImgInput<UserRegistration> attributes={{ name: 'avatar' }} labelText={t("avatar-add")} register={register} />
 				<MultipleInput>
 					<TextInput<UserRegistration>
-						placeholder={`${tr("firstname-place")} 15`}
-						htmlFor='firstName'
-						type='text'
-						max={{ message: tr("firstname-valid"), value: 15 }}
-						required={{ message: tr("firstname-require"), value: true }}
+						attributes={{ name: 'firstName', type: 'text', placeholder: `${t("firstname-placeholder")}`, max: { message: t("firstname-invalid"), value: 15 } }}
+						required={{ message: t("firstname-required"), value: true }}
 						errors={errors}
-						register={register}
-					/>
+						register={register}/>
 					<TextInput<UserRegistration>
-						placeholder={`${tr("secondname-place")} 15`}
-						htmlFor='secondName'
-						type='text'
-						max={{ message: tr("secondname-valid"), value: 15 }}
-						required={{ message: tr("secondname-require"), value: true }}
+						attributes={{ name: 'secondName', type: 'text', placeholder: `${t("secondname-placeholder")}`, max: { message: t("secondname-invalid"), value: 15 } }}
+						required={{ message: t("secondname-required"), value: true }}
 						errors={errors}
-						register={register}
-					/>
+						register={register}/>
 				</MultipleInput>
 				<MultipleInput>
 					<TextInput<UserRegistration>
-						placeholder={`${tr("password-place")} 8`}
-						htmlFor='password'
-						type='password'
-						min={{ message: tr("password-valid"), value: 8 }}
-						required={{ message: tr("password-require"), value: true }}
+						attributes={{ name: 'password', type: 'password', placeholder: `${t("password-placeholder")}`, min: { message: t("password-invalid"), value: 8 } }}
+						required={{ message: t("password-required"), value: true }}
 						errors={errors}
-						register={register}
-					/>
+						register={register}/>
 					<TextInput<UserRegistration>
-						placeholder={`${tr("confirm-password-place")} 8`}
-						htmlFor='confirmPassword'
-						type='password'
-						validation={(password: string) => password.trim() !== getValues('confirmPassword').trim() ? tr("passwords-not-match") : undefined}
-						min={{ message: tr("confirm-password-valid"), value: 8 }}
-						required={{ message: tr("confirm-password-require"), value: true }}
+						attributes={{ name: 'confirmPassword', type: 'password', placeholder: `${t("password-placeholder")}`, min: { message: t("confirm-password-invalid"), value: 8 } }}
+						required={{ message: t("confirm-password-required"), value: true }}
 						errors={errors}
-						register={register}
-					/>
+						register={register}/>
 				</MultipleInput>
 				<TextInput<UserRegistration>
-					placeholder={tr("email")}
-					htmlFor='email'
-					type='email'
-					required={{ message: tr("email-require"), value: true }}
+					attributes={{ name: 'email', placeholder: t("email"), type: 'email' }}
+					required={{ message: t("email-required"), value: true }}
 					errors={errors}
-					register={register}
-				/>
+					register={register}/>
 			</FormWrapper>
 		</Fragment>
 	)

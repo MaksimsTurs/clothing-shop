@@ -1,29 +1,47 @@
-import getTranslation from "@/i18n/server"
 import HelpTemplate from "./component/helpTemplate"
 
-import getDefaultMeta from "@/util/getDefaultMeta"
+import { Fragment } from "react"
+import { CodeXml, Languages } from "lucide-react"
 
-import  type { Metadata } from "next"
+import type { Metadata } from "next"
+
+import defaultMetadata from "../defaultMeta"
+import getTranslation from "@/localization/server"
 
 export async function generateMetadata(): Promise<Metadata> {
-	const tr = await getTranslation('Head')
-	return {...getDefaultMeta(), title: tr('search.title'), description: tr('search.description') }
+  const t = await getTranslation('metadata-help')
+
+  return {
+    ...defaultMetadata({
+      keywords: [t('keyword-1'), t('keyword-2')]
+    }),
+    title: t('title'),
+    description: t('description')
+  }
 }
 
 export default async function Help() {
-  const tr = await getTranslation("Help")
+  const t = await getTranslation('help-page')
 
   return(
-    <main>
+    <main style={{ alignItems: 'center', gap: '1rem', padding: '0.85rem' }}>
       <HelpTemplate 
         indexing 
-        wrapperTitle={tr("website-help")}
-        requirementTitle={tr("useful-data")}
-        requirements={[tr("1w"), tr("2w"), tr("3w"), tr("5w")]}/>
+        wrapperTitle={
+          <Fragment>
+            <CodeXml />
+            <p>{t('title-website-error')}</p>
+          </Fragment>}
+        requirementTitle={t('requirement-title-error')}
+        requirements={[t("error-req-1"), t("error-req-2"), t('error-req-3')]}/>
       <HelpTemplate 
-        wrapperTitle={tr("translation-help")}
-        requirementTitle={tr("example-title")}
-        requirements={[tr("1t"), tr("2t"), tr("3t"), tr("4t"), tr("5t")]}/>
+        wrapperTitle={
+          <Fragment>
+            <Languages />
+            <p>{t('title-translation')}</p>
+          </Fragment>}
+        requirementTitle={t('requirement-title-translation')}
+        requirements={[t('example-1'), t('example-2'), t('example-3')]}/>
     </main>
   )
 }

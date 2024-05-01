@@ -1,0 +1,30 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.thank_container {
+  @include flex-alignitems-justifycontent(center, center);
+
+  .thank_body {
+    @include flex-alignitems-justifycontent(center);
+    gap: 0.5rem;
+    
+    * { color: #0080c0; }
+
+    .thank_title {
+      font-size: $font-xx-large;
+    }
+
+    .thank_link_container {
+      @include flex-alignitems-justifycontent();
+      gap: 0.5rem;
+
+      a {
+        color: $font-color-link;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

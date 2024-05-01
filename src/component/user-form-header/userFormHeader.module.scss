@@ -1,0 +1,19 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.user_form_header {
+  @include flex-alignitems-justifycontent(center);
+  border-radius: $border-radius-img;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 2rem;
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  h3 {
+    font-size: $font-x-large;
+  }
+}

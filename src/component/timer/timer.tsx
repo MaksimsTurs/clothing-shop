@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 
 import type { ExpiredState, TimerProps } from './timer.type'
 
-import getFormatedValue from '@/app/[locale]/admin/helpers/getFromatedValue'
+import formatNumber from '@/util/formatNumber'
 
 export default function Timer({ expiredDate }: TimerProps) {
 	const [expiredTime, setExpiredTime] = useState<ExpiredState>({ days: 0, hours: 0, minutes: 0, seconds: 0 })
@@ -23,15 +23,15 @@ export default function Timer({ expiredDate }: TimerProps) {
 
 		const intervalID = setInterval(() => renderTime(), 1000)
 
-		return () => { if(time < 0) clearInterval(intervalID) }
+		if(time < 0) clearInterval(intervalID)
 	}, [expiredTime.seconds])
 
 	return (
-		<p title='test-id-timer' className={scss.timer_end_date}>
-			{getFormatedValue(expiredTime.days)}:
-			{getFormatedValue(expiredTime.hours)}:
-			{getFormatedValue(expiredTime.minutes)}:
-			{getFormatedValue(expiredTime.seconds)}
+		<p className={scss.timer_end_date}>
+			{formatNumber(expiredTime.days)}:
+			{formatNumber(expiredTime.hours)}:
+			{formatNumber(expiredTime.minutes)}:
+			{formatNumber(expiredTime.seconds)}
 		</p>
 	)
 }

@@ -1,40 +1,44 @@
 'use client'
 
+import scss from './error.module.scss'
+
 import Header from '@/component/header/header'
+
 import Footer from '@/component/footer/footer'
+import { useCurrentLocale } from "@/localization/client"
 
-import type { ErrorPageProps } from '../../global.type'
+import Link from "next/link"
+import { useRouter } from 'next/navigation'
+import { Fragment } from 'react'
 
-import { Fragment, useEffect, useState } from 'react'
-import Link from 'next/link'
-import parseJSONError from '@/lib/parseJSONError/parseJSONError'
+export type ErrorProps = { error?: Error | { code: number, message: string }, isChild?: boolean }
 
-import { useCurrentLocale } from '@/i18n/client'
-import { ServerResError } from '@/lib/fetcher/fetcher.type'
+export default function Error({ error, isChild }: ErrorProps) {
+  const parsedError = JSON.parse(error?.message || '{}')
 
-export default function ErrorPage({ error }: ErrorPageProps) {
-	const [errorData, setErrorData] = useState<ServerResError | undefined>()
-	const currLanguage = useCurrentLocale()
+  let code = parsedError?.code || 400
+  let message = parsedError.message || 'Some goes wrong!'
 
-	useEffect(() => {
-		if(error.message.replace('Error:', '').trim().startsWith('{')) {
-			setErrorData(parseJSONError(error))
-		} else setErrorData(error)
-	}, [error])
+  const language = useCurrentLocale()
+  const router = useRouter()
 
-	return(
-		<Fragment>
-			<Header/>
-			<main className='error_main_container'>
-				<div className='error_main_body'>
-					<svg viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
-					<div>
-						<p>{errorData?.message}{errorData?.code ? ` - ${errorData?.code}` : null}</p>
-						<Link href={`/${currLanguage}/help`}>Need Help? write a E-Mail</Link>
-					</div>
-				</div>
-			</main>
-			<Footer/>
-		</Fragment>
-	)
+  const goBack = (): any => router.back()
+
+  return(
+    <Fragment>
+      {!isChild ? <Header/> : null}
+      <div className={scss.error_container}>
+        <div>
+          <p className={scss.error_message}>{code} - {message}</p>
+          <section className={scss.error_help_link}>
+            <p>Need help?</p>
+            <Link href={`/${language}/help`}>Write a email</Link>
+            <p>or</p>
+            <p className={scss.error_go_back} onClick={goBack}>Go back.</p>
+          </section>
+        </div>
+      </div>
+      {!isChild ? <Footer/> : null}
+    </Fragment>
+  )
 }

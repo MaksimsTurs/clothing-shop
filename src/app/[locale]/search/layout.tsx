@@ -1,23 +1,28 @@
-import type { Metadata } from 'next'
-import { Fragment, type PropsWithChildren } from 'react'
+import Footer from "@/component/footer/footer";
+import Header from "@/component/header/header";
 
-import Footer from '@/component/footer/footer'
-import Header from '@/component/header/header'
+import { Fragment, type PropsWithChildren } from "react";
 
-import getTranslation from '@/i18n/server'
-import getDefaultMeta from '@/util/getDefaultMeta'
+import defaultMetadata from "../defaultMeta";
+
+import type { Metadata } from "next";
+import getTranslation from "@/localization/server";
 
 export async function generateMetadata(): Promise<Metadata> {
-	const tr = await getTranslation('Head')
-	return {...getDefaultMeta(), title: tr('search.title'), description: tr('search.description') }
+  const t = await getTranslation('metadata-search')
+  return {
+    ...defaultMetadata({
+      keywords: [t('keyword-1'), t('keyword-2')]
+    }), 
+    title: t('title') }
 }
 
-export default function RootLayout({ children }: PropsWithChildren) {
-	return (
-		<Fragment>
-			<Header />
-			<main>{children}</main>
-			<Footer />
-		</Fragment>
-	)
+export default function Layout({ children }: PropsWithChildren) {
+  return(
+    <Fragment>
+      <Header/>
+      {children}
+      <Footer/>
+    </Fragment>
+  )
 }

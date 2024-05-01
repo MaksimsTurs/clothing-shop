@@ -2,76 +2,74 @@
 
 import FormWrapper from '@/component/form-wrapper/formWrapper'
 import TextInput from '@/component/input/text-input/textInput'
+import SmallLoader from '@/component/loader/fetch-loader/smallLoader'
 import MultipleInput from '@/component/form-wrapper/component/multipleInput'
-import FetchLoader from '@/component/loader/fetch-loader/fetchLoader'
 
-import type { UserLogin } from './login.type'
-import type { AppDispatch, RootState } from '@/store/store'
-import type { UserInitState } from '@/store/user/user.type'
-
-import { type SubmitHandler, useForm } from 'react-hook-form'
+import { Fragment, useEffect } from 'react'
+import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { Fragment } from 'react'
 
-import userLogin from '@/store/user/action/userLogIn'
-import { useCurrentLocale, useScopedI18n } from '@/i18n/client'
+import type { UserLogin } from './page.type'
+import type { UserInitState } from '@/store/user/user.type'
+import type { AppDispatch, RootState } from '@/store/store'
+
+import { useCurrentLocale, useScopedI18n } from '@/localization/client'
+
+import logIn from '@/store/user/action/logIn'
+import { clearError } from '@/store/user/user'
+import userFormStatus from '@/util/userFormStatus/userFormStatus'
+import UserFormHeader from '@/component/user-form-header/userFormHeader'
 
 export default function Login() {
+	const language = useCurrentLocale()
+	const t = useScopedI18n('user-action')
 	const dispatch = useDispatch<AppDispatch>()
-	const tr = useScopedI18n("User-Log")
-	const currLanguage = useCurrentLocale()
 
-	const { register,	handleSubmit,	formState: { errors }, reset } = useForm<UserLogin>({ mode: 'onSubmit' })
-	const { isUserActionLoading, userErrorMessage } = useSelector<RootState, UserInitState>(state => state.user)
+	const { register,	handleSubmit, formState: { errors } } = useForm<UserLogin>({ mode: 'onSubmit' })
+	const { isUserActionPending, userActionError, yourself } = useSelector<RootState, UserInitState>(state => state.user)
 
-	const login: SubmitHandler<UserLogin> = async (userData) => {
-		dispatch(userLogin(userData))
-		reset()
+	async function userLogIn(userData: UserLogin) {
+		await dispatch(logIn(userData))
 	}
-	
+
+	const { isFormOk, scssClass } = userFormStatus(userActionError || errors, yourself)	
+
+	useEffect(() => {
+		dispatch(clearError())
+	}, [])
+
 	return (
 		<Fragment>
-			{isUserActionLoading && <FetchLoader/>}
+			{isUserActionPending ? <SmallLoader/> : null}
 			<FormWrapper
-				onSubmit={handleSubmit(login)}
-				title={tr("form.title.log")}
-				serverError={userErrorMessage}
-				link={{ linkURL: `/${currLanguage}/registration`, text: tr("have-no-account") }}
-				isLoading={isUserActionLoading}>
+				onSubmit={handleSubmit(userLogIn)}
+				title={<UserFormHeader isFormOk={isFormOk} scssClass={scssClass} title={t('wrapper-log')} yourself={yourself}/>}
+				styles={{ formInputsStyle: { width: '21rem' } }}
+				serverError={userActionError}
+				link={{ linkURL: `/${language}/registration`, text: t("no-account") }}>
 			<MultipleInput>
 				<TextInput<UserLogin>
-					htmlFor='firstName'
-					type='text'
-					placeholder={`${tr("firstname-place")} 15`}
-					max={{ message: tr("firstname-valid"), value: 15 }}
-					required={{ message: tr("firstname-require"), value: true }}
+					attributes={{ name: 'firstName', type: 'text', placeholder: t("firstname-placeholder"), max: { message: t("firstname-invalid"), value: 20 }}}
+					required={{ message: t("firstname-required"), value: true }}
 					errors={errors}
 					register={register}
 				/>
 				<TextInput<UserLogin>
-					htmlFor='secondName'
-					type='text'
-					placeholder={`${tr("secondname-place")} 15`}
-					max={{ message: tr("secondname-valid"), value: 15 }}
-					required={{ message: tr("secondname-require"), value: true }}
+					attributes={{ name: 'secondName', type: 'text', placeholder: t("secondname-placeholder"), max: { message: t("secondname-invalid"), value: 20 }}}
+					required={{ message: t("secondname-required"), value: true }}
 					errors={errors}
 					register={register}
 				/>
 			</MultipleInput>
 				<TextInput<UserLogin>
-					htmlFor='password'
-					type='password'
-					placeholder={`${tr("password-place")} 8`}
-					min={{ message: tr("password-valid"), value: 8 }}
-					required={{ message: tr("password-require"), value: true }}
+					attributes={{ name: 'password', type: 'password', placeholder: t("password-placeholder"), min: { message: t("password-invalid"), value: 8 }}}
+					required={{ message: t("password-required"), value: true }}
 					errors={errors}
 					register={register}
 				/>
 				<TextInput<UserLogin>
-					htmlFor='email'
-					type='email'
-					placeholder={tr("email")}
-					required={{ message: tr("email-require"), value: true }}
+					attributes={{ name: 'email', type: 'email', placeholder: t("email") }}
+					required={{ message: t("email-required"), value: true }}
 					errors={errors}
 					register={register}
 				/>

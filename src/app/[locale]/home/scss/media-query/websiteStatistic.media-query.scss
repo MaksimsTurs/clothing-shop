@@ -7,14 +7,11 @@
 
 @media (width <= 480px) {
 	.website_statistic_body { border-radius: 0px !important; }
+}
 
-	.website_statistic_greeting_container {
-		h2{ font-size: $font-xx-large !important; } 
-
-		p { font-size: $font-small !important; }
+@media (width <= 430px) {
+	.website_statistic_body {
+		width: 100% !important;
+		padding: 1rem !important;
 	}
-
-	.website_data_count {	font-size: $font-medium !important; }
-
-	.website_data_name { font-size: $font-small !important; }
 }

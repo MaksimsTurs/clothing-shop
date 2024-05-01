@@ -1,7 +1,9 @@
+//@ts-check
 /** @type {import('next').NextConfig} */
 
 export default { 
-  images: { 
-    remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com' }] 
-  } 
+  compress: true,
+  reactStrictMode: false,
+  devIndicators: { buildActivity: true, buildActivityPosition: "top-right" },
+  images: { remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com' }] } 
 }

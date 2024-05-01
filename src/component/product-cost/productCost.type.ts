@@ -1,1 +1,1 @@
-export type ProductCostProps = { price: number, precent: number | null }
+export type ProductCostProps = { price: number, precent: number | null, className?: string }

@@ -1,7 +1,7 @@
 @import '@/scss/mixin';
 @import '@/scss/variabel';
 
-@media (width <= 590px) {
+@media (width <= 530px) {
   .image_preview_container {
     flex-direction: column-reverse;
 

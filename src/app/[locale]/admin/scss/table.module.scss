@@ -1,0 +1,41 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+.table_container {
+  flex-grow: 1;
+  border-collapse: collapse;
+  height: fit-content;
+}
+
+.table_header {
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  border-bottom: 1px solid black;
+}
+
+.table_header, .table_body {  
+  th, td { 
+    padding: 1rem; 
+  }
+}
+
+.table_body {
+  transition: all $transition-time-very-fast;
+  cursor: pointer;
+  
+  th {
+    font-weight: normal;
+  }
+  
+  tr {
+    border: 1px solid black;
+    border-right: none;
+    width: 100%;
+
+    &:hover {
+      transition: all $transition-time-very-fast;
+      background-color: rgba(192, 192, 192, 0.2);
+    }
+  }
+}

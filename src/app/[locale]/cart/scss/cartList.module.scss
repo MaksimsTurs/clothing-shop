@@ -29,10 +29,21 @@
 		padding: 1rem;
 		
 		.cart_content_item {
-			display: flex;
 			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 			width: 100%;
 			padding-bottom: 0.8rem;
+
+			.cart_delete_margin {
+				margin: 0;
+			}
+
+			.cart_item_data {
+				@include flex-alignitems-justifycontent();
+			}
+
+			.cart_item_cost {
+				@include flex-alignitems-justifycontent(center, space-between);
+			}
 			
 			&:last-child {
 				padding-bottom: 0rem;

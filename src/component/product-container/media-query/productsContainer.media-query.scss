@@ -6,3 +6,13 @@
     @include flex-column-alignitems-justifycontent(center);
   }
 }
+
+@media(width <= 620px) {
+  .product_title_container {
+    @include flex-column-alignitems-justifycontent();
+    
+    * {
+      font-size: $font-x-large !important;
+    }
+  }
+}

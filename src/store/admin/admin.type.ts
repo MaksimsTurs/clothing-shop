@@ -1,13 +1,14 @@
-import type { ServerResError } from '@/lib/fetcher/fetcher.type'
-import type { Roles } from '@/global.type'
+import type { RemoveFrom } from "@/app/[locale]/admin/page.type"
+import type { TResponseError } from "@/global.type"
 
 export type AdminInitState = {
 	products: ProductData[]
 	users: UserData[]
 	productsSection: ProductSection[]
-	order: Order[]
+	websiteSettings?: WebsiteSettings
+	orders: Order[]
 	isAdminActionLoading: boolean
-	adminActionError?: ServerResError
+	adminActionError?: TResponseError
 }
 
 export type UserData = {
@@ -19,15 +20,15 @@ export type UserData = {
 	avatar: string
   createdAt: string
   updatedAt: string
-	role: Roles
+	role: 'admin' | 'user'
 }
 
 export type ProductData = {
 	_id: string
 	title: string
-	category: string
+	category?: string
 	description: string
-	sectionID: string
+	sectionID?: string
   createdAt: string
   updatedAt: string
 	price: number
@@ -43,28 +44,42 @@ export type ProductSection = {
   createdAt: string
   updatedAt: string
 	productsID: string[]
-	expiredAt: string
+	expiredDate?: string
 	precent: number | null
+	isHidden: boolean
+	position?: number
   products?: ProductData[]
 }
 
-export type Order = {}
+export type Order = {
+	toBuy: ({ count: number } & ProductData)[] 
+	adress: string
+	userID: string
+	status: OrderStatus
+} & Pick<ProductData, '_id' | 'createdAt' | 'updatedAt'>
+
+export type WebsiteSettings = {
+	isAllProductsHidden: boolean
+	maxProductsPerPage: number
+	deliveryFee: number
+}
+
+export type OrderStatus = 'SENT' | 'ON-MY-WAY' | 'APPEARED'
 
 //Get store data
-export type GetStoreData = { products: ProductData[], productsSection: ProductSection[], users: UserData[], orders: Order }
+export type GetStoreData = Pick<AdminInitState, 'orders' | 'products' | 'productsSection' | 'users' | 'websiteSettings'>
 
 //Create new product
 export type CreateNewProduct = { newProduct: ProductData, updatedSection?: ProductSection }
 
 //Edit product
-export type EditProduct = { updatedProduct: ProductData, updatedProductsSection?: ProductSection }
+export type EditProduct = { updatedProduct: ProductData, updatedCategory?: ProductSection }
 
-//Add products section
-export type AddProductsSectionData = { title: string, productsID: string[], precent: number, expiredDate?: string }
-export type AddProductsSectionDataReturn = { newSection: ProductSection }
+//Product section
+export type ProductSectionAction = { id?: string | null } & Partial<Omit<ProductSection, '_id'>>
 
-//Edit products section
-export type EditProductsSectionReturn = { updatedProductsSection: ProductSection }
+//Remove item
+export type RemoveItemAction = { from: RemoveFrom, id?: string }
 
-//Remove element from
-export type RemoveFrom = 'user' | 'product-section' | 'order' | 'product'
+//Change status of order
+export type ChangeOrderStatus = { id: string, status: OrderStatus }

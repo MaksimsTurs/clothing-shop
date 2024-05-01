@@ -1,0 +1,13 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+@media (width <= 705px) {
+  .page_prices_body {
+    flex-direction: column;
+    flex-shrink: 1;
+
+    div {
+      width: 100%;
+    }
+  }
+}

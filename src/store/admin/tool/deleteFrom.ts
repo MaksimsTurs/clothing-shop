@@ -1,10 +1,8 @@
 //Remove item by value of key or by value
-export default function deleteFrom<T>(filter: Partial<T> | string, from?: any[]): T[] | undefined {
-  if(!from) return undefined
-  
+export default function deleteFrom<T>(filter: Partial<T> | string, from: any[]): T[] {
   if(typeof from[0] === 'string') return deleteString<T>(filter as string, from)
   if(typeof from[0] === 'object') return deleteObject<T>(filter as Partial<T>, from)
-  return undefined
+  return from
 }
 
 function deleteObject<T>(filter: Partial<T>, from: any[]): T[] {
@@ -21,6 +19,7 @@ function deleteObject<T>(filter: Partial<T>, from: any[]): T[] {
       for(let [key, value] of Object.entries(filter)) if(from[index][key] !== value) newArray = [...newArray, from[index]]
     }
   }
+
   return newArray
 }
 

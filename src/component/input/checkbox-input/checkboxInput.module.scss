@@ -1,0 +1,37 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.checkbox_container {
+  @include flex-alignitems-justifycontent(center);
+  font-size: 0.9rem;
+  // color: rgb(144, 144, 144);
+  gap: 0.35rem;
+  cursor: pointer;
+
+  .checkbox_checkmark {
+    box-shadow: $box-shadow-input;
+    transition: all $transition-time-fast;
+    position: relative;
+    border-radius: 4px;
+    height: 1.1rem;
+    width: 1.1rem;
+    border: 1px solid black;
+  }
+
+  &:hover > .checkbox_checkmark {
+    transition: all $transition-time-fast;
+    box-shadow: $box-shadow-dropdown;
+  }
+
+  input:checked ~ .checkbox_checkmark::after {
+    content: '';
+    border-radius: 3px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    width: 80%;
+    height: 80%;
+  }
+}

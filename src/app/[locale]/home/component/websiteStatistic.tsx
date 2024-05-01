@@ -1,33 +1,33 @@
 import scss from '../scss/websiteStatistic.module.scss'
 
-import getTranslation from '@/i18n/server'
-
 import formatNumber from '@/util/formatNumber'
 
 import type { WebStatisticProps } from '../page.type'
 
-export default async function WebsiteStatistic({ brandsNumber, productsNumber, usersNumber }: WebStatisticProps) {
-  const tr = await getTranslation('Website-Statistic')
+import getTranslation from '@/localization/server'
+
+export default async function WebsiteStatistic({ statistic }: WebStatisticProps) {
+  const t = await getTranslation('website-statistic')
 
   return(
     <section className={scss.website_statistic_container}>
       <div className={scss.website_statistic_body}>
-        <div className={scss.website_statistic_greeting_container}>
-          <h2>{tr('statistic.title')}</h2>
-          <p>{tr('statistic.description')}</p>
+        <div>
+          <h2>{t('title')}</h2>
+          <p className={scss.website_statistic_description}>{t('description')}</p>
         </div>
         <div className={scss.website_data_container}>
-          <div className={scss.website_data_body}>
-            <p className={scss.website_data_count}>{formatNumber(usersNumber)}</p>
-            <p className={scss.website_data_name}>{tr('account.count')}</p>
+          <div>
+            <p className={scss.website_data_count}>{formatNumber(statistic.usersCount)}</p>
+            <p className={scss.website_data_name}>{t('user-count')}</p>
           </div>  
-          <div className={scss.website_data_body}>
-            <p className={scss.website_data_count}>{formatNumber(productsNumber)}</p>
-            <p className={scss.website_data_name}>{tr('product.count')}</p>
+          <div>
+            <p className={scss.website_data_count}>{formatNumber(statistic.productsCount)}</p>
+            <p className={scss.website_data_name}>{t('product-count')}</p>
           </div>
-          <div className={scss.website_data_body}>
-            <p className={scss.website_data_count}>{formatNumber(brandsNumber)}</p>
-            <p className={scss.website_data_name}>{tr('brand.count')}</p>
+          <div>
+            <p className={scss.website_data_count}>{formatNumber(statistic.ordersCount)}</p>
+            <p className={scss.website_data_name}>{t('brand-count')}</p>
           </div>
         </div>
       </div>

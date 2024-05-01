@@ -1,0 +1,50 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.section_list {
+  @include flex-column-alignitems-justifycontent();
+  border-radius: $border-radius-dropdown;
+  font-size: $font-small;
+  box-shadow: $box-shadow-input-focus-hover;
+  border: 1px solid black;
+  max-height: 28rem;
+  width: 100%;
+  overflow-y: auto;
+  
+  .section_item {
+    @include flex-alignitems-justifycontent();
+    transition: all $transition-time-very-fast;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+
+    img {
+      border-radius: $border-radius-img;
+    }
+
+    &:hover {
+      transition: all $transition-time-very-fast;
+      background-color: rgba(192, 192, 192, 0.4);
+    }
+
+    .section_item_data {
+
+      h4 {
+        font-size: $font-medium;
+        font-weight: bold;
+      }
+
+      section {
+        @include flex-alignitems-justifycontent(center, space-between);
+      }
+    }
+  }
+
+  .section_item_active {
+    background-color: silver;
+
+    &:hover {
+      background-color: silver;
+    }
+  }
+}

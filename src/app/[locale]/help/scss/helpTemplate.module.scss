@@ -3,29 +3,32 @@
 
 .wrapper_container {
   @include flex-column-alignitems-justifycontent(center);
-  padding: 1rem 0rem;
-  flex-grow: 1;
+  border-radius: $border-radius-img;
+  box-shadow: $box-shadow-input-focus-hover;
+  border: 1px solid silver;
+  padding: 1rem;
 
   .wrapper_title {
-    font-size: $font-xx-large;
-    margin-bottom: 0.5rem;
+    @include flex-alignitems-justifycontent(center);
+    font-size: $font-x-large;
+    gap: 1rem;
+    margin-bottom: 1rem;
     text-align: center;
     font-weight: bold;
   }
-
-  .wrapper_body {
-    width: 23rem;
-  }
   
   a {
+    border-radius: $border-radius-dropdown;
+    transition: all $transition-time-very-fast;
     width: 100%;
     text-align: center;
-    border-radius: $border-radius-dropdown;
     border: 1px solid black;
     padding: 0.5rem 2rem;
     margin-top: 0.85rem;
      
     &:hover {
+      transition: all $transition-time-very-fast;
+      box-shadow: $box-shadow-loading;
       background-color: black;
       color: white;
     }

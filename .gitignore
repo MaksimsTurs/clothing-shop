@@ -13,8 +13,7 @@ package-lock.json
 
 # local env and private files
 .env*.local
-private.txt
-todo.txt
+paypal.txt
 
 # vercel
 .vercel
