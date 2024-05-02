@@ -46,6 +46,38 @@
 	}
 
   .footer_bottom_section {
+    @include flex-alignitems-justifycontent(center, space-between);
+
+    .footer_links_container {
+      @include flex-alignitems-justifycontent(center);
+      gap: 0.5rem;
+
+      svg {
+        width: $icon-x-large;
+        height: $icon-x-large;
+      }
+    }
+    
+    a {
+      @include flex-alignitems-justifycontent(center, center);
+      transition: all $transition-time-very-fast;
+      border-radius: $border-radius-img;
+      padding: 0.5rem;
+      border: 1px solid transparent;
+
+    }
+
+    a:last-child > svg {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+
+    a:hover {
+      box-shadow: $box-shadow-input-focus-hover;
+      border: 1px solid black;
+      background-color: white;
+    } 
+    
     p {
       font-size: $font-small;
       color: $font-color-half-black;

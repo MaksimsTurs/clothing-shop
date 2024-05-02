@@ -54,7 +54,7 @@ export default function OrderList({ orders }: OrderListProps) {
             <p>{status[order.status]} {order.adress},</p>
             <button onClick={() => setSelectOrder(order)}>show details...</button>
           </li>
-        )) : <p>{t('no-orders')}</p>}
+        )) : <p className={scss.order_data_empty}>{t('no-orders')}</p>}
       </ul>
     </Fragment>
   )

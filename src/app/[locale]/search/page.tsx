@@ -107,7 +107,7 @@ export default function Page({ searchParams }: PageProps) {
 				<FilterResult maxProducts={data?.maxProducts || 0} productsRange={data?.productsRange || { max: 0, min: 0 }} selectedCategory={title} showFilter={setFilterHidden}/>
 				{error ? <Error error={error} isChild/> :
 					isPending ? <ProductLoaderContainer/> :
-					data?.currPageProducts.length === 0 ? <div className={scss.search_product_empty}><Frown/><p>No products found!</p></div> :
+					data?.currPageProducts.length === 0 ? <div className={scss.search_product_empty}><Frown/><p>{t('no-products')}!</p></div> :
 					<Fragment>
 						<ProductsContainer data={data?.currPageProducts || []}/>
 						<Pagination currentPage={Number(page) || 0} pagesCount={data?.maxPages || 0}/>

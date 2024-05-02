@@ -152,7 +152,8 @@
     "showed": "Showed",
     "of": "of",
     "products": "products",
-    "total-products": "Products count"
+    "total-products": "Products count",
+    "no-products": "Nothing founded"
   },
   "form-wrapper": {
     "submit": "Submit"

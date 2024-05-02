@@ -1,6 +1,6 @@
 import type { Fetcher, FetchRevalidation, Header } from "./fetcher.type"
 
-const URL: string = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : 'https://boutique-api.vercel.app'
+const URL: string = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : 'http://localhost:4000'
 
 const fetcher: Fetcher = {
 	baseURL: URL,

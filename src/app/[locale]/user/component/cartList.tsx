@@ -45,7 +45,7 @@ export default function CartList() {
             <p>{product.title},</p>
             <button onClick={() => setSelectProduct(product)}>{t('show-details')}...</button>
           </li>
-        )) : <p>{t('empty-cart')}</p>}
+        )) : <p className={scss.cart_data_empty}>{t('empty-cart')}</p>}
       </ul>
     </Fragment>
   )

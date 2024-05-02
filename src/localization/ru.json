@@ -148,7 +148,8 @@
     "showed": "Показано",
     "of": "из",
     "products": "продуктов",
-    "total-products": "Кол-ство продуктов"
+    "total-products": "Кол-ство продуктов",
+    "no-products": "Ничего не найдено"
   },
   "search-form": {
     "placeholder": "Что хотите найти?",

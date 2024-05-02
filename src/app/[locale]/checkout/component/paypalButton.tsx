@@ -31,7 +31,7 @@ export default function PaypalButton() {
   
   const onApprove: PayPalButtonsComponentProps['onApprove'] = async (data, actions) => {
     const adress = localStorage.getItem('adress')
-  const checkID = localStorage.getItem('checkID')
+    const checkID = localStorage.getItem('checkID')
 
     actions.order?.capture()
     await closeTransaction(yourself?.token!, checkID!, adress!)
@@ -41,7 +41,6 @@ export default function PaypalButton() {
   }
 
   return <PayPalButtons 
-           displayOnly={['vaultable']} 
            style={{ label: "paypal", color: 'blue', tagline: false, disableMaxWidth: true }} 
            createOrder={createOrder} 
            onApprove={onApprove}/>

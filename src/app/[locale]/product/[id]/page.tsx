@@ -22,7 +22,7 @@ import getTranslation from '@/localization/server'
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { title, description } = await getProductByID(params.id)
-  return {...defaultMetadata(), title: title || 'Not found!', description }
+  return {...defaultMetadata(), title: title || 'No title!', description }
 }
 
 export default async function Page({ params }: PageProps) {

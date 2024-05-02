@@ -147,7 +147,8 @@
     "showed": "Gezeigt",
     "of": "von",
     "products": "produkten",
-    "total-products": "Anzahl von produkten"
+    "total-products": "Anzahl von produkten",
+    "no-products": "Nix gefunden"
   },
   "search-form": {
     "placeholder": "Was wollen Sie finden?",
