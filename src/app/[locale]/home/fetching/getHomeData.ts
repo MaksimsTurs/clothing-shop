@@ -7,7 +7,7 @@ import { REVALIDATION_TIME } from "../../constant";
 
 export default async function getHomeData(): Promise<GetHomeData> {
   try {
-    return await fetcher.get<GetHomeData>('/', { time: REVALIDATION_TIME })
+    return await fetcher.get<GetHomeData>('/', { cache: 'no-cache' })
   } catch(error) {
     throw new ResponseError(error)
   }

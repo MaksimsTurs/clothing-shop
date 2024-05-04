@@ -1,4 +1,31 @@
 {
+  "firstName": "Имя",
+  "secondName": "Фамилия",
+  "email": "Е-майл",
+  "adress": "Адресс",
+  "registration": "Регистрация",
+  "field-required": "{field} не может быть пустым!",
+  "price": "Цена",
+  "discount": "Скидка",
+  "total-price": "Общая цена",
+  "delivery-fee": "Цена доставки",
+  "count": "Кол-ство",
+
+  "create-order": {
+    "city": "Город",
+    "plz": "Почтовый индекс",
+    "save": "Сохранить",
+    "saved": "Сохранено",
+    "guest": "Гость",
+    "yourself-undefined": "Введите данные заказа"
+  },
+  "checkout-page": {
+    "products-to-by": "Ваши продукты",
+    "price-with-discount": "Цена с скидкой",
+    "products-price": "Цена продуктов",
+    "create-order": "Создать заказ"
+  },
+  
   "metadata-home": {
     "title": "Домашная страница",
     "description": "Домашная страница, здесь вы можете ознакомитсья с некоторыми продуктами.",
@@ -30,19 +57,6 @@
     "description": "Здесь ты можешь написать е-майл если у тебя возникли проблемы с веб-сайтом или если вы хотите помочь нам с переводом",
     "keyword-1": "Помощь с сайтом",
     "keyword-2": "Помощь с переводом"
-  },
-  "checkout-page": {
-    "end-price": "Цена заказа",
-    "products-to-by": "Ваши продукты",
-    "price": "Цена",
-    "discount": "Скидка",
-    "price-with-discount": "Цена с скидкой",
-    "products-price": "Цена продуктов",
-    "delivery-fee": "Цена отправки",
-    "total-price": "Общая цена",
-    "count": "Кол-ство",
-    "address": "Отправить в",
-    "address-required": "Введи адресс чтоб активировать Paypal"
   },
   "user-page": {
     "edit": "ИЗМЕНИТЬ",
@@ -109,7 +123,7 @@
   },
   "cart": {
     "in-cart": "В корзине",
-      "total-sum": "Общая стоимость",
+    "total-sum": "Общая стоимость",
     "title": "ВАША КОРЗИНА",
     "rating": "Рейтинг",
     "stock": "В наличии",

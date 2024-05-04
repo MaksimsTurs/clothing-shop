@@ -3,7 +3,6 @@ import DataSection from "../dataSection"
 import DataBody from "../dataBody"
 import DataItems from "../dataItems"
 import RemoveButton from "../removeButton"
-import DataLink from "../datLink"
 import OrderForm from "./orderForm"
 
 import type { RootState } from "@/store/store"
@@ -32,7 +31,8 @@ export default function Order() {
         <DataSection _key="Адресс:" value={order?.adress}/>
         <DataSection _key="Статус:" value={status[order?.status || 'SENT']}/>
         <DataSection _key="Общая цена заказа:" value={`${totalPrice}€`}/>
-        <DataLink href={`?location=user&id=${order?.userID}`} _key="Покупатель:" value={order?.userID}/>
+        <DataSection _key="Имя и Фамилия заказчика:" value={`${order?.firstName} ${order?.secondName}`}/>
+        <DataSection _key="Адресс:" value={`${order?.city} ${order?.plz} ${order?.adress}`}/>
         <DataItems _key="Продукты" data={order?.toBuy}/>
         <RemoveButton from="order" id={id}/>
       </DataBody>

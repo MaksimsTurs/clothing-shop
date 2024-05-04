@@ -14,7 +14,7 @@ export default function ProductImagePreview({ images }: ProductImagePreviewProps
 
   return(
     <aside className={scss.image_preview_container}>
-      <div className={scss.image_preview_images}>
+      {images.length > 0 ? <div className={scss.image_preview_images}>
         {images.map((image, index) => (
           <ExtendedIMG 
             key={index} 
@@ -26,8 +26,8 @@ export default function ProductImagePreview({ images }: ProductImagePreviewProps
             quality={100}
             alt={`Slide ${index + 1}`} />
           ))}
-      </div>
-      <ExtendedIMG className={scss.image_preview_current_img} quality={100} src={currentIMG.src} width={300} height={300} alt='Current slide'/>
+      </div> : null}
+      <ExtendedIMG className={scss.image_preview_current_img} quality={100} src={currentIMG.src} width={1440} height={1440} alt='Current slide'/>
     </aside>
   )
 }

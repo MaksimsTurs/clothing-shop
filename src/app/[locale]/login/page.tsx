@@ -16,7 +16,7 @@ import type { AppDispatch, RootState } from '@/store/store'
 import { useCurrentLocale, useScopedI18n } from '@/localization/client'
 
 import logIn from '@/store/user/action/logIn'
-import { clearError } from '@/store/user/user'
+import { resetLoadingState } from '@/store/user/user'
 import userFormStatus from '@/util/userFormStatus/userFormStatus'
 import UserFormHeader from '@/component/user-form-header/userFormHeader'
 
@@ -35,7 +35,7 @@ export default function Login() {
 	const { isFormOk, scssClass } = userFormStatus(userActionError || errors, yourself)	
 
 	useEffect(() => {
-		dispatch(clearError())
+		dispatch(resetLoadingState())
 	}, [])
 
 	return (

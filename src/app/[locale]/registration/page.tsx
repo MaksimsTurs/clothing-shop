@@ -20,7 +20,7 @@ import createFormData from '@/util/createFormData'
 import userFormStatus from '@/util/userFormStatus/userFormStatus'
 
 import registration from '@/store/user/action/registration'
-import { clearError } from '@/store/user/user'
+import { resetLoadingState } from '@/store/user/user'
 
 export default function Page() {
 	const dispatch = useDispatch<AppDispatch>()
@@ -39,7 +39,7 @@ export default function Page() {
 	const { isFormOk, scssClass } = userFormStatus(userActionError || errors, yourself)
 
 	useEffect(() => {
-		dispatch(clearError())
+		dispatch(resetLoadingState())
 	}, [])
 	
 	return (

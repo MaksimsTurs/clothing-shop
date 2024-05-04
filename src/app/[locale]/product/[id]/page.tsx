@@ -3,7 +3,6 @@ import scss from '../page.module.scss'
 import ProductImagePreview from '../component/productImagePreview'
 import StarRating from '@/component/star-rating/starRating'
 import ProductCost from '@/component/product-cost/productCost'
-import ProductCountContainer from '../component/productCountContainer'
 import Description from '../component/description'
 
 import { Fragment } from 'react'
@@ -19,6 +18,7 @@ import type { Metadata } from 'next'
 import defaultMetadata from '../../defaultMeta'
 
 import getTranslation from '@/localization/server'
+import ProductCount from '@/component/product-count/productCount'
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { title, description } = await getProductByID(params.id)
@@ -55,7 +55,7 @@ export default async function Page({ params }: PageProps) {
             <li style={{ backgroundColor: 'green' }}></li>
             <li style={{ backgroundColor: 'blue' }}></li>
           </ul> */}
-          <ProductCountContainer product={data}/>
+          <ProductCount product={data}/>
           <section className={scss.product_border_bottom}>
             <Link href={`/${language}/checkout?id=${data._id}`} className={scss.product_buy_button}>
               <ShoppingCart />

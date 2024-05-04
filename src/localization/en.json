@@ -1,4 +1,31 @@
 {
+  "firstName": "First name",
+  "secondName": "Second name",
+  "email": "Е-mail",
+  "adress": "Adress",
+  "registration": "Registration",
+  "field-required": "{field} cann not be empty!",
+  "price": "Price",
+  "discount": "Discount",
+  "total-price": "Total price",
+  "delivery-fee": "Delivery price",
+  "count": "Count",
+  
+  "create-order": {
+    "city": "City",
+    "plz": "PLZ",
+    "save": "Save",
+    "saved": "Saved",
+    "guest": "Guest",
+    "yourself-undefined": "Pass data for order"
+  },
+  "checkout-page": {
+    "products-to-by": "Youre products",
+    "price-with-discount": "Price with discount",
+    "products-price": "Products price",
+    "create-order": "Create order"
+  },
+
   "metadata-home": {
     "title": "Home",
     "description": "Clothing shop home page, here you cann see us product range.",
@@ -30,19 +57,6 @@
     "greeting-or": "or",
     "greeting-find": "find",
     "greeting-other": "more products"
-  },
-  "checkout-page": {
-    "end-price": "Order price",
-    "products-to-by": "Youre products",
-    "price": "Price",
-    "discount": "Discount",
-    "price-with-discount": "Price with discount",
-    "products-price": "Products price",
-    "delivery-fee": "Delivery price",
-    "total-price": "Total price",
-    "address": "Sent to",
-    "count": "Count",
-    "address-required": "Pass youre address to activate Paypal"
   },
   "user-page": {
     "edit": "EDIT",

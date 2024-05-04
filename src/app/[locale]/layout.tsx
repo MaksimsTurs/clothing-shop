@@ -12,7 +12,7 @@ import Provider from '@/store/provider'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({ children, params }: { children: ReactNode,	params: { locale: Languages } }) {
-	const clientID: string = process.env.NODE_ENV === 'development' ? process.env.PAYPAL_CLIENT_SANDBOX! : process.env.PAYPAL_CLIENT_LIVE!
+	const clientID: string = process.env.NODE_ENV === 'development' ? process.env.PAYPAL_CLIENT_SANDBOX! : 	process.env.PAYPAL_CLIENT_LIVE!
 
 	return (
 		<html lang={params.locale}>

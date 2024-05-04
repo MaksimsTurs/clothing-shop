@@ -10,6 +10,8 @@
   height: fit-content;
 
   img {
+    width: 18.75rem;
+    height: auto;
     border-radius: $border-radius-img;
     object-fit: cover;
   }
@@ -19,10 +21,16 @@
     gap: 1.2rem;
     border: 2px solid white;
 
-    img { cursor: pointer; }
+    img { 
+      cursor: pointer; 
+      width: 100px;
+      height: 100px;
+    }
   }
 
-  .image_preview_current_img { margin-left: 1rem; }
+  .image_preview_current_img { 
+    margin-left: 1rem; 
+  }
 
   .image_active {
     border: 2px solid #9A9A9A;

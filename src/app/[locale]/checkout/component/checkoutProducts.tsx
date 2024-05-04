@@ -3,7 +3,7 @@ import scss from '../scss/checkoutProducts.module.scss'
 import type { CheckoutProductsProps } from '../page.type'
 
 import Link from 'next/link'
-import { useCurrentLocale, useScopedI18n } from '@/localization/client'
+import { useCurrentLocale, useI18n } from '@/localization/client'
 import { useState } from 'react'
 
 export default function CheckoutProducts({ products, title }: CheckoutProductsProps) {
@@ -12,7 +12,7 @@ export default function CheckoutProducts({ products, title }: CheckoutProductsPr
   const [isAllShowed, setAllShowed] = useState<boolean>(!((products?.length || 100) > maxProducts))
   
   const language = useCurrentLocale()
-  const t = useScopedI18n('checkout-page')
+  const t = useI18n()
 
   const end: number | undefined = isAllShowed ? products?.length : maxProducts
 
@@ -26,14 +26,14 @@ export default function CheckoutProducts({ products, title }: CheckoutProductsPr
           <Link href={`/${language}/product/${product._id}`}>{product.title}</Link>
           <section>
             <p>{t('price')}:</p> 
-            <p>{product.price}€</p>
+            <p>{product.price.toFixed(2)}€</p>
           </section>
           <section>
             <p>{t('discount')}:</p>
-            <p>{((product.precent || 0) * 100)}%</p>
+            <p>{((product.precent || 0) * 100).toFixed(2)}%</p>
           </section>
           <section>
-            <p>{t('price-with-discount')}:</p>
+            <p>{t('checkout-page.price-with-discount')}:</p>
             <p>{(product.price - ((product.price || 0) * (product.precent || 0))).toFixed(2)}€</p>
           </section>
           <section>

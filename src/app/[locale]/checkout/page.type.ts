@@ -19,3 +19,5 @@ export type CreateOrderID = { orderID: string, sendTo: string }
 
 export type CheckoutProps = { title: string, prices: Partial<Omit<CartCheckResult, 'products' | 'checkID'>>, isLoading?: boolean }
 export type CheckoutProductsProps = { products?: ProductInLocalStorage[], title: string }
+export type PageProps = { searchParams: { orderId?: string } }
+export type UserOrderData = { checkID: string, firstName: string, secondName: string, token: string, adress: string, city: string, plz: string, email: string }

@@ -4,13 +4,14 @@
 @import './scss/media-query/page.media-query.scss';
 
 .page_checkout_container {
-	padding: 1rem 3rem;
+	padding: 1rem;
 	align-items: center;
   
   .page_checkout_body {
     @include flex-column-alignitems-justifycontent();
     gap: 1rem;
-		width: 45rem;
+		width: 50rem;
+		max-width: calc(100% - 5px);
 		flex-grow: 1;
   }
 
@@ -32,6 +33,24 @@
 			gap: 0.5rem;
 			flex-grow: 1;
 			flex-shrink: 0;
+
+			a {
+				border-radius: $border-radius-img;
+				box-shadow: $box-shadow-dropdown;
+				transition: all $transition-time-very-fast;
+				text-align: center;
+				padding: 0.5rem;
+				border: 1px solid black;
+				background-color: black;
+				color: white;
+
+				&:hover {
+					transition: all $transition-time-very-fast;
+					box-shadow: $box-shadow-input-focus-hover;
+					background-color: white;
+					color: black;
+				}
+			}
 		}
 
 		.page_adress_empty {

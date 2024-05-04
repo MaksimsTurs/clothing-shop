@@ -8,11 +8,11 @@
 	position: relative;
 	
 	svg {
-		@include absolute-left-top(6%, 50%);
+		@include absolute-left-top(4%, 50%);
 		transform: $translate-horizontal-vertical-midlle;
 		width: $icon-large;
 		height: $icon-large;
-		fill: rgba(0, 0, 0, 0.5);
+		color: rgba(0, 0, 0, 0.5);
 	}
 	
 	input {

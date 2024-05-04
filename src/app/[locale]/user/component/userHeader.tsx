@@ -26,7 +26,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import editMe from '@/store/user/action/editMe'
-import { clearError, logOut } from '@/store/user/user'
+import { resetLoadingState, logOut } from '@/store/user/user'
 import removeMe from '@/store/user/action/removeMe'
 
 export default function UserHeader({ data }: UserHeaderProps) {
@@ -59,7 +59,7 @@ export default function UserHeader({ data }: UserHeaderProps) {
   }
 
   useEffect(() => {
-    dispatch(clearError())
+    dispatch(resetLoadingState())
   }, [])
 
   return(

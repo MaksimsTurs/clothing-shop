@@ -11,7 +11,7 @@ import SmallLoader from '@/component/loader/fetch-loader/smallLoader';
 import MultipleInput from "@/component/form-wrapper/component/multipleInput";
 
 import { type SubmitHandler, useForm } from "react-hook-form";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
 import type { AdminInitState, ProductData } from "@/store/admin/admin.type"
@@ -22,6 +22,7 @@ import createFormData from '@/util/createFormData';
 
 import editProduct from '@/store/admin/action/editProduct';
 import addProduct from '@/store/admin/action/addProduct';
+import { resetLoadingState } from '@/store/user/user';
 
 export default function ProductForm({ isEdit, id, defaultValues }: FormProps<ProductData>) {
   const [selected, setSelect] = useState<string>('undefined')
@@ -47,6 +48,10 @@ export default function ProductForm({ isEdit, id, defaultValues }: FormProps<Pro
       dispatch(editProduct(formData))
     } else dispatch(addProduct(formData))
   }
+
+  useEffect(() => {
+    dispatch(resetLoadingState())
+  }, [])
 
   return(
     <Fragment>

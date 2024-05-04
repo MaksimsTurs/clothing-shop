@@ -54,9 +54,10 @@ export type ProductSection = {
 export type Order = {
 	toBuy: ({ count: number } & ProductData)[] 
 	adress: string
-	userID: string
+	city: string
+	plz: string
 	status: OrderStatus
-} & Pick<ProductData, '_id' | 'createdAt' | 'updatedAt'>
+} & Pick<ProductData, '_id' | 'createdAt' | 'updatedAt'> & Pick<UserData, 'firstName' | 'secondName' | 'email'>
 
 export type WebsiteSettings = {
 	isAllProductsHidden: boolean

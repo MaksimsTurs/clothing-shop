@@ -1,6 +1,12 @@
 @import '@/scss/mixin';
 @import '@/scss/variabel';
 
+@media(width <= 900px) {
+  .image_preview_current_img {
+    margin-left: 0rem !important;
+  }
+}
+
 @media (width <= 530px) {
   .image_preview_container {
     flex-direction: column-reverse;

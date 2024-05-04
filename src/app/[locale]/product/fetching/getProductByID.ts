@@ -9,7 +9,7 @@ import { cache } from 'react'
 
 const getProductByID = cache(async(id?: string): Promise<ProductData> => {
   try {
-    return await fetcher.get<ProductData>(`/product/${id}`, { time: REVALIDATION_TIME })
+    return await fetcher.get<ProductData>(`/product/${id}`, { cache: 'no-cache' })
   } catch(error) {
     throw new ResponseError(error)
   }

@@ -9,5 +9,6 @@ export type FormWrapperProps = {
   isLoading?: boolean
   serverError?: ResponseError
   link?: { text: string, linkURL: string }
+  buttonLabel?: string
   styles?: { formStyle?: CSSProperties; formInputsStyle?: CSSProperties }
 }

@@ -22,8 +22,9 @@ const cartSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    clearError: (state) => {
+    resetLoadingState: (state) => {
       state.userActionError = undefined
+      state.isUserActionPending = false
     },
     removeUser: (state) => {
       state.yourself = undefined
@@ -120,6 +121,6 @@ const cartSlice = createSlice({
   },
 })
 
-export const { logOut, clearCart, clearError, insertProductCount, removeProduct, removeProductCount, removeUser } = cartSlice.actions
+export const { logOut, clearCart, resetLoadingState, insertProductCount, removeProduct, removeProductCount, removeUser } = cartSlice.actions
 
 export default cartSlice.reducer

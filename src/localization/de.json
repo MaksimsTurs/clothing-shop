@@ -1,4 +1,31 @@
 {
+  "firstName": "Vorname",
+  "secondName": "Nachname",
+  "email": "Е-mail",
+  "adress": "Adresse",
+  "registration": "Registration",
+  "field-required": "{field} ist erfordelich!",
+  "price": "Price",
+  "discount": "Rabatt",
+  "total-price": "Gesamtkosten",
+  "delivery-fee": "Liferung kosten",
+  "count": "Anzahl",
+
+  "create-order": {
+    "city": "Stadt",
+    "plz": "PLZ",
+    "save": "Speichern",
+    "saved": "Gespeichert",
+    "guest": "Gast",
+    "yourself-undefined": "Tippen Sie bestellung daten ein"
+  },
+  "checkout-page": {
+    "products-to-by": "Ihre produkten",
+    "price-with-discount": "Price mit rabatt",
+    "products-price": "Produkts price",
+    "create-order": "Bestellen"
+  },
+
   "metadata-home": {
     "title": "Startseite",
     "description": "Startseite, hier kannst du finden paar unsere produkten.",
@@ -30,19 +57,6 @@
     "greeting-or": "oder",
     "greeting-find": "finde",
     "greeting-other": "mehr produkten"
-  },
-  "checkout-page": {
-    "end-price": "Bestellung price",
-    "products-to-by": "Ihre produkten",
-    "price": "Price",
-    "discount": "Rabat",
-    "price-with-discount": "Price mit rabat",
-    "products-price": "Produkts price",
-    "delivery-fee": "Liferung price",
-    "total-price": "Gesamtprice",
-    "address": "Liefern in",
-    "address-required": "Tipp deine addresse rein für Paypal zu aktivieren",
-    "count": "Anzahl"
   },
   "user-page": {
     "edit": "BEARBEITERN",

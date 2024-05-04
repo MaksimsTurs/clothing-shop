@@ -2,7 +2,7 @@ import scss from '../../scss/formWrapper.module.scss'
 
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import FormWrapper from "@/component/form-wrapper/formWrapper";
 import SmallLoader from '@/component/loader/fetch-loader/smallLoader';
@@ -17,6 +17,7 @@ import type { AppDispatch, RootState } from "@/store/store";
 import createFormData from "@/util/createFormData";
 
 import editUser from '@/store/admin/action/editUser';
+import { resetLoadingState } from '@/store/user/user';
 
 export default function UserForm({ id, defaultValues }: FormProps<UserData>) {
   const [role, setRole] = useState<'admin' | 'user' | string>('')
@@ -32,6 +33,10 @@ export default function UserForm({ id, defaultValues }: FormProps<UserData>) {
     const formData = createFormData({...data, id, role })
     dispatch(editUser(formData))
   }
+
+  useEffect(() => {
+    dispatch(resetLoadingState())
+  }, [])
 
   return(
     <Fragment>

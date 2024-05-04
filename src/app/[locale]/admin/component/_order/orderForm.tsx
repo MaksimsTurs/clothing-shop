@@ -6,10 +6,11 @@ import FormWrapper from "@/component/form-wrapper/formWrapper";
 import SelectInput from "@/component/input/select-input/selectInput";
 import SmallLoader from "@/component/loader/fetch-loader/smallLoader";
 
-import { Fragment, type SyntheticEvent, useState } from "react";
+import { Fragment, type SyntheticEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import changeOrderStatus from "@/store/admin/action/changeOrderStatus";
+import { resetLoadingState } from "@/store/user/user";
 
 export default function OrderForm({ id }: FormProps<Order>) {
   const [selected, setSelect] = useState<OrderStatus | string>('')
@@ -24,6 +25,10 @@ export default function OrderForm({ id }: FormProps<Order>) {
 
     dispatch(changeOrderStatus({ id: id!, status }))
   }
+
+  useEffect(() => {
+    dispatch(resetLoadingState())
+  }, [])
 
   return(
     <Fragment>

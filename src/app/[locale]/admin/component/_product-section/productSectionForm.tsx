@@ -5,7 +5,7 @@ import type { AppDispatch, RootState } from '@/store/store';
 import type { AdminInitState, ProductSectionAction } from '@/store/admin/admin.type';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 
 import editProductsSection from '@/store/admin/action/editProductsSection';
@@ -17,6 +17,7 @@ import SmallLoader from '@/component/loader/fetch-loader/smallLoader';
 import MultipleInput from '@/component/form-wrapper/component/multipleInput';
 import CheckBoxInput from '@/component/input/checkbox-input/checkboxInput';
 import ProductSelect from '../productSelect';
+import { resetLoadingState } from '@/store/user/user';
 
 export default function ProductSectionForm({ id, isEdit, currIDs, defaultValues }: SectionFormProps<ProductSectionAction>) {
   const [productsID, setProductIDs] = useState<string[]>([])
@@ -31,6 +32,10 @@ export default function ProductSectionForm({ id, isEdit, currIDs, defaultValues 
     if(isEdit) return dispatch(editProductsSection({...data, id, productsID: [...productsID, ...currIDs || []] }))
     else return dispatch(addProductsSection({...data, productsID }))
   }
+
+  useEffect(() => {
+    dispatch(resetLoadingState())
+  }, [])
 
   return(
     <Fragment>

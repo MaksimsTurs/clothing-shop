@@ -40,6 +40,7 @@ export default function Header() {
 		{ URL: `/${language}/home`, text: t('home'), icon: <Home/> }, 
 		{ URL: `/${language}/search`, text: t('search'), icon: <Search/> },
 		{ URL: `/${language}/help`, text: t('help'), icon: <CircleHelp/> },
+		{ URL: `/${language}/cart`, text: t('cart'), icon: <ShoppingBag/> }
 	]
 	const langList: ListLink[] = [
 		{ clickHandler: () => changeLanguage(useChangeLanguage, 'en'), text: 'ENG', icon: en }, 
@@ -53,8 +54,6 @@ export default function Header() {
 		{ URL: `/${language}/login`, text: t('login'), icon: <UserPlus/> }
 	)
 	
-	if(yourself) pagesURL.push({ URL: `/${language}/cart`, text: t('cart'), icon: <ShoppingBag/> })
-
 	return (
 		<header className={scss.header_container}>
 			<div className={scss.header_website_label}>

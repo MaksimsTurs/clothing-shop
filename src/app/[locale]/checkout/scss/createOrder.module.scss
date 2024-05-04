@@ -1,0 +1,60 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.create_order_container {
+  @include flex-alignitems-justifycontent(normal, center);
+  gap: 1rem;
+  flex-direction: row;
+  padding: 1rem;
+
+  .checkout_form {
+    padding: 0rem 1rem 1rem 1rem;
+    height: fit-content;
+  }
+
+  .create_order_body {
+    border-radius: $border-radius-img;
+    box-shadow: $box-shadow-dropdown;
+    border: 1px solid $background-color-input-form;
+    overflow: hidden;
+    padding: 1rem;
+    height: fit-content;
+    
+    &:first-child {
+      width: 30rem;
+      max-width: calc(100% - 10px);
+      padding: 0rem; 
+    }
+
+    &:last-child {
+      width: 20rem;
+      max-width: calc(100% - 10px);
+    }
+
+    .create_order_tabs_header {
+      @include flex-alignitems-justifycontent();
+      border-bottom: 1px solid black;
+      margin-bottom: 1rem;
+      
+      .create_order_tab {
+        transition: all $transition-time-very-fast;
+        flex-grow: 1;
+        text-align: center;
+        padding: 1rem 1rem;
+        cursor: pointer;
+      }
+
+      .create_order_tab_active {
+        transition: all $transition-time-very-fast;
+        background-color: black;
+        color: white;
+      }
+    }
+  }
+}
+
+.checkout_paypal_error {
+  @include flex-alignitems-justifycontent(center);
+  gap: 0.5rem;
+  color: $font-color-error;
+}
