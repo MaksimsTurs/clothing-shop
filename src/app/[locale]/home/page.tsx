@@ -7,7 +7,7 @@ import getHomeData from './fetching/getHomeData'
 
 export default async function Page() {
 	const { products, sections, ...statistic } = await getHomeData()
-
+	
 	return (
 		<Fragment>
 			<WebsiteStatistic statistic={statistic}/>

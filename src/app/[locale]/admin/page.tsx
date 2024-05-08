@@ -6,7 +6,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export default async function Page() {
-	const res = await actionControllUser((JSON.parse(cookies().get('user')?.value || 'null') || undefined)?.token)
+	const res = await actionControllUser(cookies().get('token')?.value)
 	if(!res.isAdmin) redirect(`/${cookies().get('locale')?.value || 'en'}/home`)
 	return <Root/>
 }

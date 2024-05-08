@@ -1,11 +1,5 @@
-@media(width <= 700px) {
-  .loading_container { flex-direction: column !important; }
-
-  .slider_container { flex-direction: row !important; }
-}
-
-@media(width <= 460px) {
-  .loading_img_container { flex-direction: column-reverse !important; }
-
-  .loading_slider_container { flex-direction: row !important; }
+@media (width <= 640px) {
+  .loader_product_body {
+    flex-direction: column !important;
+  }
 }

@@ -25,3 +25,23 @@
   overflow: hidden;
   width: $width;
 }
+
+@mixin default-loader-styles() {
+  border-radius: $border-radius-img;
+  background-color: $background-color-input-form;
+}
+
+@mixin default-loader-animation() {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    animation: skeleton-slide 1s infinite;
+    background: linear-gradient(90deg, transparent 15%, rgba(250, 250, 250, 0.5) 60%, transparent 85%);
+    position: absolute;
+    left: -10%;
+    height: 100%;
+    width: 100%;
+  }
+}

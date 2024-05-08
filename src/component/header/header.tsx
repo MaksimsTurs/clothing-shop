@@ -4,37 +4,38 @@ import scss from './header.module.scss'
 
 import Link from 'next/link'
 
-import SearchForm from './component/searchForm'
-import UserSection from './component/userSection'
-import AsideMenu from './component/asideMenu'
-import DropdownList from '../dropdown-list/dropdownList'
+import _SearchForm from './component/searchForm'
+import _UserSection from './component/userSection'
+import _AsideMenu from './component/asideMenu'
+import _DropdownList from '../dropdown-list/dropdownList'
 
 import en from './img/united-kingdom.png'
 import ru from './img/russia.png'
 import de from './img/germany.png'
 
 import type { ListLink } from '../dropdown-list/dropdownList.type'
-import type { UserInitState } from '@/store/user/user.type'
-import type { AppDispatch, RootState } from '@/store/store'
 
 import { useChangeLocale, useCurrentLocale, useScopedI18n, changeLanguage } from '@/localization/client'
 import { CircleHelp, Home, Search, ShoppingBag, UserPlus } from 'lucide-react'
-import { useDispatch, useSelector } from 'react-redux'
 
-import cookies from '@/util/coockies'
-import { removeUser } from '@/store/user/user'
+import useAuth from '@/custom-hook/useAuth/useAuth'
+import { memo, useEffect } from 'react'
+
+const SearchForm = memo(_SearchForm)
+const UserSection = memo(_UserSection)
+const AsideMenu = memo(_AsideMenu)
+const DropdownList = memo(_DropdownList)
 
 export default function Header() {
-	const useChangeLanguage = useChangeLocale()
 	const language = useCurrentLocale()
+	const useChangeLanguage = useChangeLocale()
 	const t = useScopedI18n('header-footer')
-	const dispatch = useDispatch<AppDispatch>()
 
-	const user = cookies.get('user')
+	const { user, isAuth } = useAuth()
 
-	if(!user) dispatch(removeUser())
-
-	const { yourself } = useSelector<RootState, UserInitState>(state => state.user)
+	useEffect(() => {
+		isAuth()
+	}, [])
 
 	const pagesURL: ListLink[] = [
 		{ URL: `/${language}/home`, text: t('home'), icon: <Home/> }, 
@@ -49,7 +50,7 @@ export default function Header() {
 	]
 	const userURL: ListLink[] = []
 
-	if(!yourself) userURL.unshift(
+	if(!user) userURL.unshift(
 		{ URL: `/${language}/registration`, text: t('registration'), icon: <UserPlus/> }, 
 		{ URL: `/${language}/login`, text: t('login'), icon: <UserPlus/> }
 	)

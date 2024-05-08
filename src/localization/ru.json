@@ -10,14 +10,15 @@
   "total-price": "Общая цена",
   "delivery-fee": "Цена доставки",
   "count": "Кол-ство",
+  "empty": "Ничего нету",
+  "buy": "Купить",
 
   "create-order": {
     "city": "Город",
     "plz": "Почтовый индекс",
-    "save": "Сохранить",
-    "saved": "Сохранено",
     "guest": "Гость",
-    "yourself-undefined": "Введите данные заказа"
+    "yourself-undefined": "Введите данные заказа",
+    "payment-methods": "Методы оплаты"
   },
   "checkout-page": {
     "products-to-by": "Ваши продукты",

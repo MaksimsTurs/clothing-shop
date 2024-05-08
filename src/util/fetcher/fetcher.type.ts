@@ -2,7 +2,7 @@ export type Fetcher = {
   baseURL: string | undefined
   createURL: (URL: string) => string
   getInit: (headers?: Header, body?: any) => { headers: Header, body: any }
-  get: <T>(URL: string, revalidation?: FetchRevalidation) => Promise<T>
+  get: <T>(URL: string, revalidation?: FetchRevalidation, headers?: Header) => Promise<T>
   post: <T>(URL: string, revalidation?: FetchRevalidation, body?: any, headers?: Header) => Promise<T>
 }
 

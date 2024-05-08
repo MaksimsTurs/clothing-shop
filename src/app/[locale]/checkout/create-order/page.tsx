@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 
 'use client'
 
@@ -11,11 +11,12 @@ import type { RootState } from '@/store/store';
 import PaypalButton from "../component/paypalButton";
 import TextInput from "@/component/input/text-input/textInput";
 import FormWrapper from "@/component/form-wrapper/formWrapper";
+import ModalWrapper from '../../user/component/modalWrapper';
 import MultipleInput from '@/component/form-wrapper/component/multipleInput';
 
 import { type SubmitHandler, useForm } from "react-hook-form";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useI18n } from '@/localization/client'
 import { Fragment } from 'react';
@@ -27,28 +28,31 @@ export default function Page({ searchParams }: PageProps) {
   const t = useI18n()
 
   const [currTab, setCurrTab] = useState(yourself ? yourself.name : t('create-order.guest'))
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false)
+  
   const tabs = []
+  
+  let paymentData = useRef<UserOrderData | undefined>(undefined)
 
   if(!yourself) tabs.push(t('create-order.guest'))
   else tabs.push(yourself.name, t('create-order.guest'))
-
-  localStorage.setItem('checkID', searchParams.orderId)
 
   useEffect(() => {
     clearErrors()
   }, [currTab]) 
 
   const saveOrderData: SubmitHandler<UserOrderData> = (data) => {
-    setIsLoading(true)
-    if(currTab === t('create-order.guest')) localStorage.setItem('user-order-data', JSON.stringify(data))
-    else localStorage.setItem('user-order-data', JSON.stringify({...data, id: yourself?.id }))
-    setTimeout(() => setIsLoading(false), 2000)
+    paymentData.current = data
+    setIsPaymentModalOpen(true)
   }
 
   return(
     <main className={scss.create_order_container}>
+      {(isPaymentModalOpen && paymentData) ? 
+        <ModalWrapper>
+          <PaypalButton orderData={{...paymentData.current!, checkID: searchParams.checkID! }} setIsPaymentModalOpen={setIsPaymentModalOpen}/>
+        </ModalWrapper> 
+        : null}
       <div className={scss.create_order_body}>
         <section className={scss.create_order_tabs_header}>
           {tabs.map(tab => 
@@ -59,13 +63,11 @@ export default function Page({ searchParams }: PageProps) {
               {tab}
             </h5>)}
         </section>
-        <div>
-          <FormWrapper 
-            styles={{ formInputsStyle: { width: '100%' } }} 
-            onSubmit={handleSubmit(saveOrderData)} 
-            className={scss.checkout_form} 
-            buttonLabel={isLoading ? t('create-order.saved') : t('create-order.save')}
-            isLoading={isLoading}>
+        <FormWrapper 
+          styles={{ formInputsStyle: { width: '100%' } }} 
+          onSubmit={handleSubmit(saveOrderData)} 
+          className={scss.checkout_form} 
+          buttonLabel={t('buy')}>
             {(currTab === t('create-order.guest')) ?
               <Fragment>
                 <MultipleInput>
@@ -87,25 +89,25 @@ export default function Page({ searchParams }: PageProps) {
                   register={register}/> 
               </Fragment>
               : null}
-            <TextInput 
-              attributes={{ name: 'adress', placeholder: t('adress') }}
-              required={{ message: t('field-required', { field: t('adress') }), value: true }}
-              errors={errors}
-              register={register}/>
-            <TextInput 
-              attributes={{ name: 'city', placeholder: t('create-order.city') }} 
-              required={{ message: t('field-required', { field: t('create-order.city') }), value: true }}
-              errors={errors}
-              register={register}/>
-            <TextInput 
-              attributes={{ name: 'plz', placeholder: t('create-order.plz'), type: 'number' }} 
-              required={{ message: t('field-required', { field: t('create-order.plz') }), value: true }}
-              errors={errors}
-              register={register}/>
+            <MultipleInput>
+              <TextInput 
+                attributes={{ name: 'adress', placeholder: t('adress') }}
+                required={{ message: t('field-required', { field: t('adress') }), value: true }}
+                errors={errors}
+                register={register}/>
+              <TextInput 
+                attributes={{ name: 'city', placeholder: t('create-order.city') }} 
+                required={{ message: t('field-required', { field: t('create-order.city') }), value: true }}
+                errors={errors}
+                register={register}/>
+              <TextInput 
+                attributes={{ name: 'plz', placeholder: t('create-order.plz'), type: 'number' }} 
+                required={{ message: t('field-required', { field: t('create-order.plz') }), value: true }}
+                errors={errors}
+                register={register}/>
+            </MultipleInput>
           </FormWrapper>
-        </div>
       </div>
-      <div className={scss.create_order_body}><PaypalButton/></div>
     </main>
   )
 }

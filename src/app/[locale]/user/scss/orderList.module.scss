@@ -4,6 +4,8 @@
 .order_list_container {
   @include flex-column-alignitems-justifycontent();
   gap: 0.25rem;
+  max-height: 10rem;
+  overflow-y: auto;
 
   li {
     @include flex-alignitems-justifycontent();

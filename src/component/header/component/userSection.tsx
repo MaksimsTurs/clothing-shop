@@ -13,10 +13,13 @@ import { useCurrentLocale } from '@/localization/client'
 
 import ExtendedIMG from '@/component/extended-img/extendedIMG'
 
+import useAuth from '@/custom-hook/useAuth/useAuth'
+
 export default function UserSection() {
 	const language = useCurrentLocale()
 
-	const { cart, yourself } = useSelector<RootState, UserInitState>(state => state.user)
+	const { cart } = useSelector<RootState, UserInitState>(state => state.user)
+	const { user } = useAuth()
 
 	const cartCount: number = cart?.reduce((prev, curr) => prev + curr.count, 0)
 
@@ -26,9 +29,9 @@ export default function UserSection() {
 				{!cartCount || cartCount === 0 ? null : <p>{formatNumber(cartCount)}</p>}
 				<ShoppingBagIcon color='white'/>
 			</Link>
-			<Link href={yourself ? `/${language}/user/${yourself.id}` : `/${language}/registration`}>
-				{yourself && yourself.avatar ? (
-					<ExtendedIMG className={scss.header_user_avatar} width={320} height={320} src={yourself.avatar} alt={yourself.name}/>
+			<Link href={user ? `/${language}/user/${user.id}` : `/${language}/registration`}>
+				{user && user.avatar ? (
+					<ExtendedIMG className={scss.header_user_avatar} width={320} height={320} src={user.avatar} alt={user.name}/>
 				) : <CircleUser color='white'/> }
 			</Link>
 		</section>

@@ -1,0 +1,61 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.loader_container {
+  @include flex-alignitems-justifycontent();
+  gap: 0.5rem;
+ 
+  .loader_body {
+    @include flex-column-alignitems-justifycontent();
+    background-color: $background-color-input-form;
+    border-radius: $border-radius-img;
+    width: 25rem;
+    padding: 0.5rem;
+    height: fit-content;
+    gap: 0.5rem;
+
+    .loader_title {
+      @include default-loader-styles();
+      @include default-loader-animation();
+      width: 15rem;
+      height: 2rem;
+    }
+
+    .loader_key_value_container {
+      @include flex-alignitems-justifycontent(normal, space-between);
+      gap: 0.5rem;
+
+      .loader_text {
+        @include default-loader-animation();
+        @include default-loader-styles();
+        
+        &:first-child {
+          width: 6rem;
+          height: 1rem;
+        }
+
+        &:last-child {
+          width: 2rem;
+          height: 1rem;
+        }
+      }
+    }
+  }
+  
+  .loader_button {
+    @include default-loader-styles();
+    @include default-loader-animation();
+    width: 50%;
+    height: 3rem
+  }
+}
+
+@keyframes skeleton-slide {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}

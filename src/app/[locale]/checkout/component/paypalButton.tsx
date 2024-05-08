@@ -1,24 +1,24 @@
 import scss from '../scss/createOrder.module.scss'
 
-import { PayPalButtonsComponentProps, PayPalButtons } from "@paypal/react-paypal-js";
+import { type PayPalButtonsComponentProps, PayPalButtons } from "@paypal/react-paypal-js";
 
-import createOrderID from "../fetching/createOrderID";
+import createOrder from "../fetching/createOrder";
 import closeTransaction from "../fetching/closeTransaction";
+
+import ResponseError from '@/util/exeption/ResponseError';
 
 import { useRouter } from "next/navigation";
 import { useCurrentLocale, useI18n } from "@/localization/client";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import type { AppDispatch } from "@/store/store";
-import type { RootState } from "@/store/store";
-import type { UserInitState } from "@/store/user/user.type";
 
 import { clearCart } from "@/store/user/user";
 import { Fragment, useState } from "react";
 import { CircleAlert } from 'lucide-react';
-import ResponseError from '@/util/exeption/ResponseError';
+import { PaypalButtonProps } from '../page.type';
 
-export default function PaypalButton() {
+export default function PaypalButton({ orderData, setIsPaymentModalOpen }: PaypalButtonProps) {
   const [error, setError] = useState<string | undefined>(undefined)
 
   const router = useRouter()
@@ -28,34 +28,19 @@ export default function PaypalButton() {
 
   const t = useI18n()
   
-  const paypalStyle: PayPalButtonsComponentProps['style'] = {
-    tagline: false,
-    disableMaxWidth: true,
-    color: 'blue',
-    label: 'pay',
-    layout: 'vertical',
-  }
-  
-  const giroPayStyle: PayPalButtonsComponentProps['style'] = {
-    tagline: false,
-    disableMaxWidth: true,
-    label: 'pay',
-    layout: 'vertical',
-  }
-  
-  const createOrder: PayPalButtonsComponentProps['createOrder'] = async (data, actions) => {
-    const checkID = localStorage.getItem('checkID')
-    if(!checkID) throw new Error(`${t('create-order.yourself-undefined')}!`)
+  const paypalCreateOrder: PayPalButtonsComponentProps['createOrder'] = async () => {    
+    console.log(orderData)
+    if(!orderData) throw new Error(`${t('create-order.yourself-undefined')}!`)
 
     try {
-      const { orderID } = await createOrderID(checkID)
+      const { id } = await createOrder(orderData.checkID)
       setError(undefined)
-      return orderID
+      return id
     } catch(error) {
       throw new ResponseError(error)
     }
   }
-  
+
   const onError: PayPalButtonsComponentProps['onError'] = async (_error) => {
     const error = String(_error).replaceAll('Error:', '').trim()
 
@@ -63,15 +48,11 @@ export default function PaypalButton() {
     else setError(error)
   }
   
-  const onApprove: PayPalButtonsComponentProps['onApprove'] = async (data, actions) => {
-    const userOrderData = JSON.parse(localStorage.getItem('user-order-data') || 'null')
-    const checkID = localStorage.getItem('checkID')
-    if(!userOrderData || !checkID) throw new Error(`${t('create-order.yourself-undefined')}!`)
+  const onApprove: PayPalButtonsComponentProps['onApprove'] = async (data) => {
+    if(!orderData) throw new Error(`${t('create-order.yourself-undefined')}!`)
     
     try {
-      await actions.order?.capture()
-      await closeTransaction({...userOrderData, checkID })     
-      localStorage.removeItem('checkID')
+      await closeTransaction(orderData)     
       dispatch(clearCart())
       router.replace(`/${language}/checkout/thank`) 
     } catch(error) {
@@ -79,21 +60,35 @@ export default function PaypalButton() {
     }
   }
 
+  const closeModal = (): void => setIsPaymentModalOpen(false)
+
   return(
-    <Fragment>
+    <div className={scss.checkout_paypal_payment_methods}>
+      <section className={scss.checkout_payment_methods_title}>
+        <p>{t('create-order.payment-methods')}</p>
+        <button onClick={closeModal}>&#10005;</button>
+      </section>
       <PayPalButtons 
         fundingSource="paypal" 
-        style={paypalStyle} 
-        createOrder={createOrder} 
+        createOrder={paypalCreateOrder} 
+        onApprove={onApprove} 
+        onError={onError}/>
+      <PayPalButtons 
+        fundingSource="giropay" 
+        createOrder={paypalCreateOrder} 
+        onApprove={onApprove} 
+        onError={onError}/>
+      <PayPalButtons 
+        fundingSource="trustly" 
+        createOrder={paypalCreateOrder} 
         onApprove={onApprove} 
         onError={onError}/>
       <PayPalButtons 
         fundingSource="card" 
-        style={giroPayStyle} 
-        createOrder={createOrder} 
+        createOrder={paypalCreateOrder} 
         onApprove={onApprove} 
         onError={onError}/>
-      {error ? <section className={scss.checkout_paypal_error}><CircleAlert size={20}/><p>{error}</p></section> : null}
-    </Fragment>
+      {error ? <section className={scss.checkout_paypal_error}><CircleAlert size={15  }/><p>{error}</p></section> : null}
+    </div>
   )
 }

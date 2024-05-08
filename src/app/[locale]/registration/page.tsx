@@ -1,13 +1,10 @@
 'use client'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { Fragment, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { Fragment } from 'react'
 import { useCurrentLocale, useScopedI18n } from '@/localization/client'
 
 import type { UserRegistration } from './page.type'
-import type { AppDispatch, RootState } from '@/store/store'
-import type { UserInitState } from '@/store/user/user.type'
 
 import FormWrapper from '@/component/form-wrapper/formWrapper'
 import MultipleInput from '@/component/form-wrapper/component/multipleInput'
@@ -19,37 +16,28 @@ import SmallLoader from '@/component/loader/fetch-loader/smallLoader'
 import createFormData from '@/util/createFormData'
 import userFormStatus from '@/util/userFormStatus/userFormStatus'
 
-import registration from '@/store/user/action/registration'
-import { resetLoadingState } from '@/store/user/user'
+import useAuth from '@/custom-hook/useAuth/useAuth'
 
 export default function Page() {
-	const dispatch = useDispatch<AppDispatch>()
-
 	const t = useScopedI18n('user-action')
 	const language = useCurrentLocale()
 
-	const { register, handleSubmit, formState: { errors }, reset } = useForm<UserRegistration>({ mode: 'onChange' })
-	const { isUserActionPending, userActionError, yourself } = useSelector<RootState, UserInitState>(state => state.user)
+	const { register, handleSubmit, formState: { errors } } = useForm<UserRegistration>({ mode: 'onChange' })
 
-	const createUser: SubmitHandler<UserRegistration> = (userData) => {
-		dispatch(registration(createFormData(userData)))
-		reset()
-	}
+	const { auth, error, isLoading, user } = useAuth()
 
-	const { isFormOk, scssClass } = userFormStatus(userActionError || errors, yourself)
+	const createUser: SubmitHandler<UserRegistration> = async (userData) => await auth({ URL: '/user/registration', type: 'post', body: createFormData(userData), redirectOnSucces: `/${language}/home`})
 
-	useEffect(() => {
-		dispatch(resetLoadingState())
-	}, [])
-	
+	const { isFormOk, scssClass } = userFormStatus(error || errors, user)
+
 	return (
 		<Fragment>
-			{isUserActionPending ? <SmallLoader/> : null}
+			{isLoading ? <SmallLoader/> : null}
 			<FormWrapper
 				styles={{ formInputsStyle: { width: '20rem' } }}
 				onSubmit={handleSubmit(createUser)}
-				title={<UserFormHeader isFormOk={isFormOk} scssClass={scssClass} yourself={yourself} title={t("wrapper-reg")}/>}
-				serverError={userActionError}
+				title={<UserFormHeader isFormOk={isFormOk} scssClass={scssClass} yourself={user} title={t("wrapper-reg")}/>}
+				serverError={error}
 				link={{ linkURL: `/${language}/login`, text: t("have-account") }}>
 				<ImgInput<UserRegistration> attributes={{ name: 'avatar' }} labelText={t("avatar-add")} register={register} />
 				<MultipleInput>

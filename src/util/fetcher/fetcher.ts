@@ -10,7 +10,6 @@ const fetcher: Fetcher = {
 	},
 	getInit: function (headers?: Header, body?: any): { headers: Header, body: any } {
 		let init = { headers: headers || {}, body: body || {} }
-
 		if(body && !(body instanceof FormData)) {
 			if(!headers) init.headers = { 'Content-Type': 'application/json' }
 			if(headers && !('Content-Type' in headers)) init.headers = {...init.headers, 'Content-Type': 'application/json'}
@@ -19,10 +18,11 @@ const fetcher: Fetcher = {
 	
 		return init
 	},
-	get: async function <T>(URL: string, revalidation?: FetchRevalidation): Promise<T> {
+	get: async function <T>(URL: string, revalidation?: FetchRevalidation, header?: Header): Promise<T> {
 		const revBody = { cache: revalidation?.cache, next: { revalidate: revalidation?.time, tags: revalidation?.tags } }
-	
-		const response: Response = await fetch(this.createURL(URL), { cache: revBody.cache, next: revBody.next })
+		const init = this.getInit(header)
+
+		const response: Response = await fetch(this.createURL(URL), { cache: revBody.cache, next: revBody.next, headers: init.headers })
 		const responseJSON = await response.json()
 
 		if (!response.ok) throw JSON.stringify(responseJSON)

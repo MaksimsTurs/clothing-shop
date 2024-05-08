@@ -19,6 +19,7 @@ import defaultMetadata from '../../defaultMeta'
 
 import getTranslation from '@/localization/server'
 import ProductCount from '@/component/product-count/productCount'
+import Loading from '../loading'
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { title, description } = await getProductByID(params.id)
@@ -48,7 +49,7 @@ export default async function Page({ params }: PageProps) {
                 <Link className={scss.product_category_link} href={`/${language}/search?title=${data?.category}`}>{data.category}</Link>
               </Fragment> : null}
           </section>
-          <ProductCost price={data.price} precent={data.precent}/>
+         <ProductCost price={data.price} precent={data.precent}/>
           {/**--------------NOT IMPLEMENTED--------------------- */}
           {/* <ul className={scss.product_colors_list}>
             <li style={{ backgroundColor: 'red' }}></li>

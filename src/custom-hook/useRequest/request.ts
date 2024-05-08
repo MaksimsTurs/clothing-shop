@@ -10,11 +10,11 @@ const Request: RequestConstructor = {
       let response = this.cache.get(params.key || '')
       if(response) return response
       else if(params.URL && !params.body) {
-        response = await fetcher.get(params.URL)
+        response = await fetcher.get(params.URL, { cache: 'no-cache' })
         if(params.key) this.cache.set(params.key, response)
         return response
       } else {
-        response = await fetcher.post(params.URL!, undefined, params.body!)
+        response = await fetcher.post(params.URL!, { cache: 'no-cache' }, params.body!)
         if(params.key) this.cache.set(params.key, response)
         return response
       }

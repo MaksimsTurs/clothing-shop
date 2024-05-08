@@ -13,7 +13,7 @@ const { useScopedI18n, useChangeLocale, useCurrentLocale, I18nProviderClient, us
 })
 
 function changeLanguage(changeFuncRef: any, language: Languages): void { 
-  cookies.set('locale', language)
+  cookies.set('locale', language, 2)
   changeFuncRef(language)
 }
 

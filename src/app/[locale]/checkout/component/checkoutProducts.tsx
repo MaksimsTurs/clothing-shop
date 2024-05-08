@@ -5,6 +5,7 @@ import type { CheckoutProductsProps } from '../page.type'
 import Link from 'next/link'
 import { useCurrentLocale, useI18n } from '@/localization/client'
 import { useState } from 'react'
+import { Frown } from 'lucide-react'
 
 export default function CheckoutProducts({ products, title }: CheckoutProductsProps) {
   const maxProducts: number = 3
@@ -21,7 +22,7 @@ export default function CheckoutProducts({ products, title }: CheckoutProductsPr
   return(
     <ul className={scss.checkout_product_list}>
       <p className={scss.checkout_product_title}>{title}</p>
-      {products?.slice(0, end)?.map(product => (
+      {(products?.length || 0) > 0 ? products?.slice(0, end)?.map(product => (
         <li key={product._id}>
           <Link href={`/${language}/product/${product._id}`}>{product.title}</Link>
           <section>
@@ -41,7 +42,7 @@ export default function CheckoutProducts({ products, title }: CheckoutProductsPr
             <p>{product.count}</p>
           </section>
         </li>
-      ))}
+      )) : <section className={scss.checkout_products_empty}><Frown /><p>{t('empty')}</p></section>}
       {(products?.length || 0) > maxProducts ? <button onClick={showAllProducts}>{isAllShowed ? 'HIDDE' : 'SHOW'}</button> : null}
     </ul>
   )

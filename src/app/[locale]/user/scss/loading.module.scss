@@ -1,0 +1,113 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.loader_user_container {
+  @include flex-alignitems-justifycontent(center, center);
+  padding: 1rem 0.5rem;
+
+  .loader_user_body {
+    @include flex-column-alignitems-justifycontent();
+    gap: 0.5rem;
+    width: 30rem;
+    max-width: calc(100% - 10px);
+    height: fit-content;
+
+    .loader_user_buttons {
+      @include flex-alignitems-justifycontent();
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+
+      .loader_user_button {
+        @include default-loader-styles();
+        @include default-loader-animation();
+        width: 100%;
+        height: 2rem;
+      } 
+    }
+
+    .loader_user_header_container {
+      @include default-loader-styles();
+      gap: 1rem;
+      padding: 0.5rem;
+      
+      .loader_user_header_body {
+        @include flex-alignitems-justifycontent();
+        gap: 1rem;
+      }
+
+      .loader_user_avatar {
+        @include default-loader-styles();
+        @include default-loader-animation();
+        border-radius: $border-radius-img;
+        width: 6.5rem;
+        height: 6.2rem;
+      }
+
+      .loader_user_data {
+        @include flex-column-alignitems-justifycontent();
+        gap: 0.5rem;
+
+        .loader_user_text {
+          @include default-loader-styles();
+          @include default-loader-animation();
+
+          &:nth-child(1) {
+            width: 10rem;
+            height: 1.5rem;
+          }
+
+          &:nth-child(2) {
+            width: 5rem;
+            height: 1rem;
+          }
+
+          &:nth-child(3) {
+            width: 7rem;
+            height: 1rem;
+          }
+
+          &:nth-child(4) {
+            width: 11rem;
+            height: 1.2rem;
+          }
+        }
+      }
+    }
+
+    .loader_user_products_container {
+      @include default-loader-styles();
+      @include flex-column-alignitems-justifycontent();
+      gap: 0.5rem;
+      padding: 0.5rem;
+
+      .loader_user_products_container_title {
+        @include default-loader-styles();
+        @include default-loader-animation();
+        height: 1.5rem;
+        width: 12rem;
+      }
+
+      .loader_user_product_item {
+        @include flex-alignitems-justifycontent();
+        gap: 0.5rem;
+
+        .loader_user_product {
+          @include default-loader-styles();
+          @include default-loader-animation();
+          height: 1.2rem;
+          gap: 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+@keyframes skeleton-slide {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}

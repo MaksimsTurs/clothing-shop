@@ -21,18 +21,8 @@ const cookies = {
     return coockie as T
   },
   set: function(key: string, newValue: any, expired?: number): void {
-    const date = new Date()
-    const docCookie: ParsedCookie = this.parse()
-
-    date.setDate(date.getDay() + (expired || 2))
-
-    if(typeof newValue === 'string') {
-      docCookie[key] = newValue
-      for(let [key, value] of Object.entries(docCookie)) document.cookie = `${key}=${value};path=/;expires=${date.toUTCString()};`
-    } else if(typeof newValue === 'object') {
-      const updatedCoockies = Object.entries({...docCookie, [key]: JSON.stringify(newValue) })
-      for(let [_key, value] of updatedCoockies) document.cookie = `${_key}=${value};path=/;expires=${date.toUTCString()}`
-    }
+    const expiredIn = ((expired || 1) * 24) * 60 * 60    
+    document.cookie = `${key}=${newValue};Max-Age=${expiredIn};SameSite=Strict;Secure;Path=/`
   }
 }
 

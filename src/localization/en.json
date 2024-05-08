@@ -10,6 +10,8 @@
   "total-price": "Total price",
   "delivery-fee": "Delivery price",
   "count": "Count",
+  "empty": "There is nothing",
+  "buy": "Buy",
   
   "create-order": {
     "city": "City",
@@ -17,7 +19,8 @@
     "save": "Save",
     "saved": "Saved",
     "guest": "Guest",
-    "yourself-undefined": "Pass data for order"
+    "yourself-undefined": "Pass data for order",
+    "payment-methods": "Payment methods"
   },
   "checkout-page": {
     "products-to-by": "Youre products",

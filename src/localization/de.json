@@ -10,6 +10,8 @@
   "total-price": "Gesamtkosten",
   "delivery-fee": "Liferung kosten",
   "count": "Anzahl",
+  "empty": "Da ist nichts",
+  "buy": "Kaufen",
 
   "create-order": {
     "city": "Stadt",
@@ -17,7 +19,8 @@
     "save": "Speichern",
     "saved": "Gespeichert",
     "guest": "Gast",
-    "yourself-undefined": "Tippen Sie bestellung daten ein"
+    "yourself-undefined": "Tippen Sie bestellung daten ein",
+    "payment-methods": "Zahlung methoden"
   },
   "checkout-page": {
     "products-to-by": "Ihre produkten",

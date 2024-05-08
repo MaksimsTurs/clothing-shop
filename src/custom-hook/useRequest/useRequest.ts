@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 import type { RequestState, UseRequestParams } from "./useRequesttype"
 
@@ -16,12 +16,12 @@ export default function useRequest<T>(requestOption: UseRequestParams) {
       .catch(error => setFetchState({ isPending: false, data: undefined, error }))
   }, [])
 
-  const retry = (): void => {
+  const retry = useCallback((): void => {
     setFetchState((prev) => ({...prev, isPending: true }))
     request.fetch(requestOption)
       .then(data => setFetchState({ isPending: false, error: undefined, data }))
       .catch(error => setFetchState({ isPending: false, data: undefined, error }))
-  }
+  }, [])
 
   return {...fetchState, retry }
 }

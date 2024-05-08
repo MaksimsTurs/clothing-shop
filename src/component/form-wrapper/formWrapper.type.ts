@@ -1,5 +1,4 @@
-import ResponseError from "@/util/exeption/ResponseError"
-
+import type { TResponseError } from "@/global.type"
 import type { CSSProperties, FormEventHandler, ReactNode } from "react"
 
 export type FormWrapperProps = {
@@ -7,7 +6,7 @@ export type FormWrapperProps = {
   className?: string
   onSubmit: FormEventHandler
   isLoading?: boolean
-  serverError?: ResponseError
+  serverError?: TResponseError
   link?: { text: string, linkURL: string }
   buttonLabel?: string
   styles?: { formStyle?: CSSProperties; formInputsStyle?: CSSProperties }

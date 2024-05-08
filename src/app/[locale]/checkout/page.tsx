@@ -13,13 +13,13 @@ import type { UserInitState } from '@/store/user/user.type'
 
 import CheckoutPrice from './component/checkoutPrice'
 import CheckoutProducts from './component/checkoutProducts'
-import CheckoutLoader from './component/checkoutLoader'
+import Loading from './component/loading'
 
 import checkoutWarning from '@/util/checkoutWarnings'
 
 import useRequest from '@/custom-hook/useRequest/useRequest'
 
-import { useCurrentLocale, useI18n, useScopedI18n } from '@/localization/client'
+import { useCurrentLocale, useI18n } from '@/localization/client'
 
 export default function PaypalCheckout() {
 	const id: string | null = useSearchParams().get('id')
@@ -33,10 +33,12 @@ export default function PaypalCheckout() {
 
 	const { data, isPending } = useRequest<CartCheckResult>({ URL: '/check-cart', body: id ? [{ _id: id, count: 1 }] : productIDs })
 	
+	const isEmpty: boolean = (data?.products.length === 0) && (data.totalItemsPrice <= 0)
+
 	return (
 		<main className={scss.page_checkout_container}>
 			{isPending ? (
-				<CheckoutLoader />
+				<Loading />
 			) : (
         <div className={scss.page_checkout_body}>
           {data?.warnings && data.warnings.length > 0 ? (
@@ -52,7 +54,7 @@ export default function PaypalCheckout() {
                 title={t('total-price')}
                 isLoading={isPending}
                 prices={{ totalOrderPrice: data?.totalOrderPrice, delivery: data?.delivery, discount: data?.discount, totalItemsPrice: data?.totalItemsPrice, totalPriceWithDiscount: data?.totalPriceWithDiscount }}/>
-							<Link href={`/${language}/checkout/create-order?orderId=${data?.checkID}`}>{t('checkout-page.create-order')}</Link>
+							{isEmpty ? null : <Link href={`/${language}/checkout/create-order?checkID=${data?.checkID}`}>{t('checkout-page.create-order')}</Link>}
 						</div>
           </div>
         </div>

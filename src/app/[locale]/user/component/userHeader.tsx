@@ -3,8 +3,6 @@
 import scss from '../scss/userHeader.module.scss'
 
 import type { EditUser, UserHeaderProps } from '../page.type'
-import type { AppDispatch, RootState } from '@/store/store'
-import type { UserClient, UserInitState } from '@/store/user/user.type'
 
 import ExtendedIMG from '@/component/extended-img/extendedIMG'
 import ModalWrapper from './modalWrapper'
@@ -15,59 +13,43 @@ import TextInput from '@/component/input/text-input/textInput'
 import SmallLoader from '@/component/loader/fetch-loader/smallLoader'
 
 import firstLetterUpperCase from '@/util/firstLetterUpperCase'
-import createFormData from '@/util/createFormData'
-import cookies from '@/util/coockies'
 
 import { useCurrentLocale, useScopedI18n } from '@/localization/client'
 
-import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import editMe from '@/store/user/action/editMe'
-import { resetLoadingState, logOut } from '@/store/user/user'
-import removeMe from '@/store/user/action/removeMe'
+import useAuth from '@/custom-hook/useAuth/useAuth'
 
-export default function UserHeader({ data }: UserHeaderProps) {
+export default function UserHeader({ userData }: UserHeaderProps) {
   const [isEditMode, setEditMode] = useState<boolean>(false)
 
   const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm<EditUser>()
-  const { isUserActionPending, userActionError } = useSelector<RootState, UserInitState>(state => state.user)
 
   const language = useCurrentLocale()
   const router = useRouter()
   const t = useScopedI18n('user-page')
-  const dispatch = useDispatch<AppDispatch>()
+
+  const { quit, update, isLoading, error } = useAuth()
   
-  const color: string = data.role === 'admin' ? 'green' : 'red'
+  const color: string = userData.role === 'admin' ? 'green' : 'red'
   
-  async function editUserCall(data: EditUser): Promise<void> {   
-    const formData = createFormData(data)
-    formData.append('id', cookies.get<UserClient>('user')?.id || 'undefined')
-    await dispatch(editMe(formData))
+  async function editUserCall(newUserData: EditUser): Promise<void> { 
+    await update({ URL: '/user/edit', body: newUserData })
     reset()
     router.refresh()
   }
-  const remove = (): any => dispatch(removeMe(cookies.get<UserClient>('user')?.id!))
 
-  const handleModal = (): void =>     setEditMode(prev => !prev)
-
-  function logOutMe(): void {
-    dispatch(logOut())
-    router.replace(`/${language}/home`)
-  }
-
-  useEffect(() => {
-    dispatch(resetLoadingState())
-  }, [])
+  const logOut = (): void => quit({ redirectOnSucces: `/${language}/home` })
+  const handleModal = (): void => setEditMode(prev => !prev)
 
   return(
     <Fragment>
-      {isUserActionPending ? <SmallLoader/> : null}
+      {isLoading ? <SmallLoader/> : null}
       {isEditMode ? 
         <ModalWrapper>
-          <FormWrapper serverError={userActionError} onSubmit={handleSubmit(editUserCall)} styles={{ formInputsStyle: { width: '20rem' }, formStyle: { padding: '0rem', position: 'relative' }}}>
+          <FormWrapper serverError={error} onSubmit={handleSubmit(editUserCall)} styles={{ formInputsStyle: { width: '20rem' }, formStyle: { padding: '0rem', position: 'relative' }}}>
             <ImgInput<EditUser> attributes={{ name: 'avatar' }} isSubmited={isSubmitting} labelText={t('avatar-add')} register={register}/>
             <MultipleInput>
               <TextInput<EditUser> attributes={{ name: 'firstName', placeholder: t('firstname-placeholder') }} register={register}/>
@@ -79,18 +61,17 @@ export default function UserHeader({ data }: UserHeaderProps) {
         </ModalWrapper> : null}
       <div className={scss.user_header_container}>
         <div className={scss.user_header_data_body}>
-          <ExtendedIMG alt={data.name} src={data.avatar} width={1440} height={1440}/>
+          <ExtendedIMG alt={userData.name} src={userData.avatar} width={1440} height={1440}/>
           <div className={scss.user_header_data_container}>
-            <h2>{data.name}</h2>
-            <p style={{ color }}>{firstLetterUpperCase(data.role)}</p>
-            <p>{data.email}</p>
+            <h2>{userData.name}</h2>
+            <p style={{ color }}>{firstLetterUpperCase(userData.role)}</p>
+            <p>{userData.email}</p>
           </div>
         </div>
         <div className={scss.user_buttons_container}>
           <button onClick={handleModal}>{t('edit')}</button>
-          {data.role ? <button onClick={() => router.push('/ru/admin')}>{t('admin-panel')}</button> : null}
-          <button onClick={remove} className={scss.user_button_red}>{t('remove')}</button>
-          <button onClick={logOutMe} className={scss.user_button_red}>{t('log-out')}</button>
+          {userData.role ? <button onClick={() => router.push('/ru/admin')}>{t('admin-panel')}</button> : null}
+          <button onClick={logOut} className={scss.user_button_red}>{t('log-out')}</button>
         </div>
       </div>
     </Fragment>

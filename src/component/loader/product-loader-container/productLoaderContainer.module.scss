@@ -4,7 +4,5 @@
 .product_loader_container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
-  width: 100%;
+  gap: 1rem;
 }
