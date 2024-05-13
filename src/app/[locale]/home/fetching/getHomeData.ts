@@ -3,11 +3,9 @@ import ResponseError from "@/util/exeption/ResponseError";
 
 import type { GetHomeData } from "../page.type";
 
-import { REVALIDATION_TIME } from "../../constant";
-
 export default async function getHomeData(): Promise<GetHomeData> {
   try {
-    return await fetcher.get<GetHomeData>('/', { cache: 'no-cache' })
+    return await fetcher.get<GetHomeData>('/', { cache: 'no-store' })
   } catch(error) {
     throw new ResponseError(error)
   }
