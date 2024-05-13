@@ -8,6 +8,8 @@ import defaultMetadata from "../defaultMeta";
 import type { Metadata } from "next";
 import getTranslation from "@/localization/server";
 
+export const fetchCache = 'force-no-store';
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslation('metadata-search')
   return {

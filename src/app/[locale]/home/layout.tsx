@@ -8,6 +8,8 @@ import { Fragment, type PropsWithChildren } from "react";
 import defaultMetadata from "../defaultMeta";
 import getTranslation from "@/localization/server";
 
+export const fetchCache = 'force-no-store';
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslation('metadata-home')
   

@@ -19,10 +19,9 @@ const fetcher: Fetcher = {
 		return init
 	},
 	get: async function <T>(URL: string, revalidation?: FetchRevalidation, header?: Header): Promise<T> {
-		const revBody = { cache: revalidation?.cache, next: { revalidate: revalidation?.time, tags: revalidation?.tags } }
 		const init = this.getInit(header)
 
-		const response: Response = await fetch(this.createURL(URL), { cache: revBody.cache, next: revBody.next, headers: init.headers })
+		const response: Response = await fetch(this.createURL(URL), { cache: revalidation?.cache, next: {...revalidation }, headers: init.headers })
 		const responseJSON = await response.json()
 
 		if (!response.ok) throw JSON.stringify(responseJSON)
@@ -30,10 +29,15 @@ const fetcher: Fetcher = {
 		return responseJSON as T
 	},
 	post: async function <T>(URL: string, revalidation?: FetchRevalidation, body?: any, headers?: Header): Promise<T> {
-		const revBody = { cache: revalidation?.cache, next: { revalidate: revalidation?.time, tags: revalidation?.tags } }
 		const init = this.getInit(headers, body)
 
-		const response: Response = await fetch(this.createURL(URL), { method: 'POST', body: init.body as BodyInit, headers: init.headers, cache: revBody.cache, next: revBody.next })
+		const response: Response = await fetch(this.createURL(URL), { 
+			cache: revalidation?.cache, 
+			next: {...revalidation },
+			method: 'POST', 
+			body: init.body as BodyInit, 
+			headers: init.headers 
+		})
 		const responseJSON = await response.json()
 
 		if (!response.ok) throw JSON.stringify(responseJSON)
