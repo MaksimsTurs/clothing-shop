@@ -5,6 +5,7 @@ export type UseRequestParams = {
   key?: string
   URL?: string
   body?: any
+  disbleCache?: boolean
   header?: Header
 }
 

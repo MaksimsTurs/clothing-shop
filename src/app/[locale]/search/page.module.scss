@@ -13,6 +13,13 @@
 		@include flex-column-alignitems-justifycontent();
 		flex-grow: 1;
 		gap: 1rem;
+
+		.search_result_products {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+			gap: 2rem;
+			width: 100%;
+		}
 	}
 
 	.search_buttons {

@@ -8,14 +8,15 @@ const Request: RequestConstructor = {
   fetch: async function(params: UseRequestParams) {
     try {
       let response = this.cache.get(params.key || '')
+
       if(response) return response
       else if(params.URL && !params.body) {
         response = await fetcher.get(params.URL, { cache: 'no-cache' })
-        if(params.key) this.cache.set(params.key, response)
+        if(params.key && !params.disbleCache) this.cache.set(params.key, response)
         return response
       } else {
         response = await fetcher.post(params.URL!, { cache: 'no-cache' }, params.body!)
-        if(params.key) this.cache.set(params.key, response)
+        if(params.key && !params.disbleCache) this.cache.set(params.key, response)
         return response
       }
     } catch(error) {

@@ -9,6 +9,8 @@ import _UserSection from './component/userSection'
 import _AsideMenu from './component/asideMenu'
 import _DropdownList from '../dropdown-list/dropdownList'
 
+import { NavigationListLoader, UserAvatarLoader } from './component/loader'
+
 import en from './img/united-kingdom.png'
 import ru from './img/russia.png'
 import de from './img/germany.png'
@@ -16,10 +18,10 @@ import de from './img/germany.png'
 import type { ListLink } from '../dropdown-list/dropdownList.type'
 
 import { useChangeLocale, useCurrentLocale, useScopedI18n, changeLanguage } from '@/localization/client'
-import { CircleHelp, Home, Search, ShoppingBag, UserPlus } from 'lucide-react'
+import { CircleAlert, CircleHelp, Home, icons, Search, ShoppingBag, UserPlus } from 'lucide-react'
+import { memo, useEffect } from 'react'
 
 import useAuth from '@/custom-hook/useAuth/useAuth'
-import { memo, useEffect } from 'react'
 
 const SearchForm = memo(_SearchForm)
 const UserSection = memo(_UserSection)
@@ -31,7 +33,7 @@ export default function Header() {
 	const useChangeLanguage = useChangeLocale()
 	const t = useScopedI18n('header-footer')
 
-	const { user, isAuth } = useAuth()
+	const { user, isLoading, isAuth } = useAuth()
 
 	useEffect(() => {
 		isAuth()
@@ -41,7 +43,8 @@ export default function Header() {
 		{ URL: `/${language}/home`, text: t('home'), icon: <Home/> }, 
 		{ URL: `/${language}/search`, text: t('search'), icon: <Search/> },
 		{ URL: `/${language}/help`, text: t('help'), icon: <CircleHelp/> },
-		{ URL: `/${language}/cart`, text: t('cart'), icon: <ShoppingBag/> }
+		{ URL: `/${language}/cart`, text: t('cart'), icon: <ShoppingBag/> },
+		{ URL: `/${language}/about`, text: t('other-about'), icon: <CircleAlert /> }
 	]
 	const langList: ListLink[] = [
 		{ clickHandler: () => changeLanguage(useChangeLanguage, 'en'), text: 'ENG', icon: en }, 
@@ -59,17 +62,17 @@ export default function Header() {
 		<header className={scss.header_container}>
 			<div className={scss.header_website_label}>
 				<AsideMenu/>
-				<Link className={scss.header_website_name} href={`/${language}/home`}><h1>EB</h1></Link>
+				<Link href={`/${language}/home`}><h1>EB</h1></Link>
 			</div>
 			<nav className={scss.header_nav_menu_container}>
-				<div className={scss.header_dropdown_container}>
-					<DropdownList listTitle={t('dropdown-pages')} data={pagesURL}/>
+				{isLoading ? <NavigationListLoader/> : <div className={scss.header_dropdown_container}>
 					{userURL.length > 0 ? <DropdownList listTitle={t('dropdown-user')} data={userURL}/> : null}
+					<DropdownList listTitle={t('dropdown-pages')} data={pagesURL}/>
 					<DropdownList listTitle={t('dropdown-language')} data={langList}/>
-				</div>
+				</div>}
 				<SearchForm />
 			</nav>
-			<UserSection />
+			{isLoading ? <UserAvatarLoader/> : <UserSection />}
 		</header>
 	)
 }

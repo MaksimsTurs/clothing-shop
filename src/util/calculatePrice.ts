@@ -1,6 +1,6 @@
 type CalcKeys = { countKey: string, priceKey: string, precentKey: string }
 
-export default function calculatePrice(array: any[], keys: CalcKeys) {
+export default function calculatePrice(array: any[], keys: CalcKeys): string | 0 {
   if(!array) return 0
 
   const { countKey, precentKey, priceKey } = keys

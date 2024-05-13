@@ -6,12 +6,13 @@
 	transition: all $transition-time-very-fast;
 	position: relative;
 	padding: 1.5rem;
-	color: white;
+	// color: white;
 	width: 8rem;
 	cursor: pointer;
 
 	&:hover {
-		background-color: rgba(0, 0, 0, 0.3);
+		background-color: black;
+		color: white;
 		transition: all $transition-time-very-fast;
 	}
 
@@ -21,7 +22,7 @@
 }
 
 .dropdown_list_container {
-	@include absolute-left-top(50%, 100%);
+	@include absolute-left-top(50%, 100.5%);
 	@include flex-column-alignitems-justifycontent();
 	transition: all $transition-time-very-fast;
 	box-shadow: $box-shadow-dropdown;

@@ -27,12 +27,12 @@ export default function UserSection() {
 		<section className={scss.header_user_action_container}>
 			<Link href={`/${language}/cart`}>
 				{!cartCount || cartCount === 0 ? null : <p>{formatNumber(cartCount)}</p>}
-				<ShoppingBagIcon color='white'/>
+				<ShoppingBagIcon />
 			</Link>
 			<Link href={user ? `/${language}/user/${user.id}` : `/${language}/registration`}>
 				{user && user.avatar ? (
 					<ExtendedIMG className={scss.header_user_avatar} width={320} height={320} src={user.avatar} alt={user.name}/>
-				) : <CircleUser color='white'/> }
+				) : <CircleUser /> }
 			</Link>
 		</section>
 	)

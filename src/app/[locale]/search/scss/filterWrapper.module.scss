@@ -3,27 +3,22 @@
 
 .filter_container {
   box-shadow: $box-shadow-input-focus-hover;
+  border: 1px solid $background-color-soft;
   border-radius: 8px;
-  border: 1px solid black;
   overflow: hidden;
 
   .filter_title {
     transition: all $transition-time-very-fast;
     font-size: $font-large;
     color: black;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     font-weight: bold;
     padding: 0.7rem 1.5rem;
     cursor: pointer;
   }
   
   .filter_children {
+    transition: all $transition-time-very-fast;
     height: 0;
     overflow: hidden;
   }
-
-}
-
-.filter_children_open {
-  height: fit-content;
 }

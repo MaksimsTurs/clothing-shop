@@ -11,9 +11,9 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 
   const setUser = new Proxy(_setUser, {
     apply: function(_target, _this, argArray) {
-      const user = argArray[0] as UserSession
-      _setUser(user)
-      if(user) cookies.set('token', user.token, 2)
+      const _user = argArray[0] as UserSession
+      _setUser(_user)
+      if(_user) cookies.set('token', _user.token, 2)
       else cookies.set('token', 'undefined')
     }
   })

@@ -2,12 +2,12 @@
 
 import scss from './page.module.scss'
 
-import { Fragment, type SyntheticEvent, useState } from 'react'
+import { Fragment, memo, type SyntheticEvent, useState } from 'react'
 import { Frown } from 'lucide-react'
 
+import _ProductCard from '@/component/product-card/productCard'
+import _Pagination from '@/component/page-pagination/pagePagination'
 import FilterWrapper from './component/filterWrapper'
-import ProductsContainer from '@/component/product-container/productsContainer'
-import Pagination from '@/component/page-pagination/pagePagination'
 import FilterResult from './component/filterResult'
 import Error from '../error'
 import ProductLoaderContainer from '@/component/loader/product-loader-container/productLoadeContainer'
@@ -18,6 +18,9 @@ import { useScopedI18n } from '@/localization/client'
 
 import useRequest from '@/custom-hook/useRequest/useRequest'
 
+const Pagination = memo(_Pagination)
+const ProductCard = memo(_ProductCard)
+
 export default function Page({ searchParams }: PageProps) {
 	const { page, title } = searchParams
 
@@ -27,13 +30,6 @@ export default function Page({ searchParams }: PageProps) {
 	const [isFilterHidden, setFilterHidden] = useState<boolean>(true)
 
   const t = useScopedI18n('search')
-
-	const filter = { 
-		category: title ? [title] : categories.length > 0 ? categories : [], 
-		page: page || 0, 
-		price: currPrice, 
-		rating: currRating
-	}
 
 	const changePrice = (event: SyntheticEvent<HTMLInputElement>): void => setCurrPrice(+event.currentTarget.value)
 	const changeRating = (event: SyntheticEvent<HTMLInputElement>): void => setCurrRating(+event.currentTarget.value)
@@ -46,10 +42,18 @@ export default function Page({ searchParams }: PageProps) {
 		setCategories([])
 	}
 
-	const { isPending, data, error, retry } = useRequest<FilterActionReturn>({
-		key: `${filter.category.join(',') || 'null'}-${filter.page}-${filter.price}-${filter.rating}`,
-		body: filter,
-		URL: '/product/filter-and-pagination'
+	const sortOption = { 
+		category: title ? [title] : categories.length > 0 ? categories : [], 
+		page: page || 0, 
+		price: currPrice, 
+		rating: currRating
+	}
+
+	const { isPending, data, error, retry } = useRequest<FilterActionReturn>({ 
+		URL: '/product/filter-and-pagination', 
+		body: sortOption,
+		disbleCache: true,
+		key: `${page}`
 	})
 
 	const getFilteredProducts = async (): Promise<any> => {
@@ -107,9 +111,12 @@ export default function Page({ searchParams }: PageProps) {
 				<FilterResult maxProducts={data?.maxProducts || 0} productsRange={data?.productsRange || { max: 0, min: 0 }} selectedCategory={title} showFilter={setFilterHidden}/>
 				{error ? <Error error={error} isChild/> :
 					isPending ? <ProductLoaderContainer/> :
-					data?.currPageProducts.length === 0 ? <div className={scss.search_product_empty}><Frown/><p>{t('no-products')}!</p></div> :
+					(data?.currPageProducts.length === 0 || !data?.currPageProducts) ? <div className={scss.search_product_empty}><Frown/><p>{t('no-products')}!</p></div> :
 					<Fragment>
-						<ProductsContainer data={data?.currPageProducts || []}/>
+						<Pagination currentPage={Number(page) || 0} pagesCount={data?.maxPages || 0}/>
+						<div className={scss.search_result_products}>
+							{data!.currPageProducts.map(product => <ProductCard key={product._id} product={product}/>)}
+						</div>
 						<Pagination currentPage={Number(page) || 0} pagesCount={data?.maxPages || 0}/>
 					</Fragment>}
 			</div>

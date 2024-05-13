@@ -1,0 +1,15 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.about_container {
+  @include flex-column-alignitems-justifycontent(center, center);
+
+  .about_body {
+    @include flex-column-alignitems-justifycontent(center);
+    border-radius: $border-radius-dropdown;
+    gap: 0.5rem;
+    border: 1px solid black;
+    padding: 1rem;
+    width: 30rem;
+  }    
+}

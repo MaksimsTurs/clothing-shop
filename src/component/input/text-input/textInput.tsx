@@ -16,7 +16,6 @@ export default function TextInput<T extends Record<string, any>>({ register, val
 						required,
 						minLength: min,
 						maxLength: max,
-						//@ts-ignore
 						validate
 					})}
 				/>

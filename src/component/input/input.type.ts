@@ -13,7 +13,7 @@ export type Attributes<T> = {
   name: Path<T>
   defaultValue?: any
   placeholder?: string
-  type?: 'text' | 'email' | 'password' | 'date' | 'number'
+  type?: 'text' | 'email' | 'password' | 'date' | 'number' | 'datetime-local'
   value?: string
   step?: number
   min?: number | ValidationRule<any>

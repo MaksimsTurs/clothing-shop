@@ -10,6 +10,7 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 
 import editProductsSection from '@/store/admin/action/editProductsSection';
 import addProductsSection from '@/store/admin/action/addProductsSection';
+import { resetLoadingState } from '@/store/user/user';
 
 import FormWrapper from '@/component/form-wrapper/formWrapper';
 import TextInput from '@/component/input/text-input/textInput';
@@ -17,7 +18,6 @@ import SmallLoader from '@/component/loader/fetch-loader/smallLoader';
 import MultipleInput from '@/component/form-wrapper/component/multipleInput';
 import CheckBoxInput from '@/component/input/checkbox-input/checkboxInput';
 import ProductSelect from '../productSelect';
-import { resetLoadingState } from '@/store/user/user';
 
 export default function ProductSectionForm({ id, isEdit, currIDs, defaultValues }: SectionFormProps<ProductSectionAction>) {
   const [productsID, setProductIDs] = useState<string[]>([])
@@ -26,11 +26,14 @@ export default function ProductSectionForm({ id, isEdit, currIDs, defaultValues 
 
   const { isAdminActionLoading } = useSelector<RootState, AdminInitState>(state => state.admin)
 
-  const { handleSubmit, register } = useForm<ProductSectionAction>() 
+  const { handleSubmit, register, reset } = useForm<ProductSectionAction>() 
 
   const sectionAction: SubmitHandler<ProductSectionAction> = (data) => {
-    if(isEdit) return dispatch(editProductsSection({...data, id, productsID: [...productsID, ...currIDs || []] }))
-    else return dispatch(addProductsSection({...data, productsID }))
+    if(isEdit) dispatch(editProductsSection({...data, id, productsID: [...productsID, ...currIDs || []] }))
+    else dispatch(addProductsSection({...data, productsID }))
+
+    setProductIDs([])
+    reset()
   }
 
   useEffect(() => {
@@ -44,7 +47,7 @@ export default function ProductSectionForm({ id, isEdit, currIDs, defaultValues 
         <TextInput<ProductSectionAction> attributes={{ name: 'title', placeholder: 'Название', defaultValue: defaultValues?.title }} register={register}/>
         <MultipleInput>
           <CheckBoxInput<ProductSectionAction> attributes={{ name: 'isHidden', defaultValue: defaultValues?.isHidden }} label='Скрыть' register={register}/>
-          <TextInput<ProductSectionAction> attributes={{ name: 'expiredDate', type: 'date', defaultValue: defaultValues?.expiredDate }} register={register}/>
+          <TextInput<ProductSectionAction> attributes={{ name: 'expiredDate', type: 'datetime-local', defaultValue: defaultValues?.expiredDate }} register={register}/>
         </MultipleInput>
         <MultipleInput>
           <TextInput<ProductSectionAction> attributes={{ name: 'position', step: 1, type: 'number', placeholder: 'Позиция', defaultValue: defaultValues?.position }} register={register}/>

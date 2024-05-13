@@ -37,12 +37,5 @@
 			width: $icon-small;
 			height: $icon-small;
 		}
-
-		&:last-child {
-			svg {
-				transition: all $transition-time-fast ease;
-				transform: rotate(-180deg);
-			}
-		}
 	}
 }

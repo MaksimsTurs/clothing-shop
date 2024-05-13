@@ -29,6 +29,10 @@
     "create-order": "Bestellen"
   },
 
+  "about-page": {
+    "about-text": "Willkommen bei Elisabeteboutique – Ihrem idealen Online-Shop für Damenbekleidung! Wir bieten eine große Auswahl an modischen und hochwertigen Produkten, darunter Kleider, Blusen, Röcke, Hosen und Accessoires, die Ihnen helfen, für jeden Anlass einen unwiderstehlichen, stilvollen Look zu kreieren. \nUnsere Kollektion wird ständig aktualisiert, um mit den neuesten Modetrends Schritt zu halten. \nWir laden Sie ein, unsere Kollektion zu erkunden und noch heute Ihr perfektes Outfit zu finden! \nAb einem Bestellwert von 100 Euro bieten wir eine kostenlose Lieferung innerhalb Deutschlands an. \nBei Bestellungen über 150 € erhalten Sie außerdem eine kostenlose Lieferung in ganz Europa!"
+  },
+
   "metadata-home": {
     "title": "Startseite",
     "description": "Startseite, hier kannst du finden paar unsere produkten.",

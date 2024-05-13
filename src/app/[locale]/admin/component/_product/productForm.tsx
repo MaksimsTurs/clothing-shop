@@ -31,7 +31,7 @@ export default function ProductForm({ isEdit, id, defaultValues }: FormProps<Pro
 
   const { isAdminActionLoading, productsSection, products } = useSelector<RootState, AdminInitState>(state => state.admin)
 
-  const { handleSubmit, register, formState: { isSubmitted } } = useForm<ProductData>()
+  const { handleSubmit, register, formState: { isSubmitted }, reset } = useForm<ProductData>()
 
   const sectionTitle = productsSection.map(section => section.title)
   const productCategory = products.find(product => product._id === id)
@@ -47,6 +47,9 @@ export default function ProductForm({ isEdit, id, defaultValues }: FormProps<Pro
       formData.append('_id', id!)
       dispatch(editProduct(formData))
     } else dispatch(addProduct(formData))
+
+    setSelect('undefined')
+    reset()
   }
 
   useEffect(() => {

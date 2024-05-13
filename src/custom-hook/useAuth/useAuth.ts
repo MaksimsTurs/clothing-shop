@@ -8,6 +8,7 @@ import type { AuthOption, UserSession } from "./useAuth.type";
 
 import fetcher from "@/util/fetcher/fetcher";
 import createFormData from "@/util/createFormData";
+import cookies from "@/util/coockies";
 
 export default function useAuth() {
   const [state, setState] = useState<Pick<Fetching<undefined>, 'error' | 'isLoading'>>({ isLoading: false, error: undefined })
@@ -45,7 +46,8 @@ export default function useAuth() {
     isAuth: async function() {
       try {
         setState({ isLoading: true, error: undefined })
-        const response = await fetcher.post<UserSession | undefined>(`/user/auth`, undefined, undefined, { 'Authorization': `Bearer ${authContext.user?.token}` })
+        const token = cookies.get('token') || authContext.user?.token
+        const response = await fetcher.post<UserSession | undefined>(`/user/auth`, undefined, undefined, { 'Authorization': `Bearer ${token}` })
         authContext.setUser!(response)
         setState({ isLoading: false, error: undefined })
       } catch(error) {

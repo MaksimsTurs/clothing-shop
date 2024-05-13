@@ -22,16 +22,16 @@ import { resetLoadingState } from '@/store/user/user';
 export default function UserForm({ id, defaultValues }: FormProps<UserData>) {
   const [role, setRole] = useState<'admin' | 'user' | string>('')
 
-
   const { isAdminActionLoading } = useSelector<RootState, AdminInitState>(state => state.admin)
 
-  const { handleSubmit, register, formState: { isSubmitted } } = useForm<UserData>()
+  const { handleSubmit, register, reset, formState: { isSubmitted } } = useForm<UserData>()
 
   const dispatch = useDispatch<AppDispatch>()
 
   const userAction: SubmitHandler<UserData> = (data) => {
     const formData = createFormData({...data, id, role })
     dispatch(editUser(formData))
+    reset()
   }
 
   useEffect(() => {

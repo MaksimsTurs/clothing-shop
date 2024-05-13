@@ -1,0 +1,35 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.loader_container {
+  @include flex-alignitems-justifycontent();
+  gap: 0.5rem;
+  padding: 1rem 0rem;
+  margin-right: 1rem;
+
+  .loader_body {
+    @include default-loader-animation();
+    border-radius: $border-radius-dropdown;
+    background-color: $background-color-soft;
+    width: 5rem;
+    height: 2.25rem;
+  }
+}
+
+.loader_user_avatar {
+  @include default-loader-animation();
+  background-color: $background-color-soft;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+@keyframes skeleton-slide {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}

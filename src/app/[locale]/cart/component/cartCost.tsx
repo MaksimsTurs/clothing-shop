@@ -31,7 +31,7 @@ export default function CartCost({ products }: CartTotalCostProps) {
           <p className={scss.cart_total_cost}>{(withoutPrecent - discount).toFixed(2)}€</p>
         </div>
       </div>
-      <Link className={scss.check_out_link} href={`/${currLanguage}/checkout`}>CHECKOUT</Link>
+      {/* <Link className={scss.check_out_link} href={`/${currLanguage}/checkout`}>CHECKOUT</Link> */}
     </aside>
   )
 }
