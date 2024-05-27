@@ -6,7 +6,7 @@ import ExtendedIMG from '@/component/extended-img/extendedIMG'
 
 import Link from 'next/link'
 
-export default function DataItems({ _key, data }: DataItemsProps) {
+export default function DataItems({ _key, data, precent }: DataItemsProps) {
   return(
     <div className={scss.data_items_container}>
       <p>{_key}</p>
@@ -27,8 +27,8 @@ export default function DataItems({ _key, data }: DataItemsProps) {
                 <section className={scss.item_price}>
                   <p>Цена:</p>
                   <section>
-                    <p>{(item.price - ((item.precent || 0) * item.price)).toFixed(2)}€</p>
-                    <p>(-{(item.precent || 0) * 100}%)</p>
+                    <p>{(item.price - ((precent || 0) * item.price)).toFixed(2)}€</p>
+                    <p>(-{(precent || 0) * 100}%)</p>
                   </section>
                 </section>
               </section>

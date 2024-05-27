@@ -1,15 +1,17 @@
-import { PayloadAction, createSlice, current } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import type { ProductInLocalStorage, UserClient, UserInitState } from "./user.type";
 import type { ProductData } from "../admin/admin.type";
+import type { CurrentProductData } from "@/app/[locale]/product/page.type";
 
-import deleteFrom from "../admin/tool/deleteFrom";
+import deleteFrom from "../admin/tool/remove";
 import cookies from "@/util/coockies";
 
 import editMe from "./action/editMe";
 import removeMe from "./action/removeMe";
 import logIn from "./action/logIn";
 import registration from "./action/registration";
+import Data from "../admin/tool/tool";
 
 const initialState: UserInitState  = {
   cart: [],
@@ -35,7 +37,7 @@ const cartSlice = createSlice({
     removeProduct: (state, { payload }: PayloadAction<string>) => {
       state.cart = deleteFrom<ProductInLocalStorage>({ _id: payload }, state.cart)!
     },
-    removeProductCount: (state, { payload }: PayloadAction<{ product: ProductData | ProductInLocalStorage, count: number }>) => {
+    removeProductCount: (state, { payload }: PayloadAction<{ product: CurrentProductData, count: number }>) => {
       if(!state.cart || payload.count === 0) return
 
       state.cart = state.cart.map(product => {
@@ -45,10 +47,10 @@ const cartSlice = createSlice({
         return product
       })
     },
-    insertProductCount: (state, { payload }: PayloadAction<{ product: ProductData | ProductInLocalStorage, count: number }>) => {
+    insertProductCount: (state, { payload }: PayloadAction<{ product: CurrentProductData, count: number }>) => {
       if(payload.count === 0) return
 
-      const existedProduct: ProductInLocalStorage | undefined = state.cart.find(cartProduct => cartProduct._id === payload.product._id)
+      const existedProduct = Data.find({ _id: payload.product._id }, state.cart) as ProductInLocalStorage | undefined
     
       if(!existedProduct) {
         state.cart = [...state.cart, {...payload.product, count: payload.count }]

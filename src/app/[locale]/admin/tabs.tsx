@@ -1,19 +1,22 @@
 import ProductList from "./component/_product/productList";
-import ProductSectionList from "./component/_product-section/productSectionList";
+import ProductActionList from "./component/_product-action/productActionList";
+import ProductCategoryList from "./component/_product-category/productCategoryList";
 import UserList from './component/_user/userList'
 import OrderList from "./component/_order/orderList";
 
 import Product from "./component/_product/product";
 import User from "./component/_user/user";
-import ProductSection from "./component/_product-section/productSection";
+import ProductAction from "./component/_product-action/productAction";
 import Order from "./component/_order/order";
+import ProductCategory from './component/_product-category/productCategory'
 
 import ProductForm from "./component/_product/productForm";
-import ProductSectionForm from "./component/_product-section/productSectionForm";
+import ProductActionForm from "./component/_product-action/productActionForm";
+import ProductCategoryForm from "./component/_product-category/productCategoryForm";
+import SettingsFormm from "./component/settings";
 
-import { Settings2Icon, AlignJustify, PackagePlus, Shirt, ShoppingBasket, UserRound } from "lucide-react";
+import { PackagePlus, Shirt, ShoppingBasket, UserRound, Percent, AlignJustifyIcon, Settings } from "lucide-react";
 
-import Settings from "./component/settings";
 
 export default {
   'product': {
@@ -34,25 +37,40 @@ export default {
     listComponent: <OrderList/>,
     dataComponent: <Order/>,
   },
+  'action': {
+    title: 'Акции',
+    icon: <Percent />,
+    listComponent: <ProductActionList/>,
+    dataComponent: <ProductAction/>,
+  },
   'category': {
     title: 'Категории',
-    icon: <AlignJustify />,
-    listComponent: <ProductSectionList/>,
-    dataComponent: <ProductSection/>,
-  },
-  'create-product': {
-    title: 'Создать продукт',
-    icon: <PackagePlus />,
-    listComponent: <ProductForm/>
-  },
-  'create-category': {
-    title: 'Создать категорию',
-    icon: <PackagePlus />,
-    listComponent: <ProductSectionForm/>
+    icon: <AlignJustifyIcon />,
+    listComponent: <ProductCategoryList/>,
+    dataComponent: <ProductCategory/>,
   },
   'website-settings': {
     title: 'Настройки Сайта',
-    icon: <Settings2Icon />,
-    listComponent: <Settings/>
+    icon: <Settings />,
+    listComponent: <SettingsFormm/>,
+    dataComponent: undefined
+  },
+  'create-product': {
+    title: 'Добавить продукт',
+    icon: <PackagePlus />,
+    listComponent: <ProductForm/>,
+    dataComponent: undefined
+  },
+  'create-category': {
+    title: 'Добавить категорию',
+    icon: <PackagePlus />,
+    listComponent: <ProductCategoryForm/>,
+    dataComponent: undefined
+  },
+  'create-action': {
+    title: 'Добавить акцию',
+    icon: <PackagePlus />,
+    listComponent: <ProductActionForm/>,
+    dataComponent: undefined
   }
 }

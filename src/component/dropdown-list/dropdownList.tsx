@@ -16,13 +16,17 @@ export default function DropdownList({ data, listTitle }: DropdownListProps) {
           <li key={element.text} onClick={element.clickHandler || undefined}>
             {element?.URL ? 
               <Link href={element.URL}>
+                <section>
+                  {typeof element.icon?.type === 'object' ? element.icon : <ExtendedIMG alt={element.text} src={element.icon as string} width={15} height={15}/>}
+                  {element.text}
+                </section>
+              </Link> :
+            <div>
+              <section>
                 {typeof element.icon?.type === 'object' ? element.icon : <ExtendedIMG alt={element.text} src={element.icon as string} width={15} height={15}/>}
                 {element.text}
-              </Link> :
-            <p>
-              {typeof element.icon?.type === 'object' ? element.icon : <ExtendedIMG alt={element.text} src={element.icon as string} width={15} height={15}/>}
-              {element.text}
-            </p>}
+              </section>
+            </div>}
           </li>
         ))}
       </ul>

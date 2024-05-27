@@ -14,10 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslation('metadata-home')
   
   return {
-    ...defaultMetadata({
-      category: t('category'),
-      keywords: [t('keyword-1'), t("keyword-2"), t('keyword-3')]
-    }),
+    ...defaultMetadata({ category: t('category'), keywords: [t('keyword-1'), t("keyword-2"), t('keyword-3')] }),
     description: t('description'), 
     title:  t('title') 
   }

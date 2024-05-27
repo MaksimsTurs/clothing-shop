@@ -4,6 +4,7 @@
 .user_page_container {
   @include flex-alignitems-justifycontent(center, normal);
   margin: 1rem 0rem;
+  margin-top: 5.2rem;
 
   .user_page_body {
     @include flex-column-alignitems-justifycontent();

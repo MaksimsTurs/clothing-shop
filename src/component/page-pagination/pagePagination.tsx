@@ -17,15 +17,19 @@ export default function Pagination({ currentPage, pagesCount }: PaginationProps)
   const searchParams = useSearchParams()
   
   const title: string | null = searchParams.get('title')
+  const location: string | null = searchParams.get('location')
+  const id: string | null = searchParams.get('id')
 
   const goToPreviousPage = (): void => {
     const prevPage: number = currentPage - 1 !== -1 ? --currentPage : 0
-    router.push(`/${language}/search?page=${prevPage}${title ? `&title=${title}` : ''}`)
+    const params = `${title ? `&title=${title}` : ''}${location ? `&location=${location}` : ''}${id ? `&id=${id}` : ''}`
+    router.push(`/${language}/search?page=${prevPage}${params}`)
   }
 
   const goToNextPage = (): void => {
     const nextPage: number = currentPage >= (pagesCount - 1) ? (pagesCount - 1) : ++currentPage
-    router.push(`/${language}/search?page=${nextPage}${title ? `&title=${title}` : ''}`)
+    const params = `${title ? `&title=${title}` : ''}${location ? `&location=${location}` : ''}${id ? `&id=${id}` : ''}`
+    router.push(`/${language}/search?page=${nextPage}${params}`)
   }
 
   const sliceStart: number = (+currentPage - 2) < 0 ? 0 : (+currentPage - 2)

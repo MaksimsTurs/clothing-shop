@@ -1,29 +1,26 @@
 import scss from '../scss/productSelect.module.scss'
 
 import type { ProductSelectProps } from '../page.type'
-import type { RootState } from '@/store/store'
-import type { AdminInitState } from '@/store/admin/admin.type'
-
-import { useSelector } from 'react-redux'
+import type { ProductData } from '@/store/admin/admin.type'
 
 import ExtendedIMG from '@/component/extended-img/extendedIMG'
+import SelectWrapper from './selectWrapper'
 
-export default function ProductSelect({ productsID, setProductIDs }: ProductSelectProps) {
-  const { products } = useSelector<RootState, AdminInitState>(state => state.admin)
-
-  const productToSelect = products.filter(product => !product.sectionID)
+export default function ProductSelect({ productsID, setProductIDs, options }: ProductSelectProps) {
+  
+  const changeProductsID = (product: ProductData): void => {
+    if(productsID.includes(product._id)) setProductIDs(productsID.filter(id => product._id !== id))
+    else setProductIDs(prev => [...prev, product._id])
+  }
 
   return(
-    <ul className={scss.section_list}>
-      {productToSelect.length > 0 ? productToSelect.map(product => (
-        <li onClick={() => {
-          if(productsID.includes(product._id)) return setProductIDs(productsID.filter(id => product._id !== id))
-          else return setProductIDs(prev => [...prev, product._id])
-        }} 
-        key={product._id}
-        className={productsID.includes(product._id) ? `${scss.section_item_active} ${scss.section_item}` : scss.section_item}>
+    <SelectWrapper title='Продукты'>
+      {options.length > 0 ? options.map(product => (
+        <li onClick={() => changeProductsID(product)} 
+          key={product._id}
+          className={productsID.includes(product._id) ? `${scss.section_item_active} ${scss.section_item}` : scss.section_item}>
           <ExtendedIMG alt={product.title} src={product.images[0]} width={90} height={70}/>
-          <div className={scss.section_item_data}>
+          <div>
             <h4>{product.title}</h4>
             <section>
               <p>Цена:</p>
@@ -31,7 +28,7 @@ export default function ProductSelect({ productsID, setProductIDs }: ProductSele
             </section>
             <section>
               <p>Рейтинг:</p>
-              <p>{product.rating}</p>
+              <p>{product.rating}/5</p>
             </section>
             <section>
               <p>В наличии:</p>
@@ -40,6 +37,6 @@ export default function ProductSelect({ productsID, setProductIDs }: ProductSele
           </div>
         </li>
       )) : <li style={{ justifyContent: 'center', padding: '0.7rem 0rem' }} className={scss.section_item}>Нет продуктов!</li>}
-    </ul>
+    </SelectWrapper>
   )
 }

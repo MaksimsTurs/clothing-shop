@@ -27,7 +27,7 @@ export default function Root() {
 
   const goBack = (): void => router.back()
 
-  const { data } = useRequest<GetStoreData>({ URL: '/admin/get/store', key: 'admin/get/store' })
+  const { data } = useRequest<GetStoreData>({ URL: '/admin/get/store', key: 'admin/get/store', disbleCache: false })
 
   useEffect(() => {
     dispatch(setAdminData(data))
@@ -44,9 +44,13 @@ export default function Root() {
           <MoveLeft />
           <p>Назад</p>
         </button>
-        {Object.entries(tabs).map(tabEntrie => <button key={tabEntrie[1].title} onClick={() => changeURL(`?tab=${tabEntrie[0]}`)}>{tabEntrie[1].icon}<p style={{ pointerEvents: 'none' }}>{tabEntrie[1].title}</p></button>)}
+        {Object.entries(tabs).map(tabEntrie => 
+          <button className={tab.name === tabEntrie[0] ? scss.nav_tab_active : undefined} key={tabEntrie[0]} onClick={() => changeURL(`?tab=${tabEntrie[0]}`)}>
+            {tabEntrie[1].icon}
+            <p style={{ pointerEvents: 'none' }}>{tabEntrie[1].title}</p>
+          </button>)}
       </nav>
-      {tab}
+      {tab.render}
     </div>
   )
 }

@@ -1,0 +1,4 @@
+Cart page
+Checkout page
+User page 
+precent data

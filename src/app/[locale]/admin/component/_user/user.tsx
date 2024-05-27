@@ -27,7 +27,7 @@ export default function User() {
         <DataLink _key="Е-Маил" value={user?.email} href={`https://mail.google.com/mail/?view=cm&fs=1&to=${user?.email}`}/>
         <DataSection _key="Роль" value={user?.role}/>
       </DataBody>
-      <UserForm id={id} defaultValues={{ firstName: user?.firstName, secondName: user?.secondName, role: user?.role }}/>
+      <UserForm id={id} isEdit/>
     </DataContainer>
   )
 }

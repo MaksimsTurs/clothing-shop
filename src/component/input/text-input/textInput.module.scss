@@ -4,19 +4,56 @@
 .text_input_container {
   @include flex-column-alignitems-justifycontent();
   width: 100%;
-
+  position: relative;
+  
   .text_input_input {
     border-radius: $border-radius-link;
     transition: all $transition-time-fast ease;
+    border: 1px solid $black-color-soft;
     box-shadow: $box-shadow-input;
-    border: 1px solid black;
     flex-grow: 0;
     width: 100%;
     padding: 0.7rem;
-  
+    
     &:hover {
+      border: 1px solid rgb(151, 151, 151);
       transition: all $transition-time-fast ease;
       box-shadow: $box-shadow-input-focus-hover;
+    }
+  }
+
+  .text_input_error_icon {
+    @include absolute-left-top(95%, 50%);
+    color: $font-color-error;
+    width: $icon-medium;
+    height: $icon-medium;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+
+    &:hover + .text_input_error_container {
+      transition: all $transition-time-very-fast;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .text_input_error_container {
+    @include flex-alignitems-justifycontent(center, flex-end);
+    @include absolute-left-top(40%, 50%);
+    transition: all $transition-time-very-fast;
+    color: $font-color-error;
+    visibility: hidden;
+    opacity: 0;
+    gap: 1rem;
+    transform: translate(-50%, -50%);
+
+    .text_input_error_message {
+      font-size: $font-small;
+      background-color: $font-color-error;
+      border-radius: $border-radius-dropdown;
+      width: fit-content;
+      color: white;
+      padding: 0.25rem 0.5rem;
     }
   }
 
@@ -28,17 +65,5 @@
       transition: all $transition-time-fast;
       box-shadow: #500 1.95px 1.95px 2.6px;
     }
-  }
-  
-  .text_input_error_message {
-    font-size: $font-small;
-    color: $font-color-error;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-    font-weight: bolder;
-    margin-top: 0.25rem;
-    padding: 0.25rem;
   }
 }

@@ -4,15 +4,15 @@ import fetcher from '@/util/fetcher/fetcher'
 
 import type { UserData } from '../admin.type'
 
-const editUser = createAsyncThunk<UserData, FormData>(
-	'admin/user/edit',
+const updateUser = createAsyncThunk<UserData, FormData>(
+	'admin/update/user',
 	async(data, thunkApi) => {
 		try {
-			return await fetcher.post<UserData>(`/admin/user/edit`, undefined, data)
+			return await fetcher.post<UserData>(`/admin/update/user`, undefined, data)
 		} catch (error) {
 			return thunkApi.rejectWithValue(error)
 		}
 	}
 )
 
-export default editUser
+export default updateUser

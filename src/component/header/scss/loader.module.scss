@@ -14,6 +14,10 @@
     width: 5rem;
     height: 2.25rem;
   }
+
+  @media(width <= 530px) {
+    display: none;
+  }
 }
 
 .loader_user_avatar {
@@ -22,6 +26,10 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
+
+  @media(width <= 530px) {
+    display: none;
+  }
 }
 
 @keyframes skeleton-slide {

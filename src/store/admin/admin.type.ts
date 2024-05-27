@@ -4,7 +4,8 @@ import type { TResponseError } from "@/global.type"
 export type AdminInitState = {
 	products: ProductData[]
 	users: UserData[]
-	productsSection: ProductSection[]
+	productAction: ProductAction[]
+	productCategory: ProductCategory[]
 	websiteSettings?: WebsiteSettings
 	orders: Order[]
 	isAdminActionLoading: boolean
@@ -25,30 +26,33 @@ export type UserData = {
 
 export type ProductData = {
 	_id: string
+	categoryID?: string
+	actionID?: string
 	title: string
-	category?: string
 	description: string
-	sectionID?: string
   createdAt: string
   updatedAt: string
 	price: number
 	stock: number
-	rating: number | null
-	precent: number | null
+	rating: number
 	images: string[]
 }
 
-export type ProductSection = {
+export type ProductCategory = {
+	actionID?: string
+} & Pick<ProductAction, '_id' | 'createdAt' | 'productsID' | 'title' | 'updatedAt' | 'isHidden' | 'position'>
+
+export type ProductAction = {
 	_id: string
+	categoryID?: string
+	productsID: string[]
 	title: string
   createdAt: string
   updatedAt: string
-	productsID: string[]
-	expiredDate?: string
-	precent: number | null
+	expiredAt?: string
+	precent: number
 	isHidden: boolean
 	position?: number
-  products?: ProductData[]
 }
 
 export type Order = {
@@ -67,20 +71,36 @@ export type WebsiteSettings = {
 
 export type OrderStatus = 'SENT' | 'ON-MY-WAY' | 'APPEARED'
 
-//Get store data
-export type GetStoreData = Pick<AdminInitState, 'orders' | 'products' | 'productsSection' | 'users' | 'websiteSettings'>
+export type InsertOrUpdateAction = {
+	categoryName: string
+} & ProductAction
 
-//Create new product
-export type CreateNewProduct = { newProduct: ProductData, updatedSection?: ProductSection }
+export type InsertOrUpdateCategory = {
+	actionName: string
+} & ProductCategory
 
-//Edit product
-export type EditProduct = { updatedProduct: ProductData, updatedCategory?: ProductSection }
-
-//Product section
-export type ProductSectionAction = { id?: string | null } & Partial<Omit<ProductSection, '_id'>>
+export type GetStoreData = Pick<AdminInitState, 'orders' | 'products' | 'productAction' | 'users' | 'websiteSettings' | 'productCategory'>
 
 //Remove item
 export type RemoveItemAction = { from: RemoveFrom, id?: string }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Product section
+export type ProductActionAction = { id?: string | null } & Partial<Omit<ProductAction, '_id'>>
 
 //Change status of order
 export type ChangeOrderStatus = { id: string, status: OrderStatus }

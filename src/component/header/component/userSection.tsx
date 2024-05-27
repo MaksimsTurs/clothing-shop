@@ -1,4 +1,4 @@
-import scss from '../header.module.scss'
+import scss from '../scss/userSection.module.scss'
 
 import Link from 'next/link'
 import { CircleUser, ShoppingBagIcon } from 'lucide-react'

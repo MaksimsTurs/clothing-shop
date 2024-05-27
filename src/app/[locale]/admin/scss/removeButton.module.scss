@@ -1,8 +1,8 @@
 @import '@/scss/mixin';
 @import '@/scss/variabel';
 
-
 .product_remove_button {
+  @include flex-alignitems-justifycontent(center, center);
   background-color: $font-color-error;
   border-radius: $border-radius-img;
   border: 1px solid $font-color-error;

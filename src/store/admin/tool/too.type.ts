@@ -1,0 +1,1 @@
+export type Filter<T> = { $in?: Partial<Record<keyof T, any>> } & Partial<T>

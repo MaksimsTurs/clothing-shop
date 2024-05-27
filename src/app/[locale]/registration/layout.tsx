@@ -5,10 +5,10 @@ import type { Metadata } from "next";
 
 import { Fragment, type PropsWithChildren } from "react";
 
-import defaultMeta from "../defaultMeta";
+import defaultMetadata from "../defaultMeta";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {...defaultMeta, title: 'Registration' }
+  return {...defaultMetadata(), title: 'Registration' }
 }
 
 export default function Layout({ children }: PropsWithChildren) {

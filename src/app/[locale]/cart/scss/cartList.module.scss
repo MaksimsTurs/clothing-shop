@@ -1,17 +1,17 @@
 @import '@/scss/variabel';
 @import '@/scss/mixin';
 
-@import './media-query/cartList.media-query.scss';
+.flex_column_normal {
+	@include flex-column-alignitems-justifycontent();
+}
 
-.cart_container {
+.cart_products_container {
 	@include flex-column-alignitems-justifycontent();
 	flex-grow: 1;
 	flex-shrink: 0;
 
-	.cart_empty_text {
-		width: 100%;
-		text-align: center;
-		color: rgba(0, 0, 0, 0.3);
+	.cart_empty {
+		color: $black-color-soft;
 	}
 	
 	.cart_title {
@@ -20,74 +20,105 @@
 		margin-bottom: 0.5rem;
 	}
 	
-	.cart_content_list {
-		@include flex-column-alignitems-justifycontent();
-		gap: 1rem;
+	.cart_products_list {
 		border-radius: $border-radius-input-form;
-		width: 100%;
-		border: 1px solid rgba(0, 0, 0, 0.1);
+		border: 1px solid $black-color-soft;
+		gap: 1rem;
 		padding: 1rem;
 		
-		.cart_content_item {
-			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-			width: 100%;
+		.cart_list_item {
+			border-bottom: 1px solid $black-color-soft;
 			padding-bottom: 0.8rem;
 
-			.cart_delete_margin {
-				margin: 0;
-			}
-
-			.cart_item_data {
-				@include flex-alignitems-justifycontent();
-			}
-
-			.cart_item_cost {
-				@include flex-alignitems-justifycontent(center, space-between);
-			}
-			
 			&:last-child {
 				padding-bottom: 0rem;
 				border-bottom: none;
 			}
-			
-			.cart_product_icon {
-				border-radius: $border-radius-img;
-				object-fit: cover
-			}
-			
-			.cart_product_data {
-				@include flex-column-alignitems-justifycontent(normal, space-between);
-				position: relative;
-				overflow: hidden;
-				flex-grow: 1;
-				margin-left: 1rem;
-				
-				.cart_delete_product {
-					@include absolute-left-top(95%, 0%);
-					z-index: 20;
+
+			.cart_list_item_data_container {
+				@include flex-alignitems-justifycontent();
+				margin-bottom: 0.5rem;
+
+				.cart_list_item_icon {
+					border-radius: $border-radius-img;
+					object-fit: cover
+				}
+
+				.cart_list_item_data_body {
+					@include flex-column-alignitems-justifycontent(normal, space-between);
+					position: relative;
+					overflow: hidden;
+					flex-grow: 1;
+					margin-left: 1rem;
+
+					.cart_delete_product {
+						@include absolute-left-top(96%, 10%);
+						transform: translate(-50%, -50%);
+						z-index: 20;
+						color: $font-color-error;
+
+						@media(width >= 520px) {
+							display: none;
+						}
+						
+						svg,
+						path {
+							height: $icon-large;
+							width: $icon-large;
+						}
+					}
+	
+					.cart_product_data_property {
+						@include flex-alignitems-justifycontent(center);
+						gap: 0.5rem;
+	
+						p:last-child {
+							font-size: 0.9rem;
+							color: $font-color-half-black;
+						}
+					}
 					
-					svg,
-					path {
-						fill: red;
-						height: $icon-large;
-						width: $icon-large;
+					.cart_product_name {
+						@include text-overflow-ellipsis(12rem);
+						font-size: $font-large;
+						font-weight: bolder;
+					}
+				}
+			}
+
+			.cart_item_action_buttons_container {
+				@include flex-alignitems-justifycontent(center);
+				gap: 0.5rem;
+
+				@media(width <= 520px) {
+					> div {
+						flex-grow: 1;
 					}
 				}
 				
-				.cart_product_name {
-					@include text-overflow-ellipsis(12rem);
-					font-size: $font-large;
-					margin-bottom: 0.5rem;
-					font-weight: bolder;
-				}
-				
-				.cart_cost_container {
-					@include flex-alignitems-justifycontent(center, space-between);
-					gap: 0.5rem;
-					
-					p:first-child {
-						font-size: 1.3rem;
-						font-weight: bolder;
+				.cart_delete_product {
+					@include flex-alignitems-justifycontent(center, center);
+					background-color: $font-color-error;
+					border: 1px solid $font-color-error;
+					transition: all $transition-time-very-fast;
+					color: white;
+					padding: 0.65rem 2rem;
+					border-radius: 30px;
+					position: relative;
+
+					@media(width <= 520px) {
+						display: none;
+					}
+
+					&:hover {
+						transition: all $transition-time-very-fast;
+						color: $font-color-error;
+						background-color: white;
+					}
+
+					svg {
+						size: $icon-medium;
+						height: $icon-medium;	
 					}
 				}
 			}

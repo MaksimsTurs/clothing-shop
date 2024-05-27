@@ -3,95 +3,39 @@
 
 .header_container {
 	@include flex-alignitems-justifycontent(center, space-between);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	position: fixed;
+	gap: 1rem;
 	box-shadow: $box-shadow-input;
-	// color: white;
-	// fill: white;
-	
-	.header_website_label {
-		@include flex-alignitems-justifycontent(center);
-		
-		h1 { font-size: $font-xx-large; font-weight: bolder; }
-	}
+	border-bottom: 1px solid $black-color-soft;
+	background-color: white;
+	z-index: 2;
 
+	@media(width <= 530px) {
+		padding: 1rem 3rem;
+	}
+	
+	a {
+		h1 {
+			font-size: $font-xx-large; 
+			font-weight: bolder; 
+		}
+
+		@media(width <= 530px) {
+			width: 100%;
+			text-align: center;
+		}
+	}
+		
 	.header_nav_menu_container {
 		@include flex-alignitems-justifycontent(center);
 		gap: 0.5rem;
-		
-		p { font-size: $font-medium; color: white; }
 
-		.header_dropdown_button {
-			@include flex-alignitems-justifycontent(center);
-			position: relative;
-			gap: 0.5rem;
-			color: black !important;
-			fill: black;
-
-			&::before {
-				@include absolute-left-top(0%, 100%);
-				content: '';
-				width: 100%;
-				height: 0.9rem;
-			}
-
-			&:hover > .header_dropdown_list {
-				transition: all $transition-time-fast;
-				height: calc((3 * 37px) + 0.65rem);
-			}
-
-			.header_dropdown_list {
-				@include absolute-left-top(50%, 175%);
-				border-radius: $border-radius-dropdown;
-				box-shadow: $box-shadow-dropdown;
-				transform: $translate-horizontal-midlle;
-				transition: all $transition-time-very-fast;
-				z-index: 2;
-				overflow: hidden;
-				height: 0px;
-
-				> li {
-					display: flex;
-					gap: 0.5rem;
-					transition: all $transition-time-very-fast;
-					padding: 0.65rem 1.7rem;
-
-					> p { color: black; }
-
-					&:hover {
-						transition: all $transition-time-very-fast;
-						background-color: $background-color-hover-list-item;
-					}
-				}
-			}
-		}
-	}
-
-	.header_user_action_container {
-		@include flex-alignitems-justifycontent(center);
-		gap: 1rem;
-		margin-left: 0.9rem;
-		
-		.header_user_avatar {
-			width: $icon-xx-large;
-			height: $icon-xx-large;
-			object-fit: cover;
-			border-radius: 50%;
+		@media(width <= 800px) {
+			justify-content: center;
 		}
 
-		a {
-			position: relative;
-			
-			p {
-				@include absolute-left-top(-35%, -20%);
-				z-index: 2;
-				background-color: black;
-				color: white;
-				padding: 0.35rem;				
-				font-size: $font-x-small;
-				border-radius: 50%;
-			}
+		@media(width <= 530px) {
+			display: none;
 		}
 	}
 }
-
-@import './media-query/header.media-query.scss';

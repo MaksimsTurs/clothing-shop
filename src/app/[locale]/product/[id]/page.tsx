@@ -4,6 +4,7 @@ import ProductImagePreview from '../component/productImagePreview'
 import StarRating from '@/component/star-rating/starRating'
 import ProductCost from '@/component/product-cost/productCost'
 import Description from '../component/description'
+import ProductCount from '@/component/product-count/productCount'
 
 import { Fragment } from 'react'
 import { cookies } from 'next/headers'
@@ -18,8 +19,6 @@ import type { Metadata } from 'next'
 import defaultMetadata from '../../defaultMeta'
 
 import getTranslation from '@/localization/server'
-import ProductCount from '@/component/product-count/productCount'
-import Loading from '../loading'
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { title, description } = await getProductByID(params.id)
@@ -32,9 +31,11 @@ export default async function Page({ params }: PageProps) {
 
   const stockColor: string = (data.stock || 0) > 0 ? 'green' : 'red'
   const language: string = cookies().get('locale')?.value || 'en'
+
+  const URLParams = `${data.categoryID ? `id=${data.categoryID}` : ''}${data.categoryID ? '&location=category' : ''}`
   
   return(
-    <main style={{ alignItems: 'center', justifyContent: 'center' }}>
+    <main style={{ alignItems: 'center', justifyContent: 'center', marginTop: '3rem' }}>
       <div className={scss.product_data_container}>
         <ProductImagePreview images={data.images}/>
         <div className={scss.product_data_content}>
@@ -46,23 +47,24 @@ export default async function Page({ params }: PageProps) {
             {data.category ?
               <Fragment>
                 <p>{t("in-category")}</p>
-                <Link className={scss.product_category_link} href={`/${language}/search?title=${data?.category}`}>{data.category}</Link>
+                <Link className={scss.product_category_link} href={`/${language}/search?${URLParams}`}>{data.category}</Link>
               </Fragment> : null}
           </section>
-         <ProductCost price={data.price} precent={data.precent}/>
-          {/**--------------NOT IMPLEMENTED--------------------- */}
+         <ProductCost price={data.price} precent={data.precent || 0}/>
+          {/*--------------NOT IMPLEMENTED--------------------- */}
           {/* <ul className={scss.product_colors_list}>
             <li style={{ backgroundColor: 'red' }}></li>
             <li style={{ backgroundColor: 'green' }}></li>
             <li style={{ backgroundColor: 'blue' }}></li>
           </ul> */}
           <ProductCount product={data}/>
-          <section className={scss.product_border_bottom}>
+          {/*-------------IMPLEMENTED BUT NO NEEDED YET---------*/}
+          {/* <section className={scss.product_border_bottom}>
             <Link href={`/${language}/checkout?id=${data._id}`} className={scss.product_buy_button}>
               <ShoppingCart />
               <p>{t("buy")}</p>
             </Link>
-          </section>
+          </section> */}
           <Description text={data.description}/>
         </div>
       </div>

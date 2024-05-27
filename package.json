@@ -1,6 +1,6 @@
 {
   "name": "front-end",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@paypal/react-paypal-js": "^8.3.0",
-    "@reduxjs/toolkit": "^2.2.4",
+    "@reduxjs/toolkit": "^2.2.5",
     "@vercel/analytics": "^1.2.2",
     "@vercel/speed-insights": "^1.0.10",
     "lucide-react": "^0.378.0",
@@ -28,13 +28,13 @@
   },
   "devDependencies": {
     "@testing-library/react": "^15.0.7",
-    "@types/node": "^20.12.11",
+    "@types/node": "^20.12.12",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.2.1",
     "jsdom": "^24.0.0",
-    "sass": "^1.77.1",
-    "sharp": "^0.33.3",
+    "sass": "^1.77.2",
+    "sharp": "^0.33.4",
     "typescript": "^5.4.5",
     "vitest": "^1.6.0"
   }

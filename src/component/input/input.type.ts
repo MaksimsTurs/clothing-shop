@@ -10,15 +10,16 @@ export type InputProps<T extends FieldValues> = {
 }
 
 export type Attributes<T> = {
+  className?: string
   name: Path<T>
   defaultValue?: any
   placeholder?: string
-  type?: 'text' | 'email' | 'password' | 'date' | 'number' | 'datetime-local'
+  type?: 'text' | 'email' | 'password' | 'date' | 'number' | 'datetime-local' | 'file'
   value?: string
   step?: number
   min?: number | ValidationRule<any>
   max?: number | ValidationRule<any>
-  isMultiple?: boolean
+  multiple?: boolean
 }
 
 export interface ImgInputProps<T extends FieldValues> extends Omit<InputProps<T>, 'type'> { 
@@ -32,4 +33,5 @@ export interface SelectInputProps<T extends FieldValues> extends Omit<InputProps
   options: string[]
   selected: string
   setSelect: Dispatch<SetStateAction<string>>
+  title: string
 }

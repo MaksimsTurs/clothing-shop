@@ -1,0 +1,29 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.data_list_items {
+  @include flex-column-alignitems-justifycontent();
+  gap: 0.5rem;
+  border-bottom: 1px solid silver;
+  padding-bottom: 0.5rem;
+
+  .data_list_key {
+    color: black;
+    font-weight: bold;
+    cursor: auto;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  li {
+    color: $font-color-link;
+    font-weight: normal;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -6,6 +6,7 @@
   background-color: $background-color-input-form;
   width: 100%;
   height: 20rem;
+  margin-top: 4.2rem;
 
   .loader_statistic_body {
     @include flex-column-alignitems-justifycontent();

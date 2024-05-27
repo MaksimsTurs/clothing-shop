@@ -7,5 +7,5 @@ export type OrderListProps = { orders: Order[] }
 
 export type UserButtonProps = { isAdmin: boolean }
 
-export type GetUserByToken = { role: 'admin' | 'user', name: string, order: Order[] } & Pick<UserData, 'avatar' | 'email'>
+export type GetUserByToken = { role: 'ADMIN' | 'USER', name: string, order: Order[] } & Pick<UserData, 'avatar' | 'email'>
 export type EditUser = { id?: string } & Partial<Pick<UserData, 'avatar' | 'firstName' | 'secondName' | 'email'>>

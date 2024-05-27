@@ -2,10 +2,13 @@ import scss from './textInput.module.scss'
 
 import type { InputProps } from '../input.type'
 
+import { CircleX } from 'lucide-react'
+import { Fragment } from 'react'
+
 export default function TextInput<T extends Record<string, any>>({ register, validate, errors, attributes, required }: InputProps<T>) {
 	const { name, min, max } = attributes
 
-	const error = errors?.[name]?.message as string
+	const error = errors?.[name]?.message as string | undefined
 
 	return (
 			<div className={scss.text_input_container}>
@@ -19,7 +22,13 @@ export default function TextInput<T extends Record<string, any>>({ register, val
 						validate
 					})}
 				/>
-				{error ? <span className={scss.text_input_error_message}>{error}</span> : null}
+				{error ? 
+					<Fragment>
+						<CircleX className={scss.text_input_error_icon}/>
+						<div className={scss.text_input_error_container}>
+							<span className={scss.text_input_error_message}>{error}</span>
+						</div>
+					</Fragment> : null}
 			</div>
 	)
 }

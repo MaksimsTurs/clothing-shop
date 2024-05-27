@@ -1,0 +1,19 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.select_body_wrapper {
+  @include flex-column-alignitems-justifycontent();
+  border-radius: $border-radius-dropdown;
+  font-size: $font-small;
+  box-shadow: $box-shadow-input;
+  border: 1px solid $black-color-soft;
+  max-height: 20rem;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.select_body_title {
+  color: rgb(151, 151, 151);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}

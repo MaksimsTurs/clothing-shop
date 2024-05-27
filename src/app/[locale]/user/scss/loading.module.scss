@@ -4,6 +4,7 @@
 .loader_user_container {
   @include flex-alignitems-justifycontent(center, center);
   padding: 1rem 0.5rem;
+  margin-top: 5.2rem;
 
   .loader_user_body {
     @include flex-column-alignitems-justifycontent();

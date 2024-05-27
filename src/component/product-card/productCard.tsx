@@ -12,7 +12,7 @@ import type { ProductCardProps } from "./productCard.type";
 
 import cookies from "@/util/coockies";
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, precent }: ProductCardProps) {
   const language = cookies.get('locale') || 'en'
 
   return(
@@ -22,7 +22,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <section className={scss.product_data_container}>
         <h4 className={scss.product_name}>{product.title}</h4>
         <StarRating rating={product.rating || 0.00} />
-        <ProductCost price={product.price} precent={product.precent} />
+        <ProductCost price={product.price} precent={precent || 0} />
       </section>
     </Link>
   )

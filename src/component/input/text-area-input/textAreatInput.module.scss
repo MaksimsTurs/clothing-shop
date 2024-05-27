@@ -7,13 +7,14 @@
   .text_area {
     border-radius: $border-radius-link;
     transition: all $transition-time-fast ease;
+    border: 1px solid $black-color-soft;
     box-shadow: $box-shadow-input;
-    border: 1px solid black;
     padding: 1rem;
     width: 100%;
     resize: none;
 
     &:hover, &:focus {
+      border: 1px solid rgb(151, 151, 151);
       transition: all $transition-time-fast ease;
       box-shadow: $box-shadow-input-focus-hover;
       outline: none;

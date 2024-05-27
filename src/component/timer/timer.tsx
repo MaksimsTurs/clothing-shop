@@ -8,11 +8,11 @@ import type { ExpiredState, TimerProps } from './timer.type'
 
 import formatNumber from '@/util/formatNumber'
 
-export default function Timer({ expiredDate }: TimerProps) {
+export default function Timer({ expiredAt }: TimerProps) {
 	const [expiredTime, setExpiredTime] = useState<ExpiredState>({ days: 0, hours: 0, minutes: 0, seconds: 0 })
 
 	useEffect(() => {
-		const time: number = Date.parse(expiredDate) - Date.now()
+		const time: number = Date.parse(expiredAt) - Date.now()
 
 		const renderTime = (): void => {
 			setExpiredTime(prev => ({...prev, days: Math.floor(time / (1000 * 60 * 60 * 24))}))

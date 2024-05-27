@@ -6,6 +6,7 @@
 .website_statistic_container {
   @include flex-alignitems-justifycontent(center, center);
   position: relative;
+  margin-top: 4.2rem;
   background-color: rgba(192, 192, 192, 0.3);
   box-shadow: $box-shadow-dropdown;
 

@@ -3,8 +3,6 @@
 import FormWrapper from '@/component/form-wrapper/formWrapper'
 import TextInput from '@/component/input/text-input/textInput'
 import SmallLoader from '@/component/loader/fetch-loader/smallLoader'
-import MultipleInput from '@/component/form-wrapper/component/multipleInput'
-import UserFormHeader from '@/component/user-form-header/userFormHeader'
 
 import { Fragment } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -15,31 +13,27 @@ import { useCurrentLocale, useScopedI18n } from '@/localization/client'
 
 import useAuth from '@/custom-hook/useAuth/useAuth'
 
-import userFormStatus from '@/util/userFormStatus/userFormStatus'
 import createFormData from '@/util/createFormData'
 
 export default function Login() {
 	const language = useCurrentLocale()
 	const t = useScopedI18n('user-action')
 
-	const { auth, isLoading, user, error } = useAuth()
+	const { auth, isLoading, error } = useAuth()
 
 	const { register,	handleSubmit, formState: { errors } } = useForm<UserLogin>({ mode: 'onSubmit' })
 
 	const userLogIn: SubmitHandler<UserLogin> = async (userData) => await auth({ type: 'post', URL: '/user/login', body: createFormData(userData), redirectOnSucces: `/${language}/home` })
-
-	const { isFormOk, scssClass } = userFormStatus(error || errors, user)	
 
 	return (
 		<Fragment>
 			{isLoading ? <SmallLoader/> : null}
 			<FormWrapper
 				onSubmit={handleSubmit(userLogIn)}
-				title={<UserFormHeader isFormOk={isFormOk} scssClass={scssClass} title={t('wrapper-log')} yourself={user}/>}
-				styles={{ formInputsStyle: { width: '21rem' } }}
+				title={t('wrapper-log')}
+				styles={{ formInputsStyle: { width: '21rem' }, formStyle: { marginTop: '4.5rem' }}}
 				serverError={error}
 				link={{ linkURL: `/${language}/registration`, text: t("no-account") }}>
-			<MultipleInput>
 				<TextInput<UserLogin>
 					attributes={{ name: 'firstName', type: 'text', placeholder: t("firstname-placeholder"), max: { message: t("firstname-invalid"), value: 20 }}}
 					required={{ message: t("firstname-required"), value: true }}
@@ -50,7 +44,6 @@ export default function Login() {
 					required={{ message: t("secondname-required"), value: true }}
 					errors={errors}
 					register={register}/>
-			</MultipleInput>
 				<TextInput<UserLogin>
 					attributes={{ name: 'password', type: 'password', placeholder: t("password-placeholder"), min: { message: t("password-invalid"), value: 8 }}}
 					required={{ message: t("password-required"), value: true }}

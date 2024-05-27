@@ -31,7 +31,11 @@ header,
 main, 
 footer {
 	width: 100%;
-	padding: 0rem 1rem;
+	padding: 0rem 2rem;
+}
+
+body {
+	scrollbar-gutter: stable;
 }
 
 main {
@@ -81,6 +85,16 @@ button, input, textarea {
 
 input:focus {
 	outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 input[type=range]::-moz-range-track,

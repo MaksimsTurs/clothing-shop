@@ -1,3 +1,4 @@
+
 'use client'
 
 import scss from './header.module.scss'
@@ -18,7 +19,7 @@ import de from './img/germany.png'
 import type { ListLink } from '../dropdown-list/dropdownList.type'
 
 import { useChangeLocale, useCurrentLocale, useScopedI18n, changeLanguage } from '@/localization/client'
-import { CircleAlert, CircleHelp, Home, icons, Search, ShoppingBag, UserPlus } from 'lucide-react'
+import { CircleAlert, CircleHelp, Home, Search, ShoppingBag, UserPlus } from 'lucide-react'
 import { memo, useEffect } from 'react'
 
 import useAuth from '@/custom-hook/useAuth/useAuth'
@@ -35,44 +36,42 @@ export default function Header() {
 
 	const { user, isLoading, isAuth } = useAuth()
 
-	useEffect(() => {
-		isAuth()
-	}, [])
-
 	const pagesURL: ListLink[] = [
-		{ URL: `/${language}/home`, text: t('home'), icon: <Home/> }, 
-		{ URL: `/${language}/search`, text: t('search'), icon: <Search/> },
-		{ URL: `/${language}/help`, text: t('help'), icon: <CircleHelp/> },
-		{ URL: `/${language}/cart`, text: t('cart'), icon: <ShoppingBag/> },
-		{ URL: `/${language}/about`, text: t('other-about'), icon: <CircleAlert /> }
+		{ URL: `/${language}/home`,   text: t('home'), 				icon: <Home/> }, 
+		{ URL: `/${language}/search`, text: t('search'), 			icon: <Search/> },
+		{ URL: `/${language}/help`,   text: t('help'), 				icon: <CircleHelp/> },
+		{ URL: `/${language}/cart`,   text: t('cart'), 				icon: <ShoppingBag/> },
+		{ URL: `/${language}/about`,  text: t('other-about'), icon: <CircleAlert /> }
 	]
+
 	const langList: ListLink[] = [
 		{ clickHandler: () => changeLanguage(useChangeLanguage, 'en'), text: 'ENG', icon: en }, 
 		{ clickHandler: () => changeLanguage(useChangeLanguage, 'de'), text: 'DE', icon: de },
 		{ clickHandler: () => changeLanguage(useChangeLanguage, 'ru'), text: 'RU', icon: ru }
 	]
-	const userURL: ListLink[] = []
 
-	if(!user) userURL.unshift(
+	useEffect(() => {
+		isAuth()
+	}, [])
+
+	if(!user) pagesURL.unshift(
 		{ URL: `/${language}/registration`, text: t('registration'), icon: <UserPlus/> }, 
-		{ URL: `/${language}/login`, text: t('login'), icon: <UserPlus/> }
+		{ URL: `/${language}/login`, 				text: t('login'), 			 icon: <UserPlus/> }
 	)
 	
 	return (
 		<header className={scss.header_container}>
-			<div className={scss.header_website_label}>
-				<AsideMenu/>
-				<Link href={`/${language}/home`}><h1>EB</h1></Link>
-			</div>
+			<AsideMenu/>
+			<Link href={`/${language}/home`}><h1>Boutique</h1></Link>
 			<nav className={scss.header_nav_menu_container}>
-				{isLoading ? <NavigationListLoader/> : <div className={scss.header_dropdown_container}>
-					{userURL.length > 0 ? <DropdownList listTitle={t('dropdown-user')} data={userURL}/> : null}
+				{(!user && isLoading) ? <NavigationListLoader/> : 
+				<div className={scss.header_nav_menu_container}>
 					<DropdownList listTitle={t('dropdown-pages')} data={pagesURL}/>
 					<DropdownList listTitle={t('dropdown-language')} data={langList}/>
 				</div>}
 				<SearchForm />
 			</nav>
-			{isLoading ? <UserAvatarLoader/> : <UserSection />}
+			{(!user && isLoading) ? <UserAvatarLoader/> : <UserSection />}
 		</header>
 	)
 }

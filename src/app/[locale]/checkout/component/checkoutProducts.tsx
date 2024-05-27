@@ -31,11 +31,11 @@ export default function CheckoutProducts({ products, title }: CheckoutProductsPr
           </section>
           <section>
             <p>{t('discount')}:</p>
-            <p>{((product.precent || 0) * 100).toFixed(2)}%</p>
+            {/* <p>{((product.precent || 0) * 100).toFixed(2)}%</p> */}
           </section>
           <section>
             <p>{t('checkout-page.price-with-discount')}:</p>
-            <p>{(product.price - ((product.price || 0) * (product.precent || 0))).toFixed(2)}€</p>
+            {/* <p>{(product.price - ((product.price || 0) * (product.precent || 0))).toFixed(2)}€</p> */}
           </section>
           <section>
             <p>{t('count')}:</p>

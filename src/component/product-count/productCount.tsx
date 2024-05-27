@@ -30,12 +30,12 @@ export default function ProductCount({ product }: ProductCountProps) {
 	}
 
 	const addProduct = (): void => {
-		dispatch(insertProductCount({ count: productCount, product: product! }))
+		dispatch(insertProductCount({ count: productCount, product: product }))
 		setProductCount(0)
 	}
 
 	const removeProduct = (): void => {
-		dispatch(removeProductCount({ count: productCount, product: product! }))
+		dispatch(removeProductCount({ count: productCount, product: product }))
 		setProductCount(0)
 	}
 
@@ -46,11 +46,8 @@ export default function ProductCount({ product }: ProductCountProps) {
 				<p>{productCount}</p>
 				<button onClick={incrimentCount}><Plus/></button>
 			</section>
-			{product ? 
-				<Fragment>
-					<button title={t('insert-product-in-cart')} onClick={addProduct} className={scss.product_dispatch_button}><ShoppingBag /></button>
-					<button title={t('remove-product-from-cart')} onClick={removeProduct} className={scss.product_dispatch_button}><Trash /></button>
-				</Fragment> : null}
+			<button title={t('insert-product-in-cart')} onClick={addProduct} className={scss.product_dispatch_button}><ShoppingBag /></button>
+			<button title={t('remove-product-from-cart')} onClick={removeProduct} className={scss.product_dispatch_button}><Trash /></button>
 		</div>
 	)
 }

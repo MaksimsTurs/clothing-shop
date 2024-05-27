@@ -1,13 +1,17 @@
 @import '@/scss/mixin';
 @import '@/scss/variabel';
 
-@import './media-query/filterResult.medua-query.scss';
-
 .result_container {
   @include flex-alignitems-justifycontent(center, space-between);
 
+  @media (width <= 710px) {
+    p {
+      display: none !important;
+    }
+  }
+
   .result_category_title {
-    font-size: $font-xx-large;
+    font-size: clamp($font-x-large, 3vw, $font-xx-large);
     font-weight: bolder;
   }
 
@@ -31,6 +35,10 @@
     background-color: black;
     color: white;
     padding: 0.5rem;
+
+    @media (width >= 785px) {
+      display: none !important;
+    }
 
     &:hover {
       box-shadow: $box-shadow-input-focus-hover;

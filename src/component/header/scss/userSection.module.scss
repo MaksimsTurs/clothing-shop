@@ -1,0 +1,32 @@
+@import '@/scss/variabel';
+@import '@/scss/mixin';
+
+.header_user_action_container {
+  @include flex-alignitems-justifycontent(center);
+  gap: 1rem;
+  
+  @media(width <= 530px) {
+    display: none ;
+  }
+
+  .header_user_avatar {
+    width: $icon-xx-large;
+    height: $icon-xx-large;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  a {
+    position: relative;
+    
+    p {
+      @include absolute-left-top(-35%, -20%);
+      z-index: 2;
+      background-color: black;
+      color: white;
+      padding: 0.35rem;				
+      font-size: $font-x-small;
+      border-radius: 50%;
+    }
+  }
+}

@@ -2,7 +2,7 @@ import scss from '../../scss/formWrapper.module.scss'
 
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import FormWrapper from "@/component/form-wrapper/formWrapper";
 import SmallLoader from '@/component/loader/fetch-loader/smallLoader';
@@ -16,10 +16,9 @@ import type { AppDispatch, RootState } from "@/store/store";
 
 import createFormData from "@/util/createFormData";
 
-import editUser from '@/store/admin/action/editUser';
-import { resetLoadingState } from '@/store/user/user';
+import updateUser from '@/store/admin/action/updateUser';
 
-export default function UserForm({ id, defaultValues }: FormProps<UserData>) {
+export default function UserForm({ id }: FormProps) {
   const [role, setRole] = useState<'admin' | 'user' | string>('')
 
   const { isAdminActionLoading } = useSelector<RootState, AdminInitState>(state => state.admin)
@@ -30,22 +29,18 @@ export default function UserForm({ id, defaultValues }: FormProps<UserData>) {
 
   const userAction: SubmitHandler<UserData> = (data) => {
     const formData = createFormData({...data, id, role })
-    dispatch(editUser(formData))
+    dispatch(updateUser(formData))
     reset()
   }
-
-  useEffect(() => {
-    dispatch(resetLoadingState())
-  }, [])
 
   return(
     <Fragment>
       {isAdminActionLoading ? <SmallLoader/> : null}
       <FormWrapper styles={{ formInputsStyle: { width: '15rem' } }} className={scss.form_wrapper} onSubmit={handleSubmit(userAction)}>
         <ImgInput<UserData> attributes={{ name: 'avatar' }} labelText="Изменить аватарку" isSubmited={isSubmitted} register={register}/>
-        <SelectInput<UserData> options={['admin', 'user']} selected={role} setSelect={setRole}/>
-        <TextInput<UserData> attributes={{ name: 'firstName', placeholder: "Имя", defaultValue: defaultValues?.firstName }} register={register}/>
-        <TextInput<UserData> attributes={{ name: 'secondName', placeholder: "Фамилия", defaultValue: defaultValues?.secondName }} register={register}/>
+        <SelectInput<UserData> title="Роль" options={['admin', 'user']} selected={role} setSelect={setRole}/>
+        <TextInput<UserData> attributes={{ name: 'firstName', placeholder: "Имя" }} register={register}/>
+        <TextInput<UserData> attributes={{ name: 'secondName', placeholder: "Фамилия" }} register={register}/>
       </FormWrapper>
     </Fragment>
   )

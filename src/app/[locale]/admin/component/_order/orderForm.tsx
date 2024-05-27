@@ -1,6 +1,6 @@
 import type { FormProps } from "../../page.type";
 import type { AppDispatch, RootState } from "@/store/store";
-import type { AdminInitState, Order, OrderStatus } from "@/store/admin/admin.type";
+import type { AdminInitState, OrderStatus } from "@/store/admin/admin.type";
 
 import FormWrapper from "@/component/form-wrapper/formWrapper";
 import SelectInput from "@/component/input/select-input/selectInput";
@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import changeOrderStatus from "@/store/admin/action/changeOrderStatus";
 import { resetLoadingState } from "@/store/user/user";
 
-export default function OrderForm({ id }: FormProps<Order>) {
+export default function OrderForm({ id }: FormProps) {
   const [selected, setSelect] = useState<OrderStatus | string>('')
 
   const dispatch = useDispatch<AppDispatch>()
@@ -34,7 +34,7 @@ export default function OrderForm({ id }: FormProps<Order>) {
     <Fragment>
       {isAdminActionLoading ? <SmallLoader/> : null}
       <FormWrapper onSubmit={orderAction}>
-        <SelectInput options={['Новый (SENT)', 'Отправлено (ON-MY-WAY)', 'Получено (APPEARED)']} selected={selected} setSelect={setSelect}/>
+        <SelectInput title="Состояние заказа" options={['Новый (SENT)', 'Отправлено (ON-MY-WAY)', 'Получено (APPEARED)']} selected={selected} setSelect={setSelect}/>
       </FormWrapper>
     </Fragment>
   )

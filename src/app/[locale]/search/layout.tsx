@@ -12,7 +12,7 @@ export const fetchCache = 'force-no-store';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslation('metadata-search')
-  return {
+  return { 
     ...defaultMetadata({
       keywords: [t('keyword-1'), t('keyword-2')]
     }), 

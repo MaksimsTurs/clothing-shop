@@ -33,7 +33,7 @@ export default function UserHeader({ userData }: UserHeaderProps) {
 
   const { quit, update, isLoading, error } = useAuth()
   
-  const color: string = userData.role === 'admin' ? 'green' : 'red'
+  const color: string = userData.role === 'ADMIN' ? 'green' : 'red'
   
   async function editUserCall(newUserData: EditUser): Promise<void> { 
     await update({ URL: '/user/edit', body: newUserData })
@@ -50,7 +50,7 @@ export default function UserHeader({ userData }: UserHeaderProps) {
       {isEditMode ? 
         <ModalWrapper>
           <FormWrapper serverError={error} onSubmit={handleSubmit(editUserCall)} styles={{ formInputsStyle: { width: '20rem' }, formStyle: { padding: '0rem', position: 'relative' }}}>
-            <ImgInput<EditUser> attributes={{ name: 'avatar' }} isSubmited={isSubmitting} labelText={t('avatar-add')} register={register}/>
+            <ImgInput<EditUser> attributes={{ name: 'avatar', type: 'file' }} isSubmited={isSubmitting} labelText={t('avatar-add')} register={register}/>
             <MultipleInput>
               <TextInput<EditUser> attributes={{ name: 'firstName', placeholder: t('firstname-placeholder') }} register={register}/>
               <TextInput<EditUser> attributes={{ name: 'secondName', placeholder: t('secondname-placeholder') }} register={register}/>
@@ -70,7 +70,7 @@ export default function UserHeader({ userData }: UserHeaderProps) {
         </div>
         <div className={scss.user_buttons_container}>
           <button onClick={handleModal}>{t('edit')}</button>
-          {userData.role ? <button onClick={() => router.push('/ru/admin')}>{t('admin-panel')}</button> : null}
+          {userData.role === 'ADMIN' ? <button onClick={() => router.push('/ru/admin')}>{t('admin-panel')}</button> : null}
           <button onClick={logOut} className={scss.user_button_red}>{t('log-out')}</button>
         </div>
       </div>

@@ -4,12 +4,17 @@
 .root_panel_container {
   @include flex-alignitems-justifycontent();
   height: fit-content;
-  min-height: 100%;
   width: 100%;
 
+  .nav_tab_active {
+    background-color: black;
+    color: white;
+  }
+
   .nav_items_list {
+    position: fixed;
     border-right: 1px solid black;
-    width: 14.5rem;
+    width: 15rem;
     height: 100%;
     flex-shrink: 0;
     overflow: hidden;

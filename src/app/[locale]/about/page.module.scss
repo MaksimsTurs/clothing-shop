@@ -3,6 +3,17 @@
 
 .about_container {
   @include flex-column-alignitems-justifycontent(center, center);
+  margin-top: 4.2rem;
+  
+  .about_header {
+    @include flex-alignitems-justifycontent(center, center);
+    gap: 0.5rem;
+
+    h4 {
+      font-size: $font-x-large;
+      font-weight: bolder;
+    }
+  }
 
   .about_body {
     @include flex-column-alignitems-justifycontent(center);

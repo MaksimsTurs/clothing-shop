@@ -4,7 +4,6 @@ import type { FormWrapperProps } from './formWrapper.type'
 import type { PropsWithChildren } from 'react'
 
 import Link from 'next/link'
-import { Check } from 'lucide-react'
 
 import { useScopedI18n } from '@/localization/client'
 
@@ -28,10 +27,7 @@ export default function FormWrapper({
 				{children}
 				{serverError ? <p className={scss.form_server_error}>{serverError.message}</p> : null}
 				<div className={scss.form_submit_container}>
-					<button className={isLoading ? scss.form_button_succes : undefined} type='submit'>
-						{isLoading ? <Check size={20}/> : null}
-						{buttonLabel || t("submit")}
-					</button>
+					<button disabled={isLoading} type='submit'>{buttonLabel || t("submit")}</button>
 				</div>
 				{link ? <Link className={scss.form_account_link} href={link.linkURL}>{link.text}</Link> : null}
 			</section>

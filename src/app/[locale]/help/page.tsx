@@ -1,3 +1,5 @@
+import scss from './page.module.scss'
+
 import HelpTemplate from "./component/helpTemplate"
 
 import { Fragment } from "react"
@@ -12,9 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslation('metadata-help')
 
   return {
-    ...defaultMetadata({
-      keywords: [t('keyword-1'), t('keyword-2')]
-    }),
+    ...defaultMetadata({ keywords: [t('keyword-1'), t('keyword-2')] }),
     title: t('title'),
     description: t('description')
   }
@@ -24,7 +24,7 @@ export default async function Help() {
   const t = await getTranslation('help-page')
 
   return(
-    <main style={{ alignItems: 'center', gap: '1rem', padding: '0.85rem' }}>
+    <main className={scss.help_container}>
       <HelpTemplate 
         indexing 
         wrapperTitle={

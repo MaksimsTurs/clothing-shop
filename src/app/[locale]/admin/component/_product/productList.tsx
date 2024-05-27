@@ -12,14 +12,13 @@ export default function ProductList() {
   const { products } = useSelector<RootState, AdminInitState>(state => state.admin)
 
   return(
-    <Table theader={['Nr.', 'Название', 'Цена', 'В Наличии', 'Скидка', 'Рейтинг']}>
+    <Table theader={['Nr.', 'Название', 'Цена', 'В Наличии', 'Рейтинг']}>
       {products.toSorted((a, b) => a.stock + b.stock).map((product, index) => (
         <tr key={product._id} onClick={() => router.push(`/ru/admin?location=product&id=${product._id}`)}>
           <th>{index + 1}</th>
           <th>{product.title}</th>
           <th>{product.price}€</th>
           <th>{product.stock}</th>
-          <th>{((product.precent || 0) * 100).toFixed(2)}%</th>
           <th>{product.rating}</th>
         </tr>
       ))}

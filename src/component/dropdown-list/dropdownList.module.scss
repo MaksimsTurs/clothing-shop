@@ -6,14 +6,12 @@
 	transition: all $transition-time-very-fast;
 	position: relative;
 	padding: 1.5rem;
-	// color: white;
-	width: 8rem;
 	cursor: pointer;
 
 	&:hover {
+		transition: all $transition-time-very-fast;
 		background-color: black;
 		color: white;
-		transition: all $transition-time-very-fast;
 	}
 
 	&:hover .dropdown_list_container {
@@ -24,31 +22,60 @@
 .dropdown_list_container {
 	@include absolute-left-top(50%, 100.5%);
 	@include flex-column-alignitems-justifycontent();
-	transition: all $transition-time-very-fast;
 	box-shadow: $box-shadow-dropdown;
+	transition: all $transition-time-very-fast;
 	overflow: hidden;
 	display: none;
 	transform: translate(-50%, 0%);
 	z-index: 10;
 	background-color: white;
-	width: 150%;
+	width: 160%;
 
 	li {		
-		> a, p { 
-			@include flex-alignitems-justifycontent();
-			color: black !important; 
+		position: relative;
+		cursor: pointer;
+
+		&::after {
+			content: '';
+			@include absolute-left-top();
+			z-index: 4;
+			background-color: black;
+			width: 0%;
+			height: 100%;
+		}
+
+		&:hover {
+			a, div, svg {
+				transition: all $transition-time-very-fast;
+				color: white;
+			}
+
+			&::after {
+				transition: all $transition-time-fast;
+				width: 110%;
+			}
+		}
+
+		> a, div { 
+			transition: all $transition-time-very-fast;
+			color: black; 
 			gap: 0.5rem;
-			padding: 0.7rem 0.9rem; 
+			padding: 1.2rem 0rem; 
+		}
+
+		section {
+			@include absolute-left-top(50%, 50%);
+			@include flex-alignitems-justifycontent(center);
+			transform: translate(-50%, -50%);
+			gap: 0.5rem;
+			padding: 0rem 1.5rem;
+			width: 110%;
+			z-index: 5;
 		}
 
 		svg {
 			width: $icon-medium;
 			height: $icon-medium;
-		}
-
-		&:hover {
-			background-color: $background-color-input-form;
-			cursor: pointer;
 		}
 	}
 }
