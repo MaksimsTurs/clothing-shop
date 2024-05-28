@@ -11,7 +11,7 @@ import editMe from "./action/editMe";
 import removeMe from "./action/removeMe";
 import logIn from "./action/logIn";
 import registration from "./action/registration";
-import Data from "../admin/tool/tool";
+import DataTool from "../admin/tool/dataTool";
 
 const initialState: UserInitState  = {
   cart: [],
@@ -50,7 +50,7 @@ const cartSlice = createSlice({
     insertProductCount: (state, { payload }: PayloadAction<{ product: CurrentProductData, count: number }>) => {
       if(payload.count === 0) return
 
-      const existedProduct = Data.find({ _id: payload.product._id }, state.cart) as ProductInLocalStorage | undefined
+      const existedProduct = DataTool.find({ _id: payload.product._id }, state.cart) as ProductInLocalStorage | undefined
     
       if(!existedProduct) {
         state.cart = [...state.cart, {...payload.product, count: payload.count }]

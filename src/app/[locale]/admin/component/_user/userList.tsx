@@ -20,8 +20,7 @@ export default function ProductList() {
           <th>{user.secondName}</th>
           <th>{user.email}</th>
           <th>{user.role}</th>
-        </tr>
-      ))}
+        </tr>))}
     </Table>
   )
 }

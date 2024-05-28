@@ -10,16 +10,18 @@ export default function update<T>(filter: DataFilter<T>, update: DataUpdate<T>, 
   const toPush: [string, any][] = Object.entries($push || {})
   const toIn: [string, any[]][] = Object.entries($in || {})
   const toFilter: [string, any][] = Object.entries(_filter)
-console.log(_update)
+
   for(let index: number = 0; index < array.length; index++) {
     let toUpdate: T = array[index]
     
     if($in) {
       for(let [key, value] of toIn) {
         if(valueByKeyIsArray(toUpdate[key as keyof T])) {
+          //This code will be called when key is equal to "productsID" (for example), because in Category/Action "productsID" is a array of stirngs 
           if((toUpdate[key as keyof T] as any[]).includes(value)) updated.push({...toUpdate, ..._update })
           else updated.push(toUpdate)
         } else {
+          //This code will be called when "_id" (for example) included in array that was be passed as param  
           if(value.includes(toUpdate[key as keyof T])) updated.push({...toUpdate, ..._update })
           else updated.push(toUpdate)  
         }

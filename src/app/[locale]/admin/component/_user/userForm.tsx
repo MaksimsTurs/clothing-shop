@@ -1,4 +1,4 @@
-import scss from '../../scss/formWrapper.module.scss'
+import scss from '../../scss/adminFormsWrapper.module.scss'
 
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,11 +19,11 @@ import createFormData from "@/util/createFormData";
 import updateUser from '@/store/admin/action/updateUser';
 
 export default function UserForm({ id }: FormProps) {
-  const [role, setRole] = useState<'admin' | 'user' | string>('')
+  const [role, setRole] = useState<'ADMIN' | 'USER' | string>('')
 
   const { isAdminActionLoading } = useSelector<RootState, AdminInitState>(state => state.admin)
 
-  const { handleSubmit, register, reset, formState: { isSubmitted } } = useForm<UserData>()
+  const { handleSubmit, register, reset } = useForm<UserData>()
 
   const dispatch = useDispatch<AppDispatch>()
 
@@ -36,11 +36,11 @@ export default function UserForm({ id }: FormProps) {
   return(
     <Fragment>
       {isAdminActionLoading ? <SmallLoader/> : null}
-      <FormWrapper styles={{ formInputsStyle: { width: '15rem' } }} className={scss.form_wrapper} onSubmit={handleSubmit(userAction)}>
-        <ImgInput<UserData> attributes={{ name: 'avatar' }} labelText="Изменить аватарку" isSubmited={isSubmitted} register={register}/>
-        <SelectInput<UserData> title="Роль" options={['admin', 'user']} selected={role} setSelect={setRole}/>
+      <FormWrapper className={scss.form_container_wrapper} onSubmit={handleSubmit(userAction)}>
+        <SelectInput<UserData> title="Роль" options={['ADMIN', 'USER']} selected={role} setSelect={setRole}/>
         <TextInput<UserData> attributes={{ name: 'firstName', placeholder: "Имя" }} register={register}/>
         <TextInput<UserData> attributes={{ name: 'secondName', placeholder: "Фамилия" }} register={register}/>
+        <ImgInput<UserData> attributes={{ name: 'avatar', type: 'file' }} labelText="Изменить аватарку" isSubmited={isAdminActionLoading} register={register}/>
       </FormWrapper>
     </Fragment>
   )

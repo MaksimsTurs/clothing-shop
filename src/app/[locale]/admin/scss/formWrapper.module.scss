@@ -1,8 +1,0 @@
-@import '@/scss/mixin';
-@import '@/scss/variabel';
-
-.form_container_wrapper {
-  @include flex-alignitems-justifycontent(center, center);
-  margin-left: 14.5rem;
-  height:  !important;
-}

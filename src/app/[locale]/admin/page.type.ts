@@ -6,7 +6,7 @@ export type TableProps = { theader: string[] }
 export type RemoveButtonProps = { from: RemoveFrom, id?: string | null }
 export type RemoveFrom = 'order' | 'product' | 'action' | 'category'
 
-export type FormProps = { id?: string | null, isEdit?: boolean }
+export type FormProps<T = any> = { id?: string | null, isEdit?: boolean, inputValues?: Partial<Record<keyof T, any>> }
 
 export type DataSectionProps = { _key: string, value?: string | number | null }
 export type DataLinkProps = { _key: string, value?: string | number | null, href: string }

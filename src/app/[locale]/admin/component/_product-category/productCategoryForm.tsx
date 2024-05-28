@@ -1,4 +1,4 @@
-import scss from '../../scss/formWrapper.module.scss'
+import scss from '../../scss/adminFormsWrapper.module.scss'
 
 import type { FormProps } from '../../page.type';
 import type { AppDispatch, RootState } from '@/store/store';
@@ -18,7 +18,7 @@ import CheckBoxInput from '@/component/input/checkbox-input/checkboxInput';
 import ProductSelect from '../productSelect';
 import SelectInput from '@/component/input/select-input/selectInput';
 
-export default function ProductCategoryForm({ id, isEdit }: FormProps) {
+export default function ProductCategoryForm({ id, isEdit, inputValues }: FormProps<ProductCategory>) {
   const [productsID, setProductIDs] = useState<string[]>([])
   const [action, setAction] = useState<string>('')
 
@@ -47,7 +47,7 @@ export default function ProductCategoryForm({ id, isEdit }: FormProps) {
         <ProductSelect options={productsOption} productsID={productsID} setProductIDs={setProductIDs}/>
         <SelectInput title='Акции' options={actionOption} selected={action} setSelect={setAction}/>
         <TextInput<ProductCategory> attributes={{ name: 'title', placeholder: 'Название' }} register={register}/>
-        <CheckBoxInput<ProductCategory> attributes={{ name: 'isHidden' }} label='Скрыть категорию с главной страницы' register={register}/>
+        <CheckBoxInput<ProductCategory> attributes={{ name: 'isHidden', defaultValue: inputValues?.isHidden }} label='Скрыть категорию с главной страницы' register={register}/>
         <TextInput<ProductCategory> attributes={{ name: 'position', step: 1, type: 'number', placeholder: 'Позиция' }} register={register}/>
       </FormWrapper>
     </Fragment>

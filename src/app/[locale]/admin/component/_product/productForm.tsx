@@ -1,6 +1,4 @@
-'use client'
-
-import scss from '../../scss/formWrapper.module.scss'
+import scss from '../../scss/adminFormsWrapper.module.scss'
 
 import FormWrapper from "@/component/form-wrapper/formWrapper";
 import TextInput from "@/component/input/text-input/textInput";
@@ -23,7 +21,7 @@ import createFormData from '@/util/createFormData';
 import updateProduct from '@/store/admin/action/updateProduct';
 import insertProduct from '@/store/admin/action/insertProduct';
 
-import findFrom from '@/store/admin/tool/find';
+import DataTool from '@/store/admin/tool/dataTool';
 
 export default function ProductForm({ isEdit, id }: FormProps) {
   const [action, setAction] = useState<string>('')
@@ -34,10 +32,10 @@ export default function ProductForm({ isEdit, id }: FormProps) {
   const { isAdminActionLoading, productAction, productCategory, products } = useSelector<RootState, AdminInitState>(state => state.admin)
   const { handleSubmit, register, reset } = useForm<ProductData>()
 
+  const product = DataTool.find<ProductData>({ _id: id || '' }, products) as ProductData | undefined
+
   let actionOption: string[] = []
   let categoryOption: string[] = []
-
-  const product = findFrom<ProductData>({ _id: id || '' }, products) as ProductData | undefined
 
   if(!product?.actionID) {
     actionOption = productAction.map(action => action.title) 
@@ -45,7 +43,7 @@ export default function ProductForm({ isEdit, id }: FormProps) {
   
   if(!product?.categoryID) {
     categoryOption = productCategory.map(category => {
-      const action = findFrom<ProductAction>({ categoryID: category._id }, productAction) as ProductAction | undefined
+      const action = DataTool.find<ProductAction>({ categoryID: category._id }, productAction) as ProductAction | undefined
       return `${category.title} ${action ? `(Действующая акция "${action.title}")` : ''}`
     })
   }
@@ -73,12 +71,11 @@ export default function ProductForm({ isEdit, id }: FormProps) {
       {isAdminActionLoading ? <SmallLoader/> : null}
       <FormWrapper 
         onSubmit={handleSubmit(createOrUpdate)} 
-        className={!isEdit ? scss.form_container_wrapper : undefined}
-        styles={{ formInputsStyle: isEdit ? { minWidth: '37.16rem' } : undefined }}
+        className={isEdit ? scss.form_container_wrapper : undefined}
         isLoading={isAdminActionLoading}>
-          <TextInput<ProductData> attributes={{ name: 'title', placeholder: 'Название продукта' }} register={register}/>
           <SelectInput<ProductData> title='Акции' options={actionOption} selected={action} setSelect={setAction}/>
           <SelectInput<ProductData> title='Категории' options={categoryOption} selected={category} setSelect={setCategory}/>
+          <TextInput<ProductData> attributes={{ name: 'title', placeholder: 'Название продукта' }} register={register}/>
           <MultipleInput>
             <TextInput<ProductData> attributes={{ name: 'stock', step: 1, type: 'number', min: 0, placeholder: 'В Наличии' }} register={register}/>
             <TextInput<ProductData> attributes={{ name: 'price', step: 0.01, min: 0, type: 'number', placeholder: 'Цена' }} register={register}/>

@@ -3,11 +3,11 @@ import findMany from "./findMany"
 import remove from "./remove"
 import update from "./update"
 
-const Data = {
+const DataTool = {
   remove,
   find,
   update,
   findMany
 }
 
-export default Data
+export default DataTool

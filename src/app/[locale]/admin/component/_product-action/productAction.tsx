@@ -60,7 +60,7 @@ export default function ProductAction() {
         {(actionProducts?.length || 0) > 0 ? <DataItems _key="Продукты:" data={actionProducts} precent={action?.precent}/> : null}
         <RemoveButton from="action" id={id}/>
       </DataBody>
-      <ProductSectionForm id={id} isEdit/>
+      <ProductSectionForm inputValues={{ isHidden: action?.isHidden }} id={id} isEdit/>
     </DataContainer>
   )
 }

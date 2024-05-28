@@ -1,4 +1,4 @@
-import { createSlice, current, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import type { AdminInitState, GetStoreData, Order, ProductData, ProductAction, UserData, ProductCategory, ProductActionAction } from './admin.type'
 
@@ -18,7 +18,7 @@ import removeItem from './action/removeItem'
 import deleteFrom from './tool/remove'
 import update from './tool/update'
 import replaceFrom from './tool/replaceFrom'
-import Data from './tool/tool'
+import DataTool from './tool/dataTool'
 
 const initialState: AdminInitState = {
 	products: [],
@@ -59,11 +59,11 @@ const adminStore = createSlice({
 				const productAction: ProductAction = payload
 
 				if(productAction.categoryID) {
-					state.productCategory = update<ProductCategory>({ _id: productAction.categoryID }, { actionID: productAction._id }, state.productCategory)
+					state.productCategory = DataTool.update<ProductCategory>({ _id: productAction.categoryID }, { actionID: productAction._id }, state.productCategory)
 				}			
 				
 				if(productAction.productsID.length > 0) {
-					state.products = update<ProductData>({ $in: { _id: productAction.productsID } }, { actionID: productAction._id }, state.products)
+					state.products = DataTool.update<ProductData>({ $in: { _id: productAction.productsID } }, { actionID: productAction._id }, state.products)
 				}
 
 				state.productAction = [...state.productAction, productAction]
@@ -107,11 +107,11 @@ const adminStore = createSlice({
 				state.products = [...state.products, product]
 
 				if(product.actionID) {
-					state.productAction = update<ProductAction>({ _id: product.actionID }, { $push: { productsID: [product._id] } }, state.productAction)
+					state.productAction = DataTool.update<ProductAction>({ _id: product.actionID }, { $push: { productsID: [product._id] } }, state.productAction)
 				} 
 				
 				if(product.categoryID) {
-					state.productCategory = update<ProductCategory>({ _id: product.categoryID }, { $push: { productsID: [product._id] }}, state.productCategory)
+					state.productCategory = DataTool.update<ProductCategory>({ _id: product.categoryID }, { $push: { productsID: [product._id] }}, state.productCategory)
 				}
 
 				state.adminActionError = undefined
@@ -130,32 +130,32 @@ const adminStore = createSlice({
 
 				switch(from) {
 					case 'product':
-						state.products = Data.remove<ProductData>({ _id: id }, state.products)
+						state.products = DataTool.remove<ProductData>({ _id: id }, state.products)
 						state.productAction = state.productAction.map(action => {
-							if(action.productsID.includes(id)) return {...action, productsID: Data.remove<string>(id, action.productsID) }
+							if(action.productsID.includes(id)) return {...action, productsID: DataTool.remove<string>(id, action.productsID) }
 							return action
 						})
 						state.productCategory = state.productCategory.map(category => {
-							if(category.productsID.includes(id)) return {...category, productsID: Data.remove<string>(id, category.productsID) }
+							if(category.productsID.includes(id)) return {...category, productsID: DataTool.remove<string>(id, category.productsID) }
 							return category
 						})
 					break
 					case 'category':
-						const category = Data.find<ProductCategory>({ _id: id }, state.productCategory) as ProductCategory 
-						state.productCategory = Data.remove<ProductCategory>({ _id: id }, state.productCategory)!
+						const category = DataTool.find<ProductCategory>({ _id: id }, state.productCategory) as ProductCategory 
+						state.productCategory = DataTool.remove<ProductCategory>({ _id: id }, state.productCategory)!
 						state.productAction = state.productAction.map(action => {
 							if(action.categoryID === id) return {...action, productsID: action.productsID.filter(_id => !category.productsID.includes(_id)) }
 							return action
 						})
-						state.products = Data.update<ProductData>({ categoryID: id }, { categoryID: undefined, actionID: undefined }, state.products)
+						state.products = DataTool.update<ProductData>({ categoryID: id }, { categoryID: undefined, actionID: undefined }, state.products)
 					break
 					case 'order':
 						state.orders = deleteFrom<Order>({ _id: id }, state.orders)
 					break
 					case 'action':
-						state.productAction = Data.remove<ProductAction>({ _id: id }, state.productAction)
-						state.products = Data.update<ProductData>({ actionID: id }, { actionID: undefined }, state.products)
-						state.productCategory = Data.update<ProductCategory>({ actionID: id }, { actionID: undefined }, state.productCategory)
+						state.productAction = DataTool.remove<ProductAction>({ _id: id }, state.productAction)
+						state.products = DataTool.update<ProductData>({ actionID: id }, { actionID: undefined }, state.products)
+						state.productCategory = DataTool.update<ProductCategory>({ actionID: id }, { actionID: undefined }, state.productCategory)
 					break
 				}
 
@@ -176,14 +176,14 @@ const adminStore = createSlice({
 				const product: ProductData = payload
 
 				if(product.actionID) {
-					state.productAction = update<ProductAction>({ _id: product.actionID }, { $push: { productsID: [product._id] } }, state.productAction)
+					state.productAction = DataTool.update<ProductAction>({ _id: product.actionID }, { $push: { productsID: [product._id] } }, state.productAction)
 				} 
 				
 				if(product.categoryID) {
-					state.productCategory = update<ProductCategory>({ _id: product.categoryID }, { $push: { productsID: [product._id] }}, state.productCategory)
+					state.productCategory = DataTool.update<ProductCategory>({ _id: product.categoryID }, { $push: { productsID: [product._id] }}, state.productCategory)
 				}
 
-				state.products = replaceFrom<ProductData>({ _id: product._id }, state.products, product)
+				state.products = DataTool.update<ProductData>({ _id: product._id }, product, state.products)
 
 				state.isAdminActionLoading = false
 				state.adminActionError = undefined
@@ -201,12 +201,12 @@ const adminStore = createSlice({
 				const action: ProductAction = payload
 
 				if(action.categoryID) {
-					state.productCategory = Data.update<ProductCategory>({ _id: action.categoryID }, { actionID: payload._id }, state.productCategory)
+					state.productCategory = DataTool.update<ProductCategory>({ _id: action.categoryID }, { actionID: payload._id }, state.productCategory)
 				}
 				
-				state.products = update<ProductData>({ $in: { _id: action.productsID } }, { actionID: action._id }, state.products)
+				state.products = DataTool.update<ProductData>({ $in: { _id: action.productsID } }, { actionID: action._id }, state.products)
 				
-				state.productAction = replaceFrom<ProductAction>({ _id: action._id }, state.productAction, action)
+				state.productAction = DataTool.update<ProductAction>({ _id: action._id }, action, state.productAction)
 
 				state.isAdminActionLoading = false
 				state.adminActionError = undefined
@@ -215,7 +215,7 @@ const adminStore = createSlice({
 				state.adminActionError = JSON.parse(payload as string)
 				state.isAdminActionLoading = false
 			})
-/*-------------------------------------Edit category-----------------------------------------------------*/
+/*-------------------------------------Update category-----------------------------------------------------*/
 			.addCase(updateCategory.pending, (state) => {
 				state.isAdminActionLoading = true
 				state.adminActionError = undefined
@@ -224,12 +224,13 @@ const adminStore = createSlice({
 				const category: ProductCategory = payload
 
 				if(category.actionID) {
-					state.productAction = update<ProductAction>({ _id: category.actionID }, { categoryID: category._id, productsID: category.productsID }, state.productAction)
+					const currAction = DataTool.find({ _id: category._id }, state.productAction) as ProductAction | undefined
+					state.productAction = DataTool.update<ProductAction>({ _id: category.actionID }, { categoryID: category._id, productsID: [...currAction?.productsID || [], ...category.productsID] }, state.productAction)
 				}
 
-				state.products = update<ProductData>({ $in: { _id: category.productsID } }, { categoryID: category._id, actionID: category.actionID }, state.products)
+				state.products = DataTool.update<ProductData>({ $in: { _id: category.productsID } }, { categoryID: category._id, actionID: category?.actionID }, state.products)
 
-				state.productCategory = replaceFrom<ProductCategory>({ _id: category._id }, state.productCategory, category)
+				state.productCategory = DataTool.update<ProductCategory>({ _id: category._id }, category, state.productCategory)
 
 				state.adminActionError = undefined
 				state.isAdminActionLoading = false
@@ -238,13 +239,13 @@ const adminStore = createSlice({
 				state.adminActionError = JSON.parse(payload as string)
 				state.isAdminActionLoading = false
 			})
-/*-------------------------------------Edit user---------------------------------------------------------*/
+/*-------------------------------------Update user---------------------------------------------------------*/
 			.addCase(updateUser.pending, state => {
 				state.isAdminActionLoading = true
+				state.adminActionError = undefined
 			})
 			.addCase(updateUser.fulfilled, (state, { payload }) => {
-				const user: UserData = payload
-				state.users = replaceFrom<UserData>({ _id: payload._id }, state.users, user)
+				state.users = DataTool.update({ _id: payload._id }, payload, state.users)
 
 				state.isAdminActionLoading = false
 				state.adminActionError = undefined

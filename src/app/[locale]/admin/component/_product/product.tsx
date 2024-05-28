@@ -1,6 +1,6 @@
 import type { AdminInitState, ProductAction, ProductCategory, ProductData } from "@/store/admin/admin.type";
 import type { RootState } from '@/store/store';
-
+  
 import RemoveButton from '../removeButton';
 import ProductForm from './productForm';
 
@@ -12,17 +12,18 @@ import DataImage from '../dataImage';
 
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'next/navigation';
+import { useMemo } from "react";
 
-import findFrom from "@/store/admin/tool/find";
+import DataTool from "@/store/admin/tool/dataTool";
 
 export default function Product() {
   const id = useSearchParams().get('id')
 
   const { products, productAction, productCategory, isAdminActionLoading } = useSelector<RootState, AdminInitState>(state => state.admin)
 
-  const product = findFrom({ _id: id! }, products) as ProductData | undefined
-  const category = findFrom({ _id: product?.categoryID }, productCategory) as ProductCategory | undefined
-  const action = findFrom({ _id: product?.actionID }, productAction) as ProductAction | undefined
+  const product = useMemo(() => DataTool.find({ _id: id! }, products), [products]) as ProductData | undefined
+  const category = useMemo(() => DataTool.find({ _id: product?.categoryID }, productCategory), [productCategory]) as ProductCategory | undefined
+  const action = useMemo(() => DataTool.find({ _id: product?.actionID }, productAction), [productAction]) as ProductAction | undefined
   const price = `${product?.price}€ | ${((product?.price || 0) - ((product?.price || 0) * (action?.precent || 0))).toFixed(2)}€ -${((action?.precent || 0) * 100)?.toFixed(2)}%`
 
   return(

@@ -1,4 +1,4 @@
-import scss from '../../scss/formWrapper.module.scss'
+import scss from '../../scss/adminFormsWrapper.module.scss'
 
 import type { FormProps } from '../../page.type';
 import type { AppDispatch, RootState } from '@/store/store';
@@ -19,7 +19,7 @@ import CheckBoxInput from '@/component/input/checkbox-input/checkboxInput';
 import ProductSelect from '../productSelect';
 import SelectInput from '@/component/input/select-input/selectInput';
 
-export default function ProductActionForm({ id, isEdit }: FormProps) {
+export default function ProductActionForm({ id, isEdit, inputValues }: FormProps<ProductAction>) {
   const [productsID, setProductIDs] = useState<string[]>([])
   const [category, setCategory] = useState<string>('')
 
@@ -48,7 +48,7 @@ export default function ProductActionForm({ id, isEdit }: FormProps) {
         <ProductSelect options={productsOptions} productsID={productsID} setProductIDs={setProductIDs}/>
         <SelectInput options={categoriesOptions} selected={category} setSelect={setCategory} title='Категории'/>
         <TextInput<InsertOrUpdateAction> attributes={{ name: 'title', placeholder: 'Название' }} register={register}/>
-        <CheckBoxInput<InsertOrUpdateAction> attributes={{ name: 'isHidden' }} label='Скрыть акцию с главной страницы' register={register}/>
+        <CheckBoxInput<InsertOrUpdateAction> attributes={{ name: 'isHidden', defaultValue: inputValues?.isHidden }} label='Скрыть акцию с главной страницы' register={register}/>
         <TextInput<InsertOrUpdateAction> attributes={{ name: 'expiredAt', type: 'datetime-local' }} register={register}/>
         <MultipleInput>
           <TextInput<InsertOrUpdateAction> attributes={{ name: 'position', step: 1, type: 'number', placeholder: 'Позиция' }} register={register}/>
