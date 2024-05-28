@@ -1,4 +1,4 @@
-import type { Filter } from "./too.type"
+import type { Filter } from "./dataTool.type"
 
 export default function remove<T>(filter: Filter<T> | string, from: any[]): T[] {
   if(typeof from[0] === 'string') return removeString<T>(filter as string, from)

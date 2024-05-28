@@ -1,4 +1,4 @@
-import type { Filter } from "./too.type"
+import type { Filter } from "./dataTool.type"
 
 export default function find<T>(filter: Filter<T> | string, from: any[]): T | string | undefined {
   if(typeof filter === 'object') return findObject<T>(filter as Filter<T>, from)

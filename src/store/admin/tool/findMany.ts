@@ -1,4 +1,4 @@
-import type { Filter } from "./too.type"
+import type { Filter } from "./dataTool.type"
 
 export default function findMany<T>(filter: Filter<T>, from: any[]): T[] {
   let finded: T[] = []
