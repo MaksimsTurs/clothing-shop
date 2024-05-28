@@ -1,6 +1,21 @@
 @import '@/scss/variabel';
 @import '@/scss/mixin';
 
+.table_search_container {
+  @include flex-column-alignitems-justifycontent();
+  flex-grow: 1;
+}
+
+.table_search_body {
+  position: relative;
+
+  input {
+    width: 100%;
+    padding: 1rem 0.5rem;
+    border-bottom: 1px solid black;
+  }
+}
+
 .table_container {
   flex-grow: 1;
   border-collapse: collapse;

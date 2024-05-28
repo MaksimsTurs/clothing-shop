@@ -1,6 +1,5 @@
 import scss from '../scss/websiteSetting.module.scss'
 
-import MultipleInput from '@/component/form-wrapper/component/multipleInput'
 import FormWrapper from '@/component/form-wrapper/formWrapper'
 import TextInput from '@/component/input/text-input/textInput'
 import CheckBoxInput from '@/component/input/checkbox-input/checkboxInput'
@@ -33,11 +32,8 @@ export default function Settings() {
     <Fragment>
       {isAdminActionLoading ? <SmallLoader/> : null}
       <FormWrapper className={scss.setting_form_container} onSubmit={handleSubmit(changeSettings)}>
-        <MultipleInput>
-          <TextInput<WebsiteSettings> attributes={{ name: 'maxProductsPerPage', placeholder: 'Количество продуктов про страницу', type: 'number', step: 1 }} register={register}/>
-          <TextInput<WebsiteSettings> attributes={{ name: 'deliveryFee', step: 0.01, type: 'number', placeholder: 'Цена за доставку' }} 
-          register={register}/>
-        </MultipleInput>
+        <TextInput<WebsiteSettings> attributes={{ name: 'maxProductsPerPage', placeholder: 'Количество продуктов про страницу', type: 'number', step: 1 }} register={register}/>
+        <TextInput<WebsiteSettings> attributes={{ name: 'deliveryFee', step: 0.01, type: 'number', placeholder: 'Цена за доставку' }}  register={register}/>
         <CheckBoxInput<WebsiteSettings> attributes={{ name: 'isAllProductsHidden', defaultValue: websiteSettings?.isAllProductsHidden }} label='Скрыть продукты' register={register}/>
       </FormWrapper>
     </Fragment>

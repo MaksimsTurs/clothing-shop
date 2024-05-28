@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import type { AdminInitState, GetStoreData, Order, ProductData, ProductAction, UserData, ProductCategory, ProductActionAction } from './admin.type'
+import type { AdminInitState, GetStoreData, Order, ProductData, ProductAction, ProductCategory, ProductActionAction } from './admin.type'
+import type { RemoveFrom } from '@/app/[locale]/admin/page.type'
 
 import insertProduct from './action/insertProduct'
 import insertProductAction from './action/insertProductAction'
@@ -17,7 +18,6 @@ import removeItem from './action/removeItem'
 
 import deleteFrom from './tool/remove'
 import update from './tool/update'
-import replaceFrom from './tool/replaceFrom'
 import DataTool from './tool/dataTool'
 
 const initialState: AdminInitState = {
