@@ -1,0 +1,18 @@
+@import '@/scss/mixin';
+@import '@/scss/variabel';
+
+.action_button {
+  border-radius: $border-radius-dropdown;
+  transition: all $transition-time-very-fast;
+  border: 1px solid transparent;
+  color: white;
+  padding: 0.5rem 1rem;
+  width: 100%;
+
+  &:hover {
+    transition: all $transition-time-very-fast;
+    border: 1px solid black;
+    background-color: white !important;
+    color: black;
+  }
+}

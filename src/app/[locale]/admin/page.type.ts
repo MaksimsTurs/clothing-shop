@@ -16,4 +16,6 @@ export type DataItemsProps = { _key: string, data?: DataItem[], precent?: number
 export type DataListProps = { _key: string, data: any[] }
 type DataItem = { count?: number } & ProductData
 
+export type ActionButtonProps = { label: string, onClick: any, color?: 'red' }
+
 export type ProductSelectProps = { setProductIDs: Dispatch<SetStateAction<string[]>>, productsID: string[], options: ProductData[] }

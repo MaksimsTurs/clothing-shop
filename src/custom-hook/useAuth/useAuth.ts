@@ -17,7 +17,7 @@ export default function useAuth() {
   const authContext = useContext(AuthContext)
   const router = useRouter()
 
-  const authFunctions = {
+  const authObject = {
     ...state,
     user: authContext.user,
     auth: async function(authOption: AuthOption) {
@@ -29,6 +29,7 @@ export default function useAuth() {
         else response = await fetcher.post(authOption.URL, undefined, authOption.body, authOption.header)
         
         authContext.setUser!(response)
+        cookies.set('token', response?.token, 2)
         setState({ isLoading: false, error: undefined })
         if(authOption.redirectOnSucces) router.replace(authOption.redirectOnSucces)
       } catch(error) {
@@ -49,6 +50,7 @@ export default function useAuth() {
         setState({ isLoading: true, error: undefined })
         const token = cookies.get('token') || authContext.user?.token
         const response = await fetcher.post<UserSession | undefined>(`/user/auth`, undefined, undefined, { 'Authorization': `Bearer ${token}` })
+        
         authContext.setUser!(response)
         setState({ isLoading: false, error: undefined })
       } catch(error) {
@@ -57,9 +59,10 @@ export default function useAuth() {
     },
     quit: function (authOption: Partial<Pick<AuthOption, 'redirectOnSucces'>>) {
       authContext.setUser!(undefined)
+      cookies.set('token', 'undefined')
       if(authOption.redirectOnSucces) router.replace(authOption.redirectOnSucces)
     }
   }
 
-  return authFunctions
+  return authObject
 }

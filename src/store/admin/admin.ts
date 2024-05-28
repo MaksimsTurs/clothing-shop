@@ -19,6 +19,7 @@ import removeItem from './action/removeItem'
 import deleteFrom from './tool/remove'
 import update from './tool/update'
 import DataTool from './tool/dataTool'
+import clearCache from './action/clearCache'
 
 const initialState: AdminInitState = {
 	products: [],
@@ -163,6 +164,19 @@ const adminStore = createSlice({
 				state.adminActionError = undefined
 			})
 			.addCase(removeItem.rejected, (state, { payload }) => {
+				state.adminActionError = JSON.parse(payload as string)
+				state.isAdminActionLoading = false
+			})
+/*-----------------------------------Clear cache------------------------------------------------------*/
+			.addCase(clearCache.pending, (state) => {
+				state.isAdminActionLoading = true
+				state.adminActionError = undefined
+			})
+			.addCase(clearCache.fulfilled, (state) => {
+				state.adminActionError = undefined
+				state.isAdminActionLoading = false
+			})
+			.addCase(clearCache.rejected, (state, { payload }) => {
 				state.adminActionError = JSON.parse(payload as string)
 				state.isAdminActionLoading = false
 			})
