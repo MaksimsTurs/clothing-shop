@@ -1,4 +1,3 @@
-
 'use client'
 
 import scss from './header.module.scss'

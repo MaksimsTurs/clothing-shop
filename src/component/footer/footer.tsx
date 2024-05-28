@@ -29,14 +29,14 @@ export default function Footer() {
             <ul>
               <li><Link href={`/${language}/help`}>{t('website-help')}</Link></li>
               <li><Link href={`/${language}/help`}>{t('translation-help')}</Link></li>
-              <li><Link href={'/${language}/'}>FAQ</Link></li>
+              <li><Link href={`/${language}/`}>FAQ</Link></li>
             </ul>
           </div>
           <div>
             <p className={scss.footer_list_name}>{t('other')}</p>
             <ul>
               <li><Link href={`/${language}/about`}>{t('other-about')}</Link></li>
-              <li><Link href={'/${language}/'}>{t('other-policy')}</Link></li>
+              <li><Link href={`/${language}/`}>{t('other-policy')}</Link></li>
             </ul>
           </div>
         </div>
