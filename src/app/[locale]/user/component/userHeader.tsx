@@ -32,9 +32,7 @@ export default function UserHeader({ userData }: UserHeaderProps) {
   const t = useScopedI18n('user-page')
 
   const { quit, update, isLoading, error } = useAuth()
-  
-  const color: string = userData.role === 'ADMIN' ? 'green' : 'red'
-  
+    
   async function editUserCall(newUserData: EditUser): Promise<void> { 
     await update({ URL: '/user/edit', body: newUserData })
     reset()
@@ -64,7 +62,7 @@ export default function UserHeader({ userData }: UserHeaderProps) {
           <ExtendedIMG alt={userData.name} src={userData.avatar} width={1440} height={1440}/>
           <div className={scss.user_header_data_container}>
             <h2>{userData.name}</h2>
-            <p style={{ color }}>{firstLetterUpperCase(userData.role)}</p>
+            <p>{firstLetterUpperCase(userData.role)}</p>
             <p>{userData.email}</p>
           </div>
         </div>
