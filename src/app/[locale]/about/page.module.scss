@@ -3,18 +3,19 @@
 
 .about_container {
   @include flex-column-alignitems-justifycontent(center, center);
-  margin-top: 4.2rem;
+  margin-top: 4.5rem;
+  // padding: 1rem 2rem;
   
   .about_header {
     @include flex-alignitems-justifycontent(center, center);
     gap: 0.5rem;
-
+  
     h4 {
       font-size: $font-x-large;
       font-weight: bolder;
     }
   }
-
+  
   .about_body {
     @include flex-column-alignitems-justifycontent(center);
     border-radius: $border-radius-dropdown;
@@ -22,5 +23,6 @@
     border: 1px solid black;
     padding: 1rem;
     width: 30rem;
+    max-width: calc(100% - 1px);
   }    
 }

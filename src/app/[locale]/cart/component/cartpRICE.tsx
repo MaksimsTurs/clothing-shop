@@ -1,4 +1,4 @@
-import scss from '../scss/cartCost.module.scss'
+import scss from '../scss/cartPrice.module.scss'
 
 import { useCurrentLocale, useI18n } from '@/localization/client'
 

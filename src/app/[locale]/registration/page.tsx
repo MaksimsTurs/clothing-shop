@@ -26,15 +26,15 @@ export default function Page() {
 	const createUser: SubmitHandler<UserRegistration> = async (userData) => await auth({ URL: '/user/registration', type: 'post', body: createFormData(userData), redirectOnSucces: `/${language}/home`})
 
 	return (
-		<Fragment>
+		<main style={{ marginTop: '4.2rem' }}>
 			{isLoading ? <SmallLoader/> : null}
 			<FormWrapper
-				styles={{ formInputsStyle: { width: '22rem' }, formStyle: { marginTop: '4.2rem' } }}
+				styles={{ formInputsStyle: { width: '22rem' }}}
 				onSubmit={handleSubmit(createUser)}
 				title={t("wrapper-reg")}
 				serverError={error}
 				link={{ linkURL: `/${language}/login`, text: t("have-account") }}>
-				<ImgInput<UserRegistration> attributes={{ name: 'avatar' }} labelText={t("avatar-add")} register={register} />
+				<ImgInput<UserRegistration> attributes={{ name: 'avatar', type: 'file' }} labelText={t("avatar-add")} register={register} />
 				<TextInput<UserRegistration>
 					attributes={{ name: 'firstName', type: 'text', placeholder: `${t("firstname-placeholder")}`, max: { message: t("firstname-invalid"), value: 15 } }}
 					required={{ message: t("firstname-required"), value: true }}
@@ -61,6 +61,6 @@ export default function Page() {
 					errors={errors}
 					register={register}/>
 			</FormWrapper>
-		</Fragment>
+		</main>
 	)
 }

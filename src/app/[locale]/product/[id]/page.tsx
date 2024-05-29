@@ -8,7 +8,6 @@ import ProductCount from '@/component/product-count/productCount'
 
 import { Fragment } from 'react'
 import { cookies } from 'next/headers'
-import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 
 import getProductByID from '../fetching/getProductByID'

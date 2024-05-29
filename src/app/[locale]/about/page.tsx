@@ -17,7 +17,7 @@ export default async function Page() {
   const t = await getTranslation('about-page')
 
   return(
-    <div className={scss.about_container}>
+    <main className={scss.about_container}>
       <div className={scss.about_body}>
         <div className={scss.about_header}>
           <AlertCircle size={30}/>
@@ -25,6 +25,6 @@ export default async function Page() {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>{t('about-text').split('\n').map(text => <p key={text}>{text}</p>)}</div>
       </div>
-    </div>
+    </main>
   )
 }

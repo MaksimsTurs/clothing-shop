@@ -49,8 +49,11 @@
 		.product_description {
 			@include flex-alignitems-justifycontent();
 			flex-direction: column;
+			margin-top: 1rem;
+			padding-top: 1rem;
 			font-size: $font-small;
 			color: rgb(119, 119, 119);
+			border-top: 1px solid rgba(119, 119, 119, 0.5);
 
 			.product_description_expand {
 				border-radius: $border-radius-input-form;
@@ -74,7 +77,8 @@
 
 	.product_in_stock {
 		@include flex-alignitems-justifycontent();
-		gap: 0.5rem;
+		flex-wrap: wrap;
+		gap: 0.25rem;
 		margin-bottom: 0.5rem;
 
 		.product_category_link {

@@ -1,11 +1,24 @@
 @import '@/scss/variabel';
 @import '@/scss/mixin';
 
-@import './media-query/page.media-query.scss';
-
 .cart_container {
   flex-direction: row;
   gap: 1rem;
   padding: 1rem 3rem;
   margin-top: 4.2rem;
+
+  @media(width <=800px) {
+    flex-direction: column;
+    padding: 1rem;
+    align-items: flex-start;
+
+    div:first-child {
+      width: 100%;
+      flex-grow: 0;
+    }
+
+    aside {
+      width: 100%;
+    }
+  }
 }

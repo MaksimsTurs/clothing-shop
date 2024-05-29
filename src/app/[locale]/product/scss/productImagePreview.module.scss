@@ -6,11 +6,11 @@
 .image_preview_container {
   display: flex;
   gap: 1rem;
-  width: fit-content;
+  width: 100%;
   height: fit-content;
 
   img {
-    width: 18.75rem;
+    width: 18.7rem;
     height: auto;
     border-radius: $border-radius-img;
     object-fit: cover;

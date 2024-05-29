@@ -6,7 +6,7 @@ export default function Layout({ children }: PropsWithChildren) {
   return(
     <Fragment>
       <Header/>
-      <main style={{ padding: '1rem 3rem', alignItems: 'center', justifyContent: 'center' }}>{children}</main>
+      {children}
       <Footer/>
     </Fragment>
   )

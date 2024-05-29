@@ -1,7 +1,7 @@
 @import '@/scss/mixin';
 @import '@/scss/variabel';
 
-@media(width <= 515px) {
+@media(width <= 400px) {
   .product_count_container {
     flex-direction: column !important;
 
