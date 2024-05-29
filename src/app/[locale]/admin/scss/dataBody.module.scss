@@ -4,11 +4,13 @@
 .data_body {
   @include flex-column-alignitems-justifycontent();
   border-radius: $border-radius-dropdown;
-  overflow-y: auto;
   border: 1px solid $black-color-soft;
   box-shadow: $box-shadow-input;
+  flex-grow: 1;
+  overflow-y: auto;
   padding: 0.85rem;
   gap: 0.5rem;
   height: fit-content;
   max-height: 44.5rem;
+  max-width: 58%;
 }

@@ -1,3 +1,5 @@
+import scss from '../../scss/adminFormsWrapper.module.scss'
+
 import type { FormProps } from "../../page.type";
 import type { AppDispatch, RootState } from "@/store/store";
 import type { AdminInitState, OrderStatus } from "@/store/admin/admin.type";
@@ -33,7 +35,7 @@ export default function OrderForm({ id }: FormProps) {
   return(
     <Fragment>
       {isAdminActionLoading ? <SmallLoader/> : null}
-      <FormWrapper onSubmit={orderAction}>
+      <FormWrapper className={scss.form_container_wrapper} onSubmit={orderAction}>
         <SelectInput title="Состояние заказа" options={['Новый (SENT)', 'Отправлено (ON-MY-WAY)', 'Получено (APPEARED)']} selected={selected} setSelect={setSelect}/>
       </FormWrapper>
     </Fragment>

@@ -1,7 +1,7 @@
 @import '@/scss/mixin';
 @import '@/scss/variabel';
 
-.product_container {
+.data_container {
   @include text-overflow-ellipsis();
 	display: flex;
 	padding: 1rem;

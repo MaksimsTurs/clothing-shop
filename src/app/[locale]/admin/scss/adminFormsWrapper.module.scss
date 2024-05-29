@@ -2,14 +2,10 @@
 @import '@/scss/variabel';
 
 .form_container_wrapper {
+  height: auto !important;
   padding: 0 !important;
   flex-grow: 0 !important;
   display: block !important;
-  max-height: 44.5rem !important;
+  max-height: 30rem !important;
   overflow: auto;
-
-  section {
-    width: 100%;
-    padding-right: 1rem;
-  }
 }

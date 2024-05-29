@@ -44,7 +44,7 @@ export default function ProductActionForm({ id, isEdit, inputValues }: FormProps
   return(
     <Fragment>
       {isAdminActionLoading ? <SmallLoader/> : null}
-      <FormWrapper onSubmit={handleSubmit(sectionAction)} className={scss.form_wrapper}>
+      <FormWrapper onSubmit={handleSubmit(sectionAction)} className={scss.form_container_wrapper}>
         <ProductSelect options={productsOptions} productsID={productsID} setProductIDs={setProductIDs}/>
         <SelectInput options={categoriesOptions} selected={category} setSelect={setCategory} title='Категории'/>
         <TextInput<InsertOrUpdateAction> attributes={{ name: 'title', placeholder: 'Название' }} register={register}/>

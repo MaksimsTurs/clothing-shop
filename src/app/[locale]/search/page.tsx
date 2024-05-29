@@ -61,6 +61,7 @@ export default function Page({ searchParams }: PageProps) {
 		retry()
 		setFilterHidden(true)
 		isFirstRender.current = false
+		router.replace(`/${language}/search?page=0`)
 		document.body.style.overflow = 'auto'
 	}
 
