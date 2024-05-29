@@ -23,7 +23,7 @@ export default async function Page() {
 						<ProductsContainer 
 							id={item._id}
 							key={item._id} 
-							data={item.products?.slice(0, 5)} 
+							data={item.products?.slice(0, 6)} 
 							expiredAt={(item as ProductAction)?.expiredAt} 
 							title={item.title} 
 							precent={item.precent}
