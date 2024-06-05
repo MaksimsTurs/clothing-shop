@@ -4,9 +4,8 @@
 @import './media-query/websiteStatistic.media-query.scss';
 
 .website_statistic_container {
-  @include flex-alignitems-justifycontent(center, center);
+  @include flex-column-alignitems-justifycontent(center, center);
   position: relative;
-  margin-top: 4.2rem;
   background-color: rgba(192, 192, 192, 0.3);
   box-shadow: $box-shadow-dropdown;
 
@@ -23,9 +22,9 @@
 
   .website_statistic_body {
     flex-grow: 1;
-    padding: 3rem;
     max-width: 40rem;
-          
+    padding: 1rem 3rem;
+    
     h2 {
       font-size: clamp($font-x-large, 3vw, $font-xxx-large);
       font-weight: bolder;
@@ -39,6 +38,7 @@
     
     .website_data_container {
       @include flex-alignitems-justifycontent(baseline, space-between);
+      margin-bottom: 1rem;
               
       .website_data_count {
         font-size: $font-x-large;

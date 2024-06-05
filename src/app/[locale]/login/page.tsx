@@ -5,7 +5,7 @@ import TextInput from '@/component/input/text-input/textInput'
 import SmallLoader from '@/component/loader/fetch-loader/smallLoader'
 
 import { Fragment } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 
 import type { UserLogin } from './page.type'
 
@@ -19,20 +19,22 @@ export default function Login() {
 	const language = useCurrentLocale()
 	const t = useScopedI18n('user-action')
 
-	const { auth, isLoading, error } = useAuth()
+	const auth = useAuth()
 
 	const { register,	handleSubmit, formState: { errors } } = useForm<UserLogin>({ mode: 'onSubmit' })
 
-	const userLogIn: SubmitHandler<UserLogin> = async (userData) => await auth({ type: 'post', URL: '/user/login', body: createFormData(userData), redirectOnSucces: `/${language}/home` })
+	const userLogIn: SubmitHandler<UserLogin> = async (userData) => {
+		await auth.create({ URL: '/user/login', body: createFormData(userData), redirectOnSucces: `/${language}/home` })
+	}
 
 	return (
-		<Fragment>
-			{isLoading ? <SmallLoader/> : null}
+		<main>
+			{auth.isLoading ? <SmallLoader/> : null}
 			<FormWrapper
 				onSubmit={handleSubmit(userLogIn)}
 				title={t('wrapper-log')}
-				styles={{ formInputsStyle: { width: '21rem' }, formStyle: { marginTop: '4.5rem' }}}
-				serverError={error}
+				styles={{ formInputsStyle: { width: '21rem' }}}
+				serverError={auth.error}
 				link={{ linkURL: `/${language}/registration`, text: t("no-account") }}>
 				<TextInput<UserLogin>
 					attributes={{ name: 'firstName', type: 'text', placeholder: t("firstname-placeholder"), max: { message: t("firstname-invalid"), value: 20 }}}
@@ -55,6 +57,6 @@ export default function Login() {
 					errors={errors}
 					register={register}/>
 			</FormWrapper>
-		</Fragment>
+		</main>
 	)
 }

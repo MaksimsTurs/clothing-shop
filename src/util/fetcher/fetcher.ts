@@ -10,6 +10,7 @@ const fetcher: Fetcher = {
 	},
 	getInit: function (headers?: Header, body?: any): { headers: Header, body: any } {
 		let init = { headers: headers || {}, body: body || {} }
+		
 		if(body && !(body instanceof FormData)) {
 			if(!headers) init.headers = { 'Content-Type': 'application/json' }
 			if(headers && !('Content-Type' in headers)) init.headers = {...init.headers, 'Content-Type': 'application/json'}

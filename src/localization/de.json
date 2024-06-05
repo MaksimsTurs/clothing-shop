@@ -28,11 +28,10 @@
     "products-price": "Produkts price",
     "create-order": "Bestellen"
   },
-
   "about-page": {
-    "about-text": "Willkommen bei Elisabeteboutique – Ihrem idealen Online-Shop für Damenbekleidung! Wir bieten eine große Auswahl an modischen und hochwertigen Produkten, darunter Kleider, Blusen, Röcke, Hosen und Accessoires, die Ihnen helfen, für jeden Anlass einen unwiderstehlichen, stilvollen Look zu kreieren. \nUnsere Kollektion wird ständig aktualisiert, um mit den neuesten Modetrends Schritt zu halten. \nWir laden Sie ein, unsere Kollektion zu erkunden und noch heute Ihr perfektes Outfit zu finden! \nAb einem Bestellwert von 100 Euro bieten wir eine kostenlose Lieferung innerhalb Deutschlands an. \nBei Bestellungen über 150 € erhalten Sie außerdem eine kostenlose Lieferung in ganz Europa!"
+    "about-text": "Willkommen bei Elisabeteboutique – Ihrem idealen Online-Shop für Damenbekleidung! Wir bieten eine große Auswahl an modischen und hochwertigen Produkten, darunter Kleider, Blusen, Röcke, Hosen und Accessoires, die Ihnen helfen, für jeden Anlass einen unwiderstehlichen, stilvollen Look zu kreieren. \nUnsere Kollektion wird ständig aktualisiert, um mit den neuesten Modetrends Schritt zu halten. \nWir laden Sie ein, unsere Kollektion zu erkunden und noch heute Ihr perfektes Outfit zu finden! \nAb einem Bestellwert von 100 Euro bieten wir eine kostenlose Lieferung innerhalb Deutschlands an. \nBei Bestellungen über 150 € erhalten Sie außerdem eine kostenlose Lieferung in ganz Europa!",
+    "about-title": "Über uns"
   },
-
   "metadata-home": {
     "title": "Startseite",
     "description": "Startseite, hier kannst du finden paar unsere produkten.",
@@ -64,6 +63,13 @@
     "greeting-or": "oder",
     "greeting-find": "finde",
     "greeting-other": "mehr produkten"
+  },
+  "home-page": {
+    "registrate-to-get-delivery": "Regestrire dich und bekomme rabatt auf 20%",
+    "delivery-in-germany": "Lieferung in Deutschland",
+    "delivery-in-eu": "Lieferung in die EU",
+    "delivery-in-germany-description": "Ab einem Bestellwert von 100 Euro bieten wir eine kostenlose Lieferung innerhalb Deutschlands an.",
+    "delivery-in-eu-description": "Bei Bestellungen über 150 € erhalten Sie eine kostenlose Lieferung in ganz Europa!"
   },
   "user-page": {
     "edit": "BEARBEITERN",

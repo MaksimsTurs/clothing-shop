@@ -6,6 +6,7 @@ import ProductsContainer from '@/component/product-container/productsContainer'
 import getHomeData from './fetching/getHomeData'
 
 import type { ProductAction } from '@/store/admin/admin.type'
+import AboutUsMini from './component/aboutUsMini'
 
 export default async function Page() {
 	const { products, actions, categories, ...statistic } = await getHomeData()

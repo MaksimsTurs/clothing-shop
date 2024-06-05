@@ -3,7 +3,6 @@
 
 .about_container {
   @include flex-column-alignitems-justifycontent(center, center);
-  margin-top: 4.5rem;
   padding: 1rem 2rem;
   
   .about_header {

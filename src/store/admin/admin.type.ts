@@ -21,6 +21,7 @@ export type UserData = {
 	avatar: string
   createdAt: string
   updatedAt: string
+	precent?: number
 	role: 'admin' | 'user'
 }
 

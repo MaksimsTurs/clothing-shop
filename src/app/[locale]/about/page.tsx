@@ -21,7 +21,7 @@ export default async function Page() {
       <div className={scss.about_body}>
         <div className={scss.about_header}>
           <AlertCircle size={30}/>
-          <h4>About us!</h4>
+          <h4>{t('about-title')}!</h4>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>{t('about-text').split('\n').map(text => <p key={text}>{text}</p>)}</div>
       </div>

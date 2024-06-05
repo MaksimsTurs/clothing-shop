@@ -5,7 +5,7 @@ import scss from '../scss/searchForm.module.scss'
 import type { ProductData } from '@/store/admin/admin.type'
 
 import Link from 'next/link'
-import { type SyntheticEvent, useEffect, useState, useRef } from 'react'
+import { type SyntheticEvent, useState, useRef } from 'react'
 import { Search } from 'lucide-react'
 
 import useDebounce from '@/custom-hook/useDebounce'

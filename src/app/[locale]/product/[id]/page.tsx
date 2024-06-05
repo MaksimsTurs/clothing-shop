@@ -34,7 +34,7 @@ export default async function Page({ params }: PageProps) {
   const URLParams = `${data.categoryID ? `id=${data.categoryID}` : ''}${data.categoryID ? '&location=category' : ''}`
   
   return(
-    <main style={{ alignItems: 'center', justifyContent: 'center', marginTop: '3rem' }}>
+    <main style={{ alignItems: 'center', justifyContent: 'center' }}>
       <div className={scss.product_data_container}>
         <ProductImagePreview images={data.images}/>
         <div className={scss.product_data_content}>

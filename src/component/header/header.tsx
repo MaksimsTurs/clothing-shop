@@ -17,7 +17,7 @@ import de from './img/germany.png'
 
 import type { ListLink } from '../dropdown-list/dropdownList.type'
 
-import { useChangeLocale, useCurrentLocale, useScopedI18n, changeLanguage } from '@/localization/client'
+import { useChangeLocale, useCurrentLocale, useScopedI18n, changeLanguage, useI18n } from '@/localization/client'
 import { CircleAlert, CircleHelp, Home, Search, ShoppingBag, UserPlus } from 'lucide-react'
 import { memo, useEffect } from 'react'
 
@@ -31,16 +31,16 @@ const DropdownList = memo(_DropdownList)
 export default function Header() {
 	const language = useCurrentLocale()
 	const useChangeLanguage = useChangeLocale()
-	const t = useScopedI18n('header-footer')
+	const t = useI18n()
 
-	const { user, isLoading, isAuth } = useAuth()
+	const auth = useAuth()
 
 	const pagesURL: ListLink[] = [
-		{ URL: `/${language}/home`,   text: t('home'), 				icon: <Home/> }, 
-		{ URL: `/${language}/search`, text: t('search'), 			icon: <Search/> },
-		{ URL: `/${language}/help`,   text: t('help'), 				icon: <CircleHelp/> },
-		{ URL: `/${language}/cart`,   text: t('cart'), 				icon: <ShoppingBag/> },
-		{ URL: `/${language}/about`,  text: t('other-about'), icon: <CircleAlert /> }
+		{ URL: `/${language}/home`,   text: t('header-footer.home'), 				icon: <Home/> }, 
+		{ URL: `/${language}/search`, text: t('header-footer.search'), 			icon: <Search/> },
+		{ URL: `/${language}/help`,   text: t('header-footer.help'), 				icon: <CircleHelp/> },
+		{ URL: `/${language}/cart`,   text: t('header-footer.cart'), 				icon: <ShoppingBag/> },
+		{ URL: `/${language}/about`,  text: t('header-footer.other-about'), icon: <CircleAlert /> }
 	]
 
 	const langList: ListLink[] = [
@@ -49,28 +49,31 @@ export default function Header() {
 		{ clickHandler: () => changeLanguage(useChangeLanguage, 'ru'), text: 'RU', icon: ru }
 	]
 
-	useEffect(() => {
-		isAuth()
-	}, [])
-
-	if(!user) pagesURL.unshift(
-		{ URL: `/${language}/registration`, text: t('registration'), icon: <UserPlus/> }, 
-		{ URL: `/${language}/login`, 				text: t('login'), 			 icon: <UserPlus/> }
+	if(!auth.user) pagesURL.unshift(
+		{ URL: `/${language}/registration`, text: t('header-footer.registration'), icon: <UserPlus/> }, 
+		{ URL: `/${language}/login`, 				text: t('header-footer.login'), 			 icon: <UserPlus/> }
 	)
+
+	useEffect(() => {
+		auth.isAuth()
+	}, [])
 	
 	return (
 		<header className={scss.header_container}>
-			<AsideMenu/>
-			<Link href={`/${language}/home`}><h1>Boutique</h1></Link>
-			<nav className={scss.header_nav_menu_container}>
-				{(!user && isLoading) ? <NavigationListLoader/> : 
-				<div className={scss.header_nav_menu_container}>
-					<DropdownList listTitle={t('dropdown-pages')} data={pagesURL}/>
-					<DropdownList listTitle={t('dropdown-language')} data={langList}/>
-				</div>}
-				<SearchForm />
-			</nav>
-			{(!user && isLoading) ? <UserAvatarLoader/> : <UserSection />}
+			<div className={scss.header_body}>
+				<AsideMenu/>
+				<Link href={`/${language}/home`}><h1>Boutique</h1></Link>
+				<nav className={scss.header_nav_menu_container}>
+					{(!auth.user && auth.isLoading) ? <NavigationListLoader/> : 
+					<div className={scss.header_nav_menu_container}>
+						<DropdownList listTitle={t('header-footer.dropdown-pages')} data={pagesURL}/>
+						<DropdownList listTitle={t('header-footer.dropdown-language')} data={langList}/>
+					</div>}
+					<SearchForm />
+				</nav>
+				{(!auth.user && auth.isLoading) ? <UserAvatarLoader/> : <UserSection />}
+			</div>
+			{auth.user?.isNew ? <section className={scss.header_new_user_action}>{t('home-page.registrate-to-get-delivery')}</section> : null}
 		</header>
 	)
 }

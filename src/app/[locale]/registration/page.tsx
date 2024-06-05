@@ -1,7 +1,6 @@
 'use client'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { Fragment } from 'react'
 import { useCurrentLocale, useScopedI18n } from '@/localization/client'
 
 import type { UserRegistration } from './page.type'
@@ -21,18 +20,20 @@ export default function Page() {
 
 	const { register, handleSubmit, formState: { errors } } = useForm<UserRegistration>({ mode: 'onChange' })
 
-	const { auth, error, isLoading } = useAuth()
+	const auth = useAuth()
 
-	const createUser: SubmitHandler<UserRegistration> = async (userData) => await auth({ URL: '/user/registration', type: 'post', body: createFormData(userData), redirectOnSucces: `/${language}/home`})
+	const createUser: SubmitHandler<UserRegistration> = async (userData) => {
+		await auth.create({ URL: '/user/registration', body: createFormData(userData), redirectOnSucces: `/${language}/home`})
+	}
 
 	return (
-		<main style={{ marginTop: '4.2rem' }}>
-			{isLoading ? <SmallLoader/> : null}
+		<main>
+			{auth.isLoading ? <SmallLoader/> : null}
 			<FormWrapper
 				styles={{ formInputsStyle: { width: '22rem' }}}
 				onSubmit={handleSubmit(createUser)}
 				title={t("wrapper-reg")}
-				serverError={error}
+				serverError={auth.error}
 				link={{ linkURL: `/${language}/login`, text: t("have-account") }}>
 				<ImgInput<UserRegistration> attributes={{ name: 'avatar', type: 'file' }} labelText={t("avatar-add")} register={register} />
 				<TextInput<UserRegistration>

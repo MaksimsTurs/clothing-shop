@@ -12,7 +12,6 @@
   "count": "Count",
   "empty": "There is nothing",
   "buy": "Buy",
-  
   "create-order": {
     "city": "City",
     "plz": "PLZ",
@@ -28,11 +27,17 @@
     "products-price": "Products price",
     "create-order": "Create order"
   },
-
   "about-page": {
-    "about-text": "Welcome to Elisabeteboutique - your ideal online women's clothing store! We offer a wide selection of fashionable and quality products, including dresses, blouses, skirts, trousers, and accessories to help you create an irresistible stylish look for any occasion. \nOur collection is constantly updated to keep up with the latest fashion trends. \nWe invite you to explore our collection and find your perfect outfit today! \nWe offer free delivery within Germany for orders over 100 euros. \nFor orders over €150 you will also receive free delivery throughout Europe!"
+    "about-text": "Welcome to Elisabeteboutique - your ideal online women's clothing store! We offer a wide selection of fashionable and quality products, including dresses, blouses, skirts, trousers, and accessories to help you create an irresistible stylish look for any occasion. \nOur collection is constantly updated to keep up with the latest fashion trends. \nWe invite you to explore our collection and find your perfect outfit today! \nWe offer free delivery within Germany for orders over 100 euros. \nFor orders over €150 you will also receive free delivery throughout Europe!",
+    "about-title": "About us"
   },
-
+  "home-page": {
+    "registrate-to-get-delivery": "Registrate to get 20% delivery",
+    "delivery-in-germany": "Delivery in Germany",
+    "delivery-in-eu": "Delivery in EU",
+    "delivery-in-germany-description": "We offer free delivery within Germany for orders over 100 euros.",
+    "delivery-in-eu-description": "For orders over €150 you will also receive free delivery throughout Europe!"
+  },
   "metadata-home": {
     "title": "Home",
     "description": "Clothing shop home page, here you cann see us product range.",

@@ -2,16 +2,29 @@
 @import '@/scss/mixin';
 
 .header_container {
-	@include flex-alignitems-justifycontent(center, space-between);
-	position: fixed;
-	gap: 1rem;
+	@include flex-column-alignitems-justifycontent();
 	box-shadow: $box-shadow-input;
 	border-bottom: 1px solid $black-color-soft;
+	padding: 0rem;
 	background-color: white;
 	z-index: 2;
+	
+	.header_body {
+		@include flex-alignitems-justifycontent(center, space-between);
+		gap: 1rem;
+		padding: 0rem 1rem;
 
-	@media(width <= 530px) {
-		padding: 1rem 3rem;
+		@media(width <= 530px) {
+			padding: 0.5rem 3rem;
+		}
+	}
+
+	.header_new_user_action {
+		@include flex-alignitems-justifycontent(center, center);
+		font-size: $font-small;
+		border-top: 1px solid $black-color-soft;
+		gap: 0.5rem;
+		height: 2.5rem;
 	}
 	
 	a {

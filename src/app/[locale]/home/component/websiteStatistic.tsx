@@ -6,6 +6,8 @@ import type { WebStatisticProps } from '../page.type'
 
 import getTranslation from '@/localization/server'
 
+import AboutUsMini from './aboutUsMini'
+
 export default async function WebsiteStatistic({ statistic }: WebStatisticProps) {
   const t = await getTranslation('website-statistic')
 
@@ -30,6 +32,7 @@ export default async function WebsiteStatistic({ statistic }: WebStatisticProps)
             <p className={scss.website_data_name}>{t('brand-count')}</p>
           </div>
         </div>
+        <AboutUsMini/>
       </div>
     </section>
   )

@@ -1,10 +1,8 @@
-
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useRouter } from "next/navigation";
 
 import { AuthContext } from "./authProvider";
 
-import type { Fetching } from "@/global.type";
 import type { AuthOption, UserSession } from "./useAuth.type";
 
 import fetcher from "@/util/fetcher/fetcher";
@@ -12,57 +10,50 @@ import createFormData from "@/util/createFormData";
 import cookies from "@/util/coockies";
 
 export default function useAuth() {
-  const [state, setState] = useState<Pick<Fetching<undefined>, 'error' | 'isLoading'>>({ isLoading: false, error: undefined })
-
   const authContext = useContext(AuthContext)
   const router = useRouter()
 
-  const authObject = {
-    ...state,
-    user: authContext.user,
-    auth: async function(authOption: AuthOption) {
+  return {
+    ...authContext.state,
+    create: async function(authOption: AuthOption) {
       try {
-        setState({ isLoading: true, error: undefined })
-        let response: UserSession | undefined = undefined
-
-        if(authOption.type === 'get') response = await fetcher.get(authOption.URL, undefined, authOption.header)
-        else response = await fetcher.post(authOption.URL, undefined, authOption.body, authOption.header)
+        authContext.setState!({ isLoading: true, error: undefined })
         
-        authContext.setUser!(response)
-        cookies.set('token', response?.token, 2)
-        setState({ isLoading: false, error: undefined })
+        const response = await fetcher.post<UserSession>(authOption.URL, undefined, authOption.body, authOption.header)
+        
+        cookies.set('token', response.token, 2)
+        authContext.setState!({ isLoading: false, error: undefined, user: response })
+
         if(authOption.redirectOnSucces) router.replace(authOption.redirectOnSucces)
       } catch(error) {
-        setState({ isLoading: false, error: JSON.parse(error as string) })
+        authContext.setState!({ isLoading: false, error: JSON.parse(error as string) })
       }
     },
     update: async function(authOption: Pick<AuthOption, 'URL' | 'body'>) {
       try {
-        setState({ isLoading: true, error: undefined })
-        await fetcher.post<UserSession>(authOption.URL, undefined, createFormData({...authOption.body, token: authContext.user?.token, id: authContext.user?.id }))
-        setState({ isLoading: false, error: undefined })
+        authContext.setState!({ isLoading: true, error: undefined })
+
+        await fetcher.post<UserSession>(authOption.URL, undefined, createFormData({...authOption.body, token: authContext.state?.user, id: authContext.state?.user?.id }))
       } catch(error) {
-        setState({ isLoading: false, error: JSON.parse(error as string) })
+        authContext.setState!({ isLoading: false, error: JSON.parse(error as string) })
       }
     },
     isAuth: async function() {
       try {
-        setState({ isLoading: true, error: undefined })
-        const token = cookies.get('token') || authContext.user?.token
+        authContext.setState!({ isLoading: true, error: undefined })
+
+        const token = cookies.get('token') || authContext.state?.user?.token
         const response = await fetcher.post<UserSession | undefined>(`/user/auth`, undefined, undefined, { 'Authorization': `Bearer ${token}` })
         
-        authContext.setUser!(response)
-        setState({ isLoading: false, error: undefined })
+        authContext.setState!({ error: undefined, isLoading: false, user: response })
       } catch(error) {
-        setState({ isLoading: false, error: JSON.parse(error as string) })
+        authContext.setState!({ isLoading: false })
       }
     },
     quit: function (authOption: Partial<Pick<AuthOption, 'redirectOnSucces'>>) {
-      authContext.setUser!(undefined)
+      authContext.setState!({ user: undefined, isLoading: false })
       cookies.set('token', 'undefined')
       if(authOption.redirectOnSucces) router.replace(authOption.redirectOnSucces)
     }
   }
-
-  return authObject
 }

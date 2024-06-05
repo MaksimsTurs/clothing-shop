@@ -1,11 +1,11 @@
 import { type PropsWithChildren, createContext, useState } from "react";
 
-import type { AuthContextObject, UserSession } from "./useAuth.type";
+import type { AuthContextObject, UserAuthState } from "./useAuth.type";
 
-export const AuthContext = createContext<AuthContextObject>({ setUser: undefined, user: undefined })
+export const AuthContext = createContext<AuthContextObject>({ setState: undefined, state: undefined })
 
 export default function AuthProvider({ children }: PropsWithChildren) {
-  const [user, setUser] = useState<UserSession | undefined>(undefined)
+  const [state, setState] = useState<UserAuthState>({ isLoading: false })
 
-  return <AuthContext.Provider value={{ setUser, user }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ setState, state }}>{children}</AuthContext.Provider>
 }

@@ -31,23 +31,23 @@ export default function UserHeader({ userData }: UserHeaderProps) {
   const router = useRouter()
   const t = useScopedI18n('user-page')
 
-  const { quit, update, isLoading, error } = useAuth()
+  const auth = useAuth()
     
   async function editUserCall(newUserData: EditUser): Promise<void> { 
-    await update({ URL: '/user/edit', body: newUserData })
+    await auth.update({ URL: '/user/edit', body: newUserData })
     reset()
     router.refresh()
   }
 
-  const logOut = (): void => quit({ redirectOnSucces: `/${language}/home` })
+  const logOut = (): void => auth.quit({ redirectOnSucces: `/${language}/home` })
   const handleModal = (): void => setEditMode(prev => !prev)
 
   return(
     <Fragment>
-      {isLoading ? <SmallLoader/> : null}
+      {auth.isLoading ? <SmallLoader/> : null}
       {isEditMode ? 
         <ModalWrapper>
-          <FormWrapper serverError={error} onSubmit={handleSubmit(editUserCall)} styles={{ formInputsStyle: { width: '20rem' }, formStyle: { padding: '0rem', position: 'relative' }}}>
+          <FormWrapper serverError={auth.error} onSubmit={handleSubmit(editUserCall)} styles={{ formInputsStyle: { width: '20rem' }, formStyle: { padding: '0rem', position: 'relative' }}}>
             <ImgInput<EditUser> attributes={{ name: 'avatar', type: 'file' }} isSubmited={isSubmitting} labelText={t('avatar-add')} register={register}/>
             <MultipleInput>
               <TextInput<EditUser> attributes={{ name: 'firstName', placeholder: t('firstname-placeholder') }} register={register}/>
