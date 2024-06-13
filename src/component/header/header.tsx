@@ -73,7 +73,7 @@ export default function Header() {
 				</nav>
 				{(!auth.user && auth.isLoading) ? <UserAvatarLoader/> : <UserSection />}
 			</div>
-			{auth.user?.isNew ? <section className={scss.header_new_user_action}>{t('home-page.registrate-to-get-delivery')}</section> : null}
+		{auth.user?.isNew ? <section className={scss.header_new_user_action}>{t('home-page.registrate-to-get-discount')}</section> : null}
 		</header>
 	)
 }

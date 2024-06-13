@@ -20,11 +20,11 @@ export default function useAuth() {
         authContext.setState!({ isLoading: true, error: undefined })
         
         const response = await fetcher.post<UserSession>(authOption.URL, undefined, authOption.body, authOption.header)
-        
+         
         cookies.set('token', response.token, 2)
         authContext.setState!({ isLoading: false, error: undefined, user: response })
 
-        if(authOption.redirectOnSucces) router.replace(authOption.redirectOnSucces)
+        if(authOption.redirectOnSucces) router.push(authOption.redirectOnSucces)
       } catch(error) {
         authContext.setState!({ isLoading: false, error: JSON.parse(error as string) })
       }

@@ -30,7 +30,7 @@ export default function UserSection() {
 				<ShoppingBagIcon />
 			</Link>
 			<Link href={user ? `/${language}/user/${user.id}` : `/${language}/registration`}>
-				{user && user.avatar ? (
+				{user ? (
 					<ExtendedIMG className={scss.header_user_avatar} width={320} height={320} src={user.avatar} alt={user.name}/>
 				) : <CircleUser /> }
 			</Link>
