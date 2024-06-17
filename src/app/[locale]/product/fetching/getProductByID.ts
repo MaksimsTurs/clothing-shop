@@ -8,7 +8,7 @@ import { cookies } from 'next/headers'
 
 const getProductByID = cache(async(id?: string): Promise<CurrentProductData> => {
   try {
-    return await fetcher.get<CurrentProductData>(`/product/${id}`, { cache: 'no-store' }, { 'Authorization': `Bearer ${cookies().get('token')?.value}` })
+    return await fetcher.get<CurrentProductData>(`/product/${id}`, { cache: 'no-store' }, { 'Authorization': `Bearer ${cookies().get('EB_TOKEN')?.value}` })
   } catch(error) {
     throw new ResponseError(error)
   }

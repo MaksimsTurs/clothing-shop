@@ -21,7 +21,7 @@ export default function useAuth() {
         
         const response = await fetcher.post<UserSession>(authOption.URL, undefined, authOption.body, authOption.header)
          
-        cookies.set('token', response.token, 2)
+        cookies.set('EB_TOKEN', response.token, 2)
         authContext.setState!({ isLoading: false, error: undefined, user: response })
 
         if(authOption.redirectOnSucces) router.push(authOption.redirectOnSucces)
@@ -42,7 +42,7 @@ export default function useAuth() {
       try {
         authContext.setState!({ isLoading: true, error: undefined })
 
-        const token = cookies.get('token') || authContext.state?.user?.token
+        const token = cookies.get('EB_TOKEN') || authContext.state?.user?.token
         const response = await fetcher.post<UserSession | undefined>(`/user/auth`, undefined, undefined, { 'Authorization': `Bearer ${token}` })
         
         authContext.setState!({ error: undefined, isLoading: false, user: response })
@@ -52,7 +52,7 @@ export default function useAuth() {
     },
     quit: function (authOption: Partial<Pick<AuthOption, 'redirectOnSucces'>>) {
       authContext.setState!({ user: undefined, isLoading: false })
-      cookies.set('token', 'undefined')
+      cookies.set('EB_TOKEN', 'undefined')
       if(authOption.redirectOnSucces) router.replace(authOption.redirectOnSucces)
     }
   }
