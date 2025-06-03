@@ -1,0 +1,10 @@
+.main_container {
+	padding: 1rem 3rem;
+	gap: 2rem;
+}
+
+@media(width <= 330px) {
+	.main_container {
+		padding: 1rem;
+	}
+}

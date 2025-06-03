@@ -12,11 +12,8 @@
     box-shadow: $box-shadow-input-focus-hover;
     background-color: white;
     overflow: hidden;
+		width: 100%;
     
-    @media(width <= 656px) {
-      max-width: 100%;
-    }
-
     .about_mini_body_title_container {
       color: rgb(103, 103, 103);
       padding: 1rem;

@@ -1,20 +1,15 @@
-import type { ExtendedIMGProps } from "./extendedIMG.type";
+import type { ExtendedIMGProps } from './extendedIMG.type'
+import type { StaticImageData } from 'next/image'
 
-import Image from "next/image";
+import useIsImageExist from '@/custom-hook/useIsImageExist/useIsImageExist'
+
+import Image from "next/image"
 
 import defaultIMG from './img/default-product-image.webp'
 
-export default function ExtendedIMG({ height, width, className, src, style, alt, quality,  blurURL, onClick, onMouseEnter, onMouseLeave }: ExtendedIMGProps) {
-  return <Image 
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave} 
-          onClick={onClick}
-          alt={alt} 
-          src={src ?? defaultIMG} 
-          height={height} 
-          width={width} 
-          className={className} 
-          quality={quality}
-          style={{...style, objectFit: 'cover'}}
-          blurDataURL={blurURL}/>
+export default function ExtendedIMG({ src, style, ...props }: ExtendedIMGProps) {
+	const { isExist, url } = useIsImageExist(src)
+	const isString = typeof url === "string"
+
+  return <Image {...props} src={!isExist ? defaultIMG : isString ? url! : (url as StaticImageData).src} style={{...style, objectFit: 'cover'}}/>
 }

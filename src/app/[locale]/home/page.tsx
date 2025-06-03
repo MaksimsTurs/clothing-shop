@@ -1,3 +1,5 @@
+import scss from './scss/page.module.scss'
+
 import { Fragment } from 'react'
 
 import WebsiteStatistic from './component/websiteStatistic'
@@ -6,7 +8,6 @@ import ProductsContainer from '@/component/product-container/productsContainer'
 import getHomeData from './fetching/getHomeData'
 
 import type { ProductAction } from '@/store/admin/admin.type'
-import AboutUsMini from './component/aboutUsMini'
 
 export default async function Page() {
 	const { products, actions, categories, ...statistic } = await getHomeData()
@@ -16,7 +17,7 @@ export default async function Page() {
 	return (
 		<Fragment>
 			<WebsiteStatistic statistic={statistic}/>
-			<main style={{ padding: '1rem 3rem', gap: '2rem' }}>
+			<main className={scss.main_container}>
 				{data.length > 0 ?
 					data
 					.sort((first, second) => (first.position || 0) - (second.position || 0))
