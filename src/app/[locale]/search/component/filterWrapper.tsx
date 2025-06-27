@@ -12,6 +12,7 @@ export default function FilterWrapper({ title, children }: PropsWithChildren<Fil
 
   const showHidde = (): void => setOpen(prev => !prev)
 
+	// @ts-ignore
   const categoryMult = isValidElement(children) ? (children?.props?.children?.length || 1) : 1
 
   const height = (title === t('search.category') && isOpen) ? (40 * categoryMult) : 
