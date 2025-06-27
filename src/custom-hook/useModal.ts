@@ -1,6 +1,6 @@
 import { type RefObject, useEffect, useState } from "react";
 
-export default function useModal(ref: RefObject<Element>, clickRef?: RefObject<Element>) {
+export default function useModal(ref: RefObject<Element | null>, clickRef?: RefObject<Element | null>) {
   const [isShowed, setIsShowed] = useState<boolean>(false)
 
   useEffect(() => {
